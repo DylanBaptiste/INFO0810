@@ -4,7 +4,7 @@ false	false	true	0.000	0.000	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 00000
 false	true	true	3.000	0.000	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000002)]
 false	true	true	3.100	0.000	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000003)]
 false	true	true	3.100	0.000	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000004)]
-false	true	true	3.100	0.000	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000005)]
+false	true	true	3.100	0.000	0.0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000005)]
 false	true	true	3.100	0.000	1	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000006)]
 false	true	true	3.100	1.000	1	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000007)]
 false	true	false	3.100	2.000	1	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000008)]
