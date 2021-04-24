@@ -1,0 +1,125 @@
+/**
+		 * supposiitons:
+		 * - le fichier csv est complet (aucunne valeur man,quante)
+		 * - le fichier à un header en prmeiere ligne avec le nom des capteurs
+		 * - aucune colonne n'a un nom identique
+		 * - les seul colonne de type string sont les capteur (en true/false) et le temps
+		 * option: true value = "true", false value = "false" //todo permettre de changer ca
+		 */
+		String path = "C:\\Cours\\Semestre 8\\Stage\\Code\\test.csv";
+		String line;
+		String[] headers;
+		String timeColumnName = "Time";
+		HashMap<String, List<String>> records = new HashMap<String, List<String>>(){};
+		System.out.println("Fichier:\n");
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(path));
+			//csv header -> hashmap keys
+			headers = reader.readLine().split("\t");
+			System.out.println(Arrays.toString(headers));
+			for(String header: headers){
+				records.put(header, new ArrayList<String>());
+			}
+
+			while ( (line = reader.readLine()) != null ) {
+				String[] values = line.split("\t");
+				System.out.println(Arrays.toString(values));
+				String value;
+				for(int i = 0; i < values.length; i++){
+					value = values[i];
+					try {
+						Float.parseFloat(value);
+						continue; //si ont peut le parser on l'ignore
+					}
+					catch (NumberFormatException e) {
+						switch (value) {
+							case "true":
+								records.get(headers[i]).add("1");
+								break;
+							case "false":
+								records.get(headers[i]).add("0");
+								break;
+							default:
+								//[datetime.datetime(2020, 8, 24, 12, 59, 39, 215267)]
+								//notrmalement que le temps ici -> possibilité de fixé le nom de la clefs
+								timeColumnName = headers[i];
+								records.get(headers[i]).add(value);
+								break;
+						}
+					}
+				}
+			}
+
+			reader.close();
+
+			//clean hasmap
+			System.out.println("Clean hasmap:\n");
+			Iterator<Map.Entry<String, List<String>>> itr = records.entrySet().iterator();
+			while (itr.hasNext()){
+				Map.Entry<String, List<String>> curr = itr.next();
+				System.out.println(curr.getKey() + "\t => \t" + curr.getValue().isEmpty());
+				if (curr.getValue().isEmpty()) {
+					itr.remove();
+				}
+			}
+
+			//convertir la colonne temps
+			System.out.println("\nConvertir la colonne temps:\n");
+			List<String> relativeTime = new ArrayList<String>();
+			String[] currTime = records.get(timeColumnName).stream().toArray(String[]::new);
+
+			
+			//Temps relatif par rapport au precedent:
+			/*
+			relativeTime.add("0µs");
+			for(int i = 0; i < currTime.length - 1; i++){
+				relativeTime.add(diffInMicro(stringToTimestamp(currTime[i]), stringToTimestamp(currTime[i + 1])) + "µs");
+			}*/
+			Timestamp t1 = stringToTimestamp(currTime[0]);
+			for(int i = 0; i < currTime.length; i++){
+				Timestamp t2 = stringToTimestamp(currTime[i]);
+				relativeTime.add(diffInMicro(t1, t2)+"");
+			}
+			records.remove(timeColumnName);
+			records.put(timeColumnName, relativeTime);
+			
+			
+			System.out.println("\nResult:\n");
+			itr = records.entrySet().iterator();
+			while (itr.hasNext()){
+				Map.Entry<String, List<String>> curr = itr.next();
+				System.out.println(curr.getKey() + "\t => \t" + curr.getValue());
+			}
+			System.out.println("\nSupprimer les doublons...\n");
+
+			//todo remove deuplicate
+			//System.out.println(isLignesEqual(records, 2, 3, timeColumnName));
+			//removeLigne(records, 1);
+
+			//todo make unit test !
+			int numberElement = records.get(timeColumnName).size();
+			int elmementRestant = numberElement - 1;
+			for(int i = 0; i < elmementRestant;){
+				if(isLignesEqual(records, i, i+1, timeColumnName)){
+					removeLigne(records, i+1);
+					elmementRestant--;
+				}else{
+					i++;
+				}
+			}
+
+			System.out.println("\nResult:\n");
+			itr = records.entrySet().iterator();
+			while (itr.hasNext()){
+				Map.Entry<String, List<String>> curr = itr.next();
+				System.out.println(curr.getKey() + "\t => \t" + curr.getValue());
+			}
+		}
+		catch(FileNotFoundException e){
+			System.err.println(e.getMessage());
+			System.exit(0);
+		}
+		catch(IOException e){
+			System.err.println(e.getMessage());
+			System.exit(0);
+		}

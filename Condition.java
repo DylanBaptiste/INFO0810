@@ -92,7 +92,13 @@ public class Condition {
 	}
 
 	public String toString(){
-		return this.triplets.toString();
+		if(this.triplets == null){ return ""; }
+		String s = "";
+		String inter = " * ";
+		for(Triplet t: this.triplets){
+			s += t + inter;
+		}
+		return s.substring(0, s.length() - inter.length());
 	}
 	
 }

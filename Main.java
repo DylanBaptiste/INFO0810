@@ -61,123 +61,97 @@ public class Main {
 	
 
     public static void main(String[] args) {
-	
-		/**
-		 * supposiitons:
-		 * - le fichier csv est complet (aucunne valeur man,quante)
-		 * - le fichier à un header en prmeiere ligne avec le nom des capteurs
-		 * - aucune colonne n'a un nom identique
-		 * - les seul colonne de type string sont les capteur (en true/false) et le temps
-		 * option: true value = "true", false value = "false" //todo permettre de changer ca
-		 */
-		String path = "C:\\Cours\\Semestre 8\\Stage\\Code\\test.csv";
-		String line;
+		Condition c = new Condition();
+		String delimiter = "\t";
+		String path = "C:\\Cours\\Semestre 8\\Stage\\INFO0810\\test.csv";
 		String[] headers;
-		String timeColumnName = "Time";
-		HashMap<String, List<String>> records = new HashMap<String, List<String>>(){};
-		System.out.println("Fichier:\n");
+		String line;
+		BufferedReader reader;
+		String[] readValues;
+		String[] previousReadValues;
+		//List<String> currentValues = new ArrayList<String>();
+		List<String> lastValues = new ArrayList<String>();
+		String timeColumnName = "Temps";
+		int timeColumnIndex = -1;
+		List<Integer> captorIndexes = new ArrayList<Integer>();
+
+		List<Evenement> evReferents = new ArrayList<Evenement>();
+		List<Evenement> evContraints = new ArrayList<Evenement>();
+		Boolean updateReferents = false;
+		Evenement contraint = null;
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader(path));
+			reader = new BufferedReader(new FileReader(path));
 			//csv header -> hashmap keys
-			headers = reader.readLine().split("\t");
-			System.out.println(Arrays.toString(headers));
-			for(String header: headers){
-				records.put(header, new ArrayList<String>());
+			headers = reader.readLine().split(delimiter);
+			timeColumnIndex = Arrays.asList(headers).indexOf(timeColumnName);
+
+			line = reader.readLine();
+			previousReadValues = line.split(delimiter);
+			for(int i = 0; i < previousReadValues.length; i++){
+				String value = previousReadValues[i];
+				lastValues.add(value);
+				try {
+					Float.parseFloat(value);
+					continue; //si ont peut le parser on l'ignore
+				}
+				catch (NumberFormatException e) {
+					captorIndexes.add(i);
+				}
 			}
+
+			captorIndexes.remove(Integer.valueOf(timeColumnIndex));
 
 			while ( (line = reader.readLine()) != null ) {
-				String[] values = line.split("\t");
-				System.out.println(Arrays.toString(values));
-				String value;
-				for(int i = 0; i < values.length; i++){
-					value = values[i];
-					try {
-						Float.parseFloat(value);
-						continue; //si ont peut le parser on l'ignore
-					}
-					catch (NumberFormatException e) {
-						switch (value) {
-							case "true":
-								records.get(headers[i]).add("1");
-								break;
-							case "false":
-								records.get(headers[i]).add("0");
-								break;
-							default:
-								//[datetime.datetime(2020, 8, 24, 12, 59, 39, 215267)]
-								//notrmalement que le temps ici -> possibilité de fixé le nom de la clefs
-								timeColumnName = headers[i];
-								records.get(headers[i]).add(value);
-								break;
+				readValues = line.split(delimiter);
+				
+				//System.out.println("\n" + Arrays.toString(previousReadValues) +"\n"+ Arrays.toString(readValues));
+				for(int i: captorIndexes){
+					// System.out.println("\n" + (previousReadValues[i]) +"\n"+ (readValues[i]));
+
+					if(!readValues[i].equals(previousReadValues[i])){
+						String type = "ERROR";
+						updateReferents = true;
+						if(previousReadValues[i].equals("false")){
+							type = "RE";
+						}
+						if(previousReadValues[i].equals("true")){
+							type = "FE";
+						}
+
+						System.out.println(type +"_"+ headers[i] + readValues[timeColumnIndex]);
+
+						contraint = new Evenement(type, headers[i]);
+						evContraints.add(contraint);
+
+						if(evReferents.size() == 0){
+							c.add(new Triplet(new Evenement(null, headers[i]), contraint, new ContrainteTemporel()));
+						}else{
+							for(Evenement referent: evReferents){
+								c.add(new Triplet(referent, contraint, new ContrainteTemporel(1)));
+							}
 						}
 					}
+
+					
+					
 				}
+				previousReadValues = readValues.clone();
+				
+				evReferents = new ArrayList<Evenement>();
+				if(updateReferents == true){
+					for(Evenement e: evContraints){
+						evReferents.add(e);
+					}
+					evContraints = new ArrayList<Evenement>();
+					updateReferents = false;
+				}
+				
+
+				
 			}
+			System.out.println("\n" + c);
 
 			reader.close();
-
-			//clean hasmap
-			System.out.println("Clean hasmap:\n");
-			Iterator<Map.Entry<String, List<String>>> itr = records.entrySet().iterator();
-			while (itr.hasNext()){
-				Map.Entry<String, List<String>> curr = itr.next();
-				System.out.println(curr.getKey() + "\t => \t" + curr.getValue().isEmpty());
-				if (curr.getValue().isEmpty()) {
-					itr.remove();
-				}
-			}
-
-			//convertir la colonne temps
-			System.out.println("\nConvertir la colonne temps:\n");
-			List<String> relativeTime = new ArrayList<String>();
-			String[] currTime = records.get(timeColumnName).stream().toArray(String[]::new);
-
-			
-			//Temps relatif par rapport au precedent:
-			/*
-			relativeTime.add("0µs");
-			for(int i = 0; i < currTime.length - 1; i++){
-				relativeTime.add(diffInMicro(stringToTimestamp(currTime[i]), stringToTimestamp(currTime[i + 1])) + "µs");
-			}*/
-			Timestamp t1 = stringToTimestamp(currTime[0]);
-			for(int i = 0; i < currTime.length; i++){
-				Timestamp t2 = stringToTimestamp(currTime[i]);
-				relativeTime.add(diffInMicro(t1, t2)+"");
-			}
-			records.remove(timeColumnName);
-			records.put(timeColumnName, relativeTime);
-			
-			
-			System.out.println("\nResult:\n");
-			itr = records.entrySet().iterator();
-			while (itr.hasNext()){
-				Map.Entry<String, List<String>> curr = itr.next();
-				System.out.println(curr.getKey() + "\t => \t" + curr.getValue());
-			}
-			System.out.println("\nSupprimer les doublons...\n");
-
-			//todo remove deuplicate
-			//System.out.println(isLignesEqual(records, 2, 3, timeColumnName));
-			//removeLigne(records, 1);
-
-			//todo make unit test !
-			int numberElement = records.get(timeColumnName).size();
-			int elmementRestant = numberElement - 1;
-			for(int i = 0; i < elmementRestant;){
-				if(isLignesEqual(records, i, i+1, timeColumnName)){
-					removeLigne(records, i+1);
-					elmementRestant--;
-				}else{
-					i++;
-				}
-			}
-
-			System.out.println("\nResult:\n");
-			itr = records.entrySet().iterator();
-			while (itr.hasNext()){
-				Map.Entry<String, List<String>> curr = itr.next();
-				System.out.println(curr.getKey() + "\t => \t" + curr.getValue());
-			}
 		}
 		catch(FileNotFoundException e){
 			System.err.println(e.getMessage());
@@ -187,36 +161,34 @@ public class Main {
 			System.err.println(e.getMessage());
 			System.exit(0);
 		}
-		
 
+		// ContrainteTemporel ct1 = new ContrainteTemporel();
+		// ContrainteTemporel ct2 = new ContrainteTemporel();
+		// ContrainteTemporel ct3 = new ContrainteTemporel(2);
+		// ContrainteTemporel ct4 = new ContrainteTemporel(3);
+		// Evenement ev1 = new Evenement(null, "A");
+		// Evenement ev2 = new Evenement("FE", "A");
+		// Evenement ev3 = new Evenement("RE", "B");
+		// Evenement ev4 = new Evenement("RE", "A");
+		// Evenement ev5 = new Evenement("RE", "B");
+		// Evenement ev6 = new Evenement("RE", "A");
+		// Evenement ev7 = new Evenement("RE", "B");
+		// Evenement ev8 = new Evenement("RE", "A");
 
-		ContrainteTemporel ct1 = new ContrainteTemporel();
-		ContrainteTemporel ct2 = new ContrainteTemporel();
-		ContrainteTemporel ct3 = new ContrainteTemporel(2);
-		ContrainteTemporel ct4 = new ContrainteTemporel(3);
-		Evenement ev1 = new Evenement(null, "A");
-		Evenement ev2 = new Evenement("FE", "A");
-		Evenement ev3 = new Evenement("RE", "B");
-		Evenement ev4 = new Evenement("RE", "A");
-		Evenement ev5 = new Evenement("RE", "B");
-		Evenement ev6 = new Evenement("RE", "A");
-		Evenement ev7 = new Evenement("RE", "B");
-		Evenement ev8 = new Evenement("RE", "A");
+		// Triplet t1 = new Triplet(ev1, ev2, ct1);
+		// Triplet t2 = new Triplet(ev3, ev4, ct2);
+		// Triplet t3 = new Triplet(ev5, ev6, ct3);
+		// Triplet t4 = new Triplet(ev7, ev8, ct4);
 
-		Triplet t1 = new Triplet(ev1, ev2, ct1);
-		Triplet t2 = new Triplet(ev3, ev4, ct2);
-		Triplet t3 = new Triplet(ev5, ev6, ct3);
-		Triplet t4 = new Triplet(ev7, ev8, ct4);
-
-		Condition c = new Condition();
-		c.add(t1);
-		c.add(t2);
-		c.add(t3);
-		c.add(t4);
-		System.out.println(c);
-		System.out.println(c.getPreviousTriplets(1));
-		System.out.println(c.getPreviousTriplets(2));
-		System.out.println(c.getPreviousTriplets(3));
+		// Condition c = new Condition();
+		// c.add(t1);
+		// c.add(t2);
+		// c.add(t3);
+		// c.add(t4);
+		// System.out.println(c);
+		// System.out.println(c.getPreviousTriplets(1));
+		// System.out.println(c.getPreviousTriplets(2));
+		// System.out.println(c.getPreviousTriplets(3));
 
 		/*
 		t1.referent.type = "test";
