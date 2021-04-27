@@ -1,25 +1,18 @@
 import java.util.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ContrainteTemporel {
+
 	static int ct_count = 0;
 	private int id;
 	int range[];
 
     public ContrainteTemporel(int min, int max){
-		assert min <= max && min >= 0 && max >= 0;
-
+		//assert min <= max && min >= 0 && max >= 0;
 		this.id = ++ct_count;
-		this.range = new int[]{min, max};
+		this.range = min == -1 || max == -1 ? null : new int[]{min, max};
 	}
-
-	public ContrainteTemporel(int dt){
-		assert dt >= 0;
-
-		this.id = ++ct_count;
-		this.range = new int[]{dt, dt};
-	}
-
-	public ContrainteTemporel(){ this.range = null; }
 
 	public int getId(){ return this.id; }
 	
@@ -38,4 +31,18 @@ public class ContrainteTemporel {
 		}
 		return Arrays.toString(this.range);
 	}
+
+	/* * * * * * *
+	 * * TESTS * *
+	 * * * * * * */
+	
+	@Test
+	public void testToString() {
+
+		String s = this.toString();
+		assertEquals(1,1);
+		
+		assertEquals(1, s);
+	}
+
 }

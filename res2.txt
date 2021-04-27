@@ -1,0 +1,20 @@
+
+=> Text
+(In______, RE_AAAAA, nct) * (RE_AAAAA, RE_BBBBB, 004) * (RE_BBBBB, FE_AAAAA, 005) * (FE_AAAAA, FE_BBBBB, 009) * 
+(FE_BBBBB, RE_AAAAA, 102) * (RE_AAAAA, RE_BBBBB, 104) * (RE_BBBBB, FE_AAAAA, 105) * (FE_AAAAA, FE_BBBBB, 109) * 
+(FE_BBBBB, RE_AAAAA, 202) * (RE_AAAAA, RE_BBBBB, 204) * (RE_BBBBB, FE_AAAAA, 205) * (FE_AAAAA, FE_BBBBB, 209)
+
+=> Text
+(In, A, nct) * (A, B, 004) * (B, C, 005) * (C, D, 009) * 
+ (D, A, 102) * (A, B, 104) * (B, C, 105) * (C, D, 109) * 
+ (D, A, 202) * (A, B, 204) * (B, C, 205) * (C, D, 209)
+
+=====================================================
+
+=> Instance id
+
+(In , A_1, nct) * (A_1, B_1, 004) * (B_1, C_1, 005) * (C_1, D_1, 009) * 
+(D_1, A_2, 102) * (A_2, B_2, 104) * (B_2, C_2, 105) * (C_2, D_2, 109) * 
+(D_2, A_3, 202) * (A_3, B_3, 204) * (B_3, C_3, 205) * (C_3, D_3, 209)
+
+

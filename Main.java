@@ -63,7 +63,7 @@ public class Main {
     public static void main(String[] args) {
 		Condition c = new Condition();
 		String delimiter = "\t";
-		String path = "C:\\Cours\\Semestre 8\\Stage\\INFO0810\\test.csv";
+		String path = "C:\\Cours\\Semestre 8\\INFO0810\\test2.csv";
 		String[] headers;
 		String line;
 		BufferedReader reader;
@@ -79,6 +79,9 @@ public class Main {
 		List<Evenement> evContraints = new ArrayList<Evenement>();
 		Boolean updateReferents = false;
 		Evenement contraint = null;
+		ContrainteTemporel nct = new ContrainteTemporel(-1, -1);
+		ContrainteTemporel CT = null;
+		Timestamp start = null;
 		try{
 			reader = new BufferedReader(new FileReader(path));
 			//csv header -> hashmap keys
@@ -100,14 +103,16 @@ public class Main {
 			}
 
 			captorIndexes.remove(Integer.valueOf(timeColumnIndex));
+			start = stringToTimestamp(previousReadValues[timeColumnIndex]);
 
 			while ( (line = reader.readLine()) != null ) {
 				readValues = line.split(delimiter);
-				
+				Timestamp currentTime = stringToTimestamp(readValues[timeColumnIndex]);
+				int t = (int)diffInMicro(start, currentTime);
+				CT = new ContrainteTemporel(t, t);
 				//System.out.println("\n" + Arrays.toString(previousReadValues) +"\n"+ Arrays.toString(readValues));
 				for(int i: captorIndexes){
 					// System.out.println("\n" + (previousReadValues[i]) +"\n"+ (readValues[i]));
-
 					if(!readValues[i].equals(previousReadValues[i])){
 						String type = "ERROR";
 						updateReferents = true;
@@ -124,10 +129,10 @@ public class Main {
 						evContraints.add(contraint);
 
 						if(evReferents.size() == 0){
-							c.add(new Triplet(new Evenement(null, headers[i]), contraint, new ContrainteTemporel()));
+							c.add(new Triplet(new Evenement(null, headers[i]), contraint, nct));
 						}else{
 							for(Evenement referent: evReferents){
-								c.add(new Triplet(referent, contraint, new ContrainteTemporel(1)));
+								c.add(new Triplet(referent, contraint, CT));
 							}
 						}
 					}
@@ -137,8 +142,9 @@ public class Main {
 				}
 				previousReadValues = readValues.clone();
 				
-				evReferents = new ArrayList<Evenement>();
+				
 				if(updateReferents == true){
+					evReferents = new ArrayList<Evenement>();
 					for(Evenement e: evContraints){
 						evReferents.add(e);
 					}
