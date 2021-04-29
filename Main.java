@@ -3,6 +3,9 @@ import java.io.*;
 import java.sql.Timestamp;
 // import java.time.format.*;
 // import java.time.*;
+
+//FE_A1B2 RE_P1VP2 RE_P2E FE_P1S FE_A1B4
+
 public class Main {
 
 	private static long getTimeNoMillis(Timestamp t) {
@@ -25,7 +28,7 @@ public class Main {
 		String[] v;
 		String date_time = d.substring(19);
 		date_time = date_time.substring(0, date_time.length() - 2);
-		v = date_time.split(", ");
+		v = date_time.split("; ");
 		return Timestamp.valueOf(v[0]+"-"+v[1]+"-"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]);
 	}
 
@@ -72,11 +75,11 @@ public class Main {
 
     public static void main(String[] args) {
 		Condition c = new Condition();
-		String delimiter = ";";
+		String delimiter = ",";
 		
 		//String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan.csv";
-		String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan_simulatane.csv";
-
+		//String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan_simulatane.csv";
+		String path = "C:\\Cours\\Semestre 8\\INFO0810\\emulate.csv";
 		String[] headers;
 		String line;
 		BufferedReader reader;
@@ -97,6 +100,12 @@ public class Main {
 		Timestamp lastTime = null;
 		Timestamp currentTime = null;
 
+		PrintWriter out;
+		
+		out = new PrintWriter("filename.txt");
+		
+
+		
 		try{
 			reader = new BufferedReader(new FileReader(path));
 			//csv header -> hashmap keys
@@ -108,13 +117,16 @@ public class Main {
 			for(int i = 0; i < previousReadValues.length; i++){
 				String value = previousReadValues[i];
 				lastValues.add(value);
-				try {
+				if(value.equals("0") || value.equals("1")){
+					captorIndexes.add(i);
+				}
+				/*try {
 					Float.parseFloat(value);
 					continue; //si ont peut le parser on l'ignore
 				}
 				catch (NumberFormatException e) {
 					captorIndexes.add(i);
-				}
+				}*/
 			}
 
 			captorIndexes.remove(Integer.valueOf(timeColumnIndex));
@@ -134,14 +146,15 @@ public class Main {
 				for(int i: captorIndexes){
 					if(!readValues[i].equals(previousReadValues[i])){
 						String type = "ERROR";
-						if(previousReadValues[i].equals("false")){
+						if(previousReadValues[i].equals("0")){
 							type = "RE";
 						}
-						if(previousReadValues[i].equals("true")){
+						if(previousReadValues[i].equals("1")){
 							type = "FE";
 						}
 
-						System.out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
+						//System.out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
+						out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
 
 						contraint = new Evenement(type, headers[i]);
 						evContraints.add(contraint);
@@ -177,13 +190,14 @@ public class Main {
 			}
 
 			
-			System.out.println("\n" + c + "\n");
+			//System.out.println("\n" + c + "\n");
 
 
-			System.out.println("\n" + Condition.toString(c.computeSTC()));
-			
-
-
+			//System.out.println("\n" + Condition.toString(c.computeSTC()));
+			out.println(c);
+			out.println("\n\n");
+			out.println(Condition.toString(c.computeSTC()));
+			out.close();
 			/*
 			List<Triplet> stc = new ArrayList<Triplet>();
 			int modulo = 0;

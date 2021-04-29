@@ -1,3 +1,5 @@
+
+
 Règles générées:
 
 - Quand aucun evement ne survient de maniere simultané :

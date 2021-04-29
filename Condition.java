@@ -25,7 +25,8 @@ public class Condition {
 
 	public boolean add(Triplet t){
 
-		List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
+
+		List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES"/*, "RE_A1B2", "RE_A1B4"*/));
 		if(evenements_referents.contains(t.contraint.toString())){
 			if(this.archive.get(current).isEmpty()){
 				return this.archive.get(current).add(t);
