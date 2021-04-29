@@ -14,8 +14,8 @@ public class Evenement {
 
 	public String toString(){
 		if(this.type == null){
-			return "In";
+			return "In"/* + '_' + this.id*/;
 		}
-		return this.type + "_" + this.contrainte;
+		return this.type + "_" + this.contrainte/* + '_' + this.id*/;
 	}
 }

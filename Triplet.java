@@ -15,6 +15,6 @@ public class Triplet {
 	public int getId(){ return this.id; }
 
 	public String toString(){
-		return "(" + this.referent.toString() + ", " + this.contraint.toString() + ", " + this.ct + ")"; 
+		return "(" + this.referent.toString() + ", " + this.contraint.toString() + ", " + this.ct + ")"/* + '_' + this.id*/; 
 	}
 }

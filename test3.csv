@@ -1,0 +1,36 @@
+AAAAA	BBBBB	Z	Temps
+false	true	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000100)]
+false	false	1	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000110)]
+true	false	2	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000120)]
+true	true	3	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000130)]
+true	true	4	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000140)]
+false	true	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000200)]
+false	false	1	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000210)]
+true	false	2	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000225)]
+true	true	3	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000230)]
+true	true	4	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000240)]
+false	true	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000305)]
+false	false	1	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000310)]
+true	false	2	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000320)]
+true	true	3	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000335)]
+true	true	4	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000340)]
+false	true	0	[datetime.datetime(2020, 8, 24, 12, 30, 40, 000400)]
+
+
+(In, FE_BBBBB, nct) * (FE_BBBBB, RE_AAAAA, 10) * (RE_AAAAA, RE_BBBBB, 10) * (RE_BBBBB, FE_AAAAA, 70) * (FE_AAAAA, FE_BBBBB, 10) * (FE_BBBBB, RE_AAAAA, 15) * (RE_AAAAA, RE_BBBBB, 5) * (RE_BBBBB, FE_AAAAA, 75) * (FE_AAAAA, FE_BBBBB, 5) * (FE_BBBBB, RE_AAAAA, 10) * (RE_AAAAA, RE_BBBBB, 15) * (RE_BBBBB, FE_AAAAA, 65)
+
+(In,       FE_BBBBB, nct) * (FE_BBBBB, RE_AAAAA, 10) * (RE_AAAAA, RE_BBBBB, 10) * (RE_BBBBB, FE_AAAAA, 70) * 
+(FE_AAAAA, FE_BBBBB, 10 ) * (FE_BBBBB, RE_AAAAA, 15) * (RE_AAAAA, RE_BBBBB, 5 ) * (RE_BBBBB, FE_AAAAA, 75) * 
+(FE_AAAAA, FE_BBBBB, 5  ) * (FE_BBBBB, RE_AAAAA, 10) * (RE_AAAAA, RE_BBBBB, 15) * (RE_BBBBB, FE_AAAAA, 65)
+
+(In, FE_BBBBB, nct) * (FE_BBBBB, RE_AAAAA, [10, 15]) * (RE_AAAAA, RE_BBBBB, [5, 15]) * (RE_BBBBB, FE_AAAAA, [65, 75])
+
+
+
+
+
+                      (In     ,  FE_BBBBB, nct) * (FE_BBBBB, RE_AAAAA, 10) * (RE_AAAAA, RE_BBBBB, 10) * (RE_BBBBB, FE_AAAAA, 70) * 
+(In, FE_AAAAA, nct) * (FE_AAAAA, FE_BBBBB, 10 ) * (FE_BBBBB, RE_AAAAA, 15) * (RE_AAAAA, RE_BBBBB, 5 ) * (RE_BBBBB, FE_AAAAA, 75) * 
+(In, FE_AAAAA, nct) * (FE_AAAAA, FE_BBBBB, 5  ) * (FE_BBBBB, RE_AAAAA, 10) * (RE_AAAAA, RE_BBBBB, 15) * (RE_BBBBB, FE_AAAAA, 65)
+
+

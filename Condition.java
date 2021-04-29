@@ -3,27 +3,126 @@ import java.util.*;
 public class Condition {
 	static int cond_count = 0;
 	private int id;
-	List<Triplet> triplets; 
+	ArrayList<Triplet> triplets;
+	List<ArrayList<Triplet>> archive = new ArrayList<ArrayList<Triplet>>();
+	private int current = 0; 
 
 	public Condition(){
 		this.id = ++cond_count;
 		this.triplets = new ArrayList<Triplet>();
-	}
-	
-	public Condition(ArrayList<Triplet> ts){
-		this.id = ++cond_count;
-		this.triplets = ts;
+		this.archive.add(new ArrayList<Triplet>());
 	}
 
 	public int getId(){ return this.id; }
+
+	public ArrayList<Triplet> get(){ return this.archive.get(this.current); }
+
+	public List<ArrayList<Triplet>> getAll(){ return this.archive; }
 
 	public List<Triplet> getTriplet() {
         return Collections.unmodifiableList(this.triplets);
     }
 
 	public boolean add(Triplet t){
-		return this.triplets.add(t);
+
+		List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
+		if(evenements_referents.contains(t.contraint.toString())){
+			if(this.archive.get(current).isEmpty()){
+				return this.archive.get(current).add(t);
+			}else{
+				current++;
+				this.archive.add(new ArrayList<Triplet>());
+				return this.archive.get(current).add(new Triplet(new Evenement(null, null), t.contraint, new ContrainteTemporel(-1, -1)));
+			}
+			
+		}else{
+			return this.archive.get(current).add(t);
+		}
+		
+		
 	}
+
+	private String getSignature(int i){
+		String s = "";
+		for(Triplet triplet: this.archive.get(i)){
+			s += "(" + triplet.referent.toString() + "," + triplet.contraint.toString() + ")";
+		}
+		return s;
+	}
+
+	public List<ArrayList<Triplet>> computeSTC(){
+		List<String> signatures = new ArrayList<String>(this.archive.size());
+		for(int i = 0; i < this.archive.size(); i++){
+			signatures.add("");
+			signatures.set(i, this.getSignature(i));
+		}
+
+		List<String> signaturesFactorised = new ArrayList<>(new HashSet<>(signatures));
+
+		System.out.println(this.archive.size() + " lignes " + signaturesFactorised.size() + " règles detectées");
+		/*for(String s: signaturesFactorised){
+			System.out.println(s);
+		}*/
+
+		List<ArrayList<Triplet>> regles = new ArrayList<ArrayList<Triplet>>();
+		for(int i = 0; i <  signaturesFactorised.size(); i++){
+			regles.add(new ArrayList<Triplet>());
+		}
+
+		for(int i = 0; i < this.archive.size(); i++){
+			int indice = signaturesFactorised.indexOf(this.getSignature(i));
+			List<Triplet> ligne = regles.get(indice);
+
+			if(ligne.isEmpty()){
+				for(Triplet triplet: this.archive.get(i)){
+					ligne.add(new Triplet(triplet.referent, triplet.contraint, triplet.ct));
+				}
+			}else{
+				for(int j = 0; j < this.archive.get(i).size(); j++){
+					regles.get(indice).get(j).ct.updateRange(this.archive.get(i).get(j).ct);
+				}
+			}
+			
+		}
+		return regles;
+	}
+
+	/*
+	public boolean add(Triplet t){
+		for(Triplet triplet: this.archive.get(current)){
+			if(triplet.contraint.type.equals(t.contraint.type) && triplet.contraint.contrainte.equals(t.contraint.contrainte) && triplet.contraint.getId() != t.contraint.getId() ){
+			//if(triplet.contraint.toString().equals(t.contraint.toString())){
+				current++;
+				ArrayList<Triplet> precedents = this.archive.get(current - 1);
+				Triplet precedent = this.archive.get(current - 1).get(this.archive.get(current - 1).size() - 1);
+
+				this.archive.add(new ArrayList<Triplet>());
+				ContrainteTemporel nct = new ContrainteTemporel(-1, -1);
+				
+				//verifier tout ceux qui ont la meme contrainte que this.archive.get(current - 1).get(this.archive.get(current - 1).size() - 1).contraint
+				for(int i = precedents.size() - 1; i >= 0; i--){
+					if( precedent.ct == precedents.get(i).ct ){
+						this.archive.get(current).add(new Triplet(new Evenement(null, null), precedents.get(i).contraint, nct));
+					}
+					else{
+						break;
+					}
+				}
+
+				for(int i = 0; i < this.archive.get(current).size() - 1; i++){
+
+					if(this.archive.get(current).get(i).contraint == this.archive.get(current).get(i+1).contraint){
+						this.archive.get(current).remove(i);
+					}
+				}
+
+				this.archive.get(current).add(t);
+				return true;
+			}
+
+		}
+		return this.archive.get(current).add(t);
+	}*/
 
 	/**
 	 * Cherche les triplets directement precendent à un temps donné.
@@ -92,13 +191,24 @@ public class Condition {
 	}
 
 	public String toString(){
-		if(this.triplets == null){ return ""; }
+		return Condition.toString(this.archive);
+	}
+
+	public static String toString(List<ArrayList<Triplet>> regle){
 		String s = "";
 		String inter = " * ";
-		for(Triplet t: this.triplets){
-			s += t + inter;
+		String r = "\n";
+		
+		for(ArrayList<Triplet> triplets: regle){
+			for(Triplet triplet: triplets){
+				s += triplet + inter;
+			}
+			s = s.substring(0, s.length() - inter.length());
+			s += r;
 		}
-		return s.substring(0, s.length() - inter.length());
+		s.substring(0, s.length() - (inter.length() + r.length()));
+
+		return s;
 	}
 	
 }

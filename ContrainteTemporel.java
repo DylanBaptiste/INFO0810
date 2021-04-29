@@ -22,14 +22,21 @@ public class ContrainteTemporel {
 		return this.range == null ? null : this.range.clone();
 	}
 
+	public boolean updateRange(ContrainteTemporel other){
+		if(other.getRange() == null || this.getRange() == null){ return false; }
+		this.range[0] = Math.min(this.range[0], other.getMin());
+		this.range[1] = Math.max(this.range[1], other.getMax());
+		return true;
+	}
+
 	public String toString(){
 		if(this.range == null){
-			return "nct";
+			return "nct"/* + this.id*/;
 		}
 		if(this.range[0] == this.range[1]){
-			return Integer.toString(this.range[0]);
+			return Integer.toString(this.range[0])/* + '_' + this.id*/;
 		}
-		return Arrays.toString(this.range);
+		return Arrays.toString(this.range)/* + '_' + this.id*/;
 	}
 
 	/* * * * * * *

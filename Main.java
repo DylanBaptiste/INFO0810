@@ -58,12 +58,25 @@ public class Main {
 		}
 		return;
 	}
+
+	public static String[] getSubArray(String[] a, List<Integer> indexes){
+		List<String> ret = new ArrayList<String>();
+
+		for(int i: indexes){
+			ret.add(a[i]);
+		}
+
+		return ret.toArray(String[]::new);
+	}
 	
 
     public static void main(String[] args) {
 		Condition c = new Condition();
-		String delimiter = "\t";
-		String path = "C:\\Cours\\Semestre 8\\INFO0810\\test2.csv";
+		String delimiter = ";";
+		
+		//String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan.csv";
+		String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan_simulatane.csv";
+
 		String[] headers;
 		String line;
 		BufferedReader reader;
@@ -81,7 +94,9 @@ public class Main {
 		Evenement contraint = null;
 		ContrainteTemporel nct = new ContrainteTemporel(-1, -1);
 		ContrainteTemporel CT = null;
-		Timestamp start = null;
+		Timestamp lastTime = null;
+		Timestamp currentTime = null;
+
 		try{
 			reader = new BufferedReader(new FileReader(path));
 			//csv header -> hashmap keys
@@ -103,19 +118,22 @@ public class Main {
 			}
 
 			captorIndexes.remove(Integer.valueOf(timeColumnIndex));
-			start = stringToTimestamp(previousReadValues[timeColumnIndex]);
+			lastTime = stringToTimestamp(previousReadValues[timeColumnIndex]);
 
-			while ( (line = reader.readLine()) != null ) {
+			
+			while ( (line = reader.readLine()) != null && !line.equals("")) {
+
 				readValues = line.split(delimiter);
-				Timestamp currentTime = stringToTimestamp(readValues[timeColumnIndex]);
-				int t = (int)diffInMicro(start, currentTime);
-				CT = new ContrainteTemporel(t, t);
-				//System.out.println("\n" + Arrays.toString(previousReadValues) +"\n"+ Arrays.toString(readValues));
+				
+				if(!Arrays.equals(getSubArray(readValues, captorIndexes), getSubArray(previousReadValues, captorIndexes))){
+					currentTime = stringToTimestamp(readValues[timeColumnIndex]);
+					int t = (int)diffInMicro(lastTime, currentTime);
+					CT = new ContrainteTemporel(t, t);
+					updateReferents = true;
+				}
 				for(int i: captorIndexes){
-					// System.out.println("\n" + (previousReadValues[i]) +"\n"+ (readValues[i]));
 					if(!readValues[i].equals(previousReadValues[i])){
 						String type = "ERROR";
-						updateReferents = true;
 						if(previousReadValues[i].equals("false")){
 							type = "RE";
 						}
@@ -123,7 +141,7 @@ public class Main {
 							type = "FE";
 						}
 
-						System.out.println(type +"_"+ headers[i] + readValues[timeColumnIndex]);
+						System.out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
 
 						contraint = new Evenement(type, headers[i]);
 						evContraints.add(contraint);
@@ -150,14 +168,75 @@ public class Main {
 					}
 					evContraints = new ArrayList<Evenement>();
 					updateReferents = false;
+					lastTime = stringToTimestamp(previousReadValues[timeColumnIndex]);
+
 				}
 				
 
 				
 			}
-			System.out.println("\n" + c);
+
+			
+			System.out.println("\n" + c + "\n");
+
+
+			System.out.println("\n" + Condition.toString(c.computeSTC()));
+			
+
+
+			/*
+			List<Triplet> stc = new ArrayList<Triplet>();
+			int modulo = 0;
+			List<String> evsR = new ArrayList<String>(); 
+			boolean first = true;
+			boolean retry = true;
+			for(Triplet t1: c.triplets){
+				if(first){
+					evsR.add(t1.contraint.toString());
+					first = false;
+					modulo++;
+					continue;
+				}
+				if(retry && !t1.contraint.toString().equals(evsR.get(0))){
+					evsR.add(t1.contraint.toString());
+					modulo++;
+				}else{
+					retry = false;
+
+					for(int i = modulo; i < c.triplets.size(); i++){
+						int indice = (i+1) % (modulo + 1);
+						String tester = evsR.get(indice);
+						String test = c.triplets.get(i).contraint.toString();
+						if(!evsR.get(0).equals(test) && !tester.equals(test)){
+							modulo = i + 1;
+							evsR.add(test);
+							System.out.println(" ");
+							break;
+						}
+
+						evsR.add(test);
+						
+					}
+					
+				}
+				for(Triplet t2: c.triplets){
+					if(t1 != t2 && t1.referent.type == t2.referent.type && t1.referent.contrainte == t2.referent.contrainte){
+						stc.add(new Triplet(t1.referent, t2.contraint, new ContrainteTemporel(Integer.min(t1.ct.range[0], t2.ct.range[0]), Integer.max(t1.ct.range[1], t2.ct.range[1]))));
+					}
+				}
+
+			}
+			*/
+			/*String s = "";
+			String inter = " * ";
+			for(Triplet t: stc){
+				s += t + inter;
+			}
+			System.out.println(s.substring(0, s.length() - inter.length()));
+			*/
 
 			reader.close();
+			//System.out.println("\nmodulo => " + modulo);
 		}
 		catch(FileNotFoundException e){
 			System.err.println(e.getMessage());
