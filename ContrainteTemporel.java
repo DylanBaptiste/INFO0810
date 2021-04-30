@@ -22,6 +22,10 @@ public class ContrainteTemporel {
 		return this.range == null ? null : this.range.clone();
 	}
 
+	public static ContrainteTemporel NCT(){
+		return new ContrainteTemporel(-1, -1);
+	}
+
 	public boolean updateRange(ContrainteTemporel other){
 		if(other.getRange() == null || this.getRange() == null){ return false; }
 		this.range[0] = Math.min(this.range[0], other.getMin());

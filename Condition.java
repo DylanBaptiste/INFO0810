@@ -6,6 +6,9 @@ public class Condition {
 	ArrayList<Triplet> triplets;
 	List<ArrayList<Triplet>> archive = new ArrayList<ArrayList<Triplet>>();
 	private int current = 0; 
+	//List<String> whitheList = new ArrayList<String>(Arrays.asList());
+	//List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_A"));
+	List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES", "RE_VTEX", "RE_VBR", "RE_VBN"));
 
 	public Condition(){
 		this.id = ++cond_count;
@@ -23,25 +26,7 @@ public class Condition {
         return Collections.unmodifiableList(this.triplets);
     }
 
-	public boolean add(Triplet t){
-
-
-		List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES"/*, "RE_A1B2", "RE_A1B4"*/));
-		if(evenements_referents.contains(t.contraint.toString())){
-			if(this.archive.get(current).isEmpty()){
-				return this.archive.get(current).add(t);
-			}else{
-				current++;
-				this.archive.add(new ArrayList<Triplet>());
-				return this.archive.get(current).add(new Triplet(new Evenement(null, null), t.contraint, new ContrainteTemporel(-1, -1)));
-			}
-			
-		}else{
-			return this.archive.get(current).add(t);
-		}
-		
-		
-	}
+	
 
 	private String getSignature(int i){
 		String s = "";
@@ -51,6 +36,24 @@ public class Condition {
 		return s;
 	}
 
+	// private String getSignature(int i){
+
+	// 	String s = "";
+	// 		for(Triplet triplet: this.archive.get(i)){
+	// 			if(triplet.referent.isIn() && !whitheList.contains(triplet.contraint.toString())){
+	// 				continue;
+	// 			}
+	// 			if(!triplet.referent.isIn() && whitheList.contains(triplet.contraint.toString())){	
+	// 				s += "(" + Evenement.In().toString() + "," + triplet.contraint.toString() + ")";
+	// 			}else{
+	// 				s += "(" + triplet.referent.toString() + "," + triplet.contraint.toString() + ")";
+
+	// 			}
+	// 		}
+	// 	return s;
+	// }
+
+	
 	public List<ArrayList<Triplet>> computeSTC(){
 		List<String> signatures = new ArrayList<String>(this.archive.size());
 		for(int i = 0; i < this.archive.size(); i++){
@@ -61,9 +64,9 @@ public class Condition {
 		List<String> signaturesFactorised = new ArrayList<>(new HashSet<>(signatures));
 
 		System.out.println(this.archive.size() + " lignes " + signaturesFactorised.size() + " règles detectées");
-		/*for(String s: signaturesFactorised){
-			System.out.println(s);
-		}*/
+		// for(String s: signaturesFactorised){
+		// 	System.out.println(s);
+		// }
 
 		List<ArrayList<Triplet>> regles = new ArrayList<ArrayList<Triplet>>();
 		for(int i = 0; i <  signaturesFactorised.size(); i++){
@@ -76,7 +79,7 @@ public class Condition {
 
 			if(ligne.isEmpty()){
 				for(Triplet triplet: this.archive.get(i)){
-					ligne.add(new Triplet(triplet.referent, triplet.contraint, triplet.ct));
+					ligne.add(new Triplet(triplet.referent, triplet.contraint, new ContrainteTemporel(triplet.ct.getMin(), triplet.ct.getMax())));
 				}
 			}else{
 				for(int j = 0; j < this.archive.get(i).size(); j++){
@@ -88,10 +91,110 @@ public class Condition {
 		return regles;
 	}
 
-	/*
 	public boolean add(Triplet t){
+		return this.add1(t);
+	   //return this.add2(t);
+   }
+
+
+
+	
+
+	private boolean add1(Triplet t){
+
+
+		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES"));
+		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
+		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A"));
+		List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A"));
+
+		if(evenements_referents.contains(t.contraint.toString())){
+			if(this.archive.get(current).isEmpty()){
+				return this.archive.get(current).add(t);
+			}else{
+				current++;
+				this.archive.add(new ArrayList<Triplet>());
+				return this.archive.get(current).add(new Triplet(new Evenement(null, null), t.contraint, new ContrainteTemporel(-1, -1)));
+			}
+			
+		}else{
+			return this.archive.get(current).add(t);
+		}
+	}
+
+	public boolean add2(List<Evenement> referents, Evenement contraint, ContrainteTemporel ct){
+		boolean newLigne = false;
+		
+		newLigne = whitheList.contains(contraint.toString());
+		
+		
+		for(Triplet triplet: this.archive.get(this.current)){
+			if(newLigne == true){ break; }
+			if(!triplet.referent.isIn()){
+				Evenement currentContrain = triplet.contraint;
+				//si le meme toString mais id different alors n,ouvelle ligne
+				newLigne = currentContrain.equals(contraint) && !currentContrain.equalsId(contraint);
+			
+			}
+		}
+
+		if(newLigne){
+			if(!this.archive.get(current).isEmpty()){
+				this.current++;
+				this.archive.add(new ArrayList<Triplet>());
+			}
+			
+			// //mettre en nct les contraint d'avant
+			// for(Evenement referent: referents){
+			// 	if(!referent.isIn()){
+			// 		this.archive.get(this.current).add(new Triplet(Evenement.In(), referent, ContrainteTemporel.NCT()));
+			// 	}
+			// }
+
+			//
+			if(!whitheList.contains(contraint.toString())){
+
+				for(Evenement referent: referents){
+					if(!referent.isIn()){
+						this.archive.get(this.current).add(new Triplet(Evenement.In(), referent, ContrainteTemporel.NCT()));
+					}
+				}
+				
+			}
+
+
+		}
+		if(!whitheList.contains(contraint.toString())){
+			for(Evenement referent: referents){
+				this.archive.get(this.current).add(new Triplet(referent, contraint, ct));
+			}
+		}else{
+			this.archive.get(this.current).add(new Triplet(Evenement.In(), contraint, ContrainteTemporel.NCT()));
+		}
+		// for(Evenement referent: referents){
+		// 	this.archive.get(this.current).add(new Triplet(referent, contraint, ct));
+		// }
+		
+		
+		return true;
+	}
+	
+	/*private boolean add2(Triplet t){
+		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
+		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES"));
+		List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A"));
+		boolean newLigne = false;
+		boolean isAddNct = t.isNct();
+		boolean isAddInWhiteList = evenements_referents.contains(t.contraint.toString());
+
 		for(Triplet triplet: this.archive.get(current)){
-			if(triplet.contraint.type.equals(t.contraint.type) && triplet.contraint.contrainte.equals(t.contraint.contrainte) && triplet.contraint.getId() != t.contraint.getId() ){
+			
+			boolean isTestNct = triplet.isNct();
+			boolean sameEvenement = triplet.contraint.type.equals(t.contraint.type) && triplet.contraint.contrainte.equals(t.contraint.contrainte) && triplet.contraint.getId() != t.contraint.getId();
+		
+			newLigne = isAddInWhiteList || (sameEvenement && !isTestNct);
+
+			if( newLigne ){
 			//if(triplet.contraint.toString().equals(t.contraint.toString())){
 				current++;
 				ArrayList<Triplet> precedents = this.archive.get(current - 1);
@@ -110,6 +213,7 @@ public class Condition {
 					}
 				}
 
+				//supprime les doublons nct (meme evenement contraint) de la nouvelle ligne
 				for(int i = 0; i < this.archive.get(current).size() - 1; i++){
 
 					if(this.archive.get(current).get(i).contraint == this.archive.get(current).get(i+1).contraint){

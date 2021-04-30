@@ -32,16 +32,6 @@ public class Main {
 		return Timestamp.valueOf(v[0]+"-"+v[1]+"-"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]);
 	}
 
-	//todo si utile faire return <hasmap<String, List<String>> ou avec une structure perso
-	/*public static List<String> getLigne(HashMap<String, List<String>> record, int i){
-		Set<String> keys = record.keySet();
-		List<String> values = new ArrayList<String>();
-		for(String key: keys){
-			values.add(record.get(key).get(i));
-		}
-		return values;
-	}*/
-
 	public static boolean isLignesEqual(HashMap<String, List<String>> record, int l1, int l2, String columnToIgnor){
 		Set<String> keys = record.keySet();
 		//keys.remove(columnToIgnor);
@@ -73,13 +63,14 @@ public class Main {
 	}
 	
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 		Condition c = new Condition();
 		String delimiter = ",";
-		
-		//String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan.csv";
-		//String path = "C:\\Cours\\Semestre 8\\INFO0810\\doc_dylan_simulatane.csv";
-		String path = "C:\\Cours\\Semestre 8\\INFO0810\\emulate.csv";
+		String input = "nx";
+
+		String output = "resultat_" + input; 
+		String pathInput= "C:\\Cours\\Semestre 8\\INFO0810\\data\\" + input + ".csv";
+		String pathOutput= "C:\\Cours\\Semestre 8\\INFO0810\\resultat\\" + output + ".txt";
 		String[] headers;
 		String line;
 		BufferedReader reader;
@@ -102,12 +93,12 @@ public class Main {
 
 		PrintWriter out;
 		
-		out = new PrintWriter("filename.txt");
+		out = new PrintWriter(pathOutput);
 		
 
 		
 		try{
-			reader = new BufferedReader(new FileReader(path));
+			reader = new BufferedReader(new FileReader(pathInput));
 			//csv header -> hashmap keys
 			headers = reader.readLine().split(delimiter);
 			timeColumnIndex = Arrays.asList(headers).indexOf(timeColumnName);
@@ -120,13 +111,6 @@ public class Main {
 				if(value.equals("0") || value.equals("1")){
 					captorIndexes.add(i);
 				}
-				/*try {
-					Float.parseFloat(value);
-					continue; //si ont peut le parser on l'ignore
-				}
-				catch (NumberFormatException e) {
-					captorIndexes.add(i);
-				}*/
 			}
 
 			captorIndexes.remove(Integer.valueOf(timeColumnIndex));
@@ -154,17 +138,36 @@ public class Main {
 						}
 
 						//System.out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
-						out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
+						out.print(type +"_"+ headers[i] +"\t"+ stringToTimestamp(readValues[timeColumnIndex]));
+						
+						//List<String> blackList = new ArrayList<String>(Arrays.asList());
+						//List<String> blackList = new ArrayList<String>(Arrays.asList("FE_A"));
+						List<String> blackList = new ArrayList<String>(Arrays.asList("FE_CPU_PROD_BOUCHON", "FE_EJ", "FE_VTAS", "FE_VRM", "FE_VRC", "FE_VBB", "FE_CONV", "FE_BMC", "FE_BME", "FE_DVL", "FE_PINCES", "FE_VTEX", "FE_VBR", "FE_VBN"));
 
+
+						String s = type +"_"+ headers[i];
+						if(blackList.contains(s)){
+							out.println("\tBLACK LIST");
+							continue;
+						}else{
+							out.println("");
+						}
+						
 						contraint = new Evenement(type, headers[i]);
 						evContraints.add(contraint);
 
 						if(evReferents.size() == 0){
-							c.add(new Triplet(new Evenement(null, headers[i]), contraint, nct));
+							//c.add(new Triplet(new Evenement(null, headers[i]), contraint, nct));
+
+							List<Evenement> list = new ArrayList<Evenement>();
+							list.add(Evenement.In());
+
+							c.add2(list, contraint, nct);
 						}else{
-							for(Evenement referent: evReferents){
+							/*for(Evenement referent: evReferents){
 								c.add(new Triplet(referent, contraint, CT));
-							}
+							}*/
+							c.add2(evReferents, contraint, CT);
 						}
 					}
 
@@ -191,13 +194,17 @@ public class Main {
 
 			
 			//System.out.println("\n" + c + "\n");
-
-
+			//System.out.println("\n");
 			//System.out.println("\n" + Condition.toString(c.computeSTC()));
+			//
+			//System.out.println("\n");
+			out.println("\n\n\n=============================================================================================\n\n\n");
 			out.println(c);
-			out.println("\n\n");
+			out.println("\n\n\n=============================================================================================\n\n\n");
 			out.println(Condition.toString(c.computeSTC()));
 			out.close();
+
+			
 			/*
 			List<Triplet> stc = new ArrayList<Triplet>();
 			int modulo = 0;
