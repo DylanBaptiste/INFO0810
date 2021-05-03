@@ -3,8 +3,8 @@
 		""
 	],
 	"java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ],
+		"lib/**/*.jar"
+	],
 	"files.exclude": {
 		"**/.git": true,
 		"**/.svn": true,

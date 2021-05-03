@@ -1,6 +1,12 @@
 import java.util.*;
+import org.graphstream.graph.implementations.*;
+import org.graphstream.graph.*;
 
 public class Condition {
+
+	
+	Graph graph = new SingleGraph("Tutorial 1");
+
 	static int cond_count = 0;
 	private int id;
 	ArrayList<Triplet> triplets;
@@ -14,6 +20,9 @@ public class Condition {
 		this.id = ++cond_count;
 		this.triplets = new ArrayList<Triplet>();
 		this.archive.add(new ArrayList<Triplet>());
+
+		graph.addNode("In_2");
+
 	}
 
 	public int getId(){ return this.id; }
@@ -103,6 +112,7 @@ public class Condition {
 	private boolean add1(Triplet t){
 
 
+
 		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES"));
 		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
 		//List<String> evenements_referents = new ArrayList<String>(Arrays.asList("RE_A"));
@@ -123,6 +133,9 @@ public class Condition {
 	}
 
 	public boolean add2(List<Evenement> referents, Evenement contraint, ContrainteTemporel ct){
+
+		graph.addNode(contraint.toString() +"_"+ contraint.getId());
+
 		boolean newLigne = false;
 		
 		newLigne = whitheList.contains(contraint.toString());
@@ -144,36 +157,37 @@ public class Condition {
 				this.archive.add(new ArrayList<Triplet>());
 			}
 			
-			// //mettre en nct les contraint d'avant
-			// for(Evenement referent: referents){
-			// 	if(!referent.isIn()){
-			// 		this.archive.get(this.current).add(new Triplet(Evenement.In(), referent, ContrainteTemporel.NCT()));
-			// 	}
-			// }
+			//mettre en nct les contraint d'avant
+			for(Evenement referent: referents){
+				if(!referent.isIn()){
+					this.archive.get(this.current).add(new Triplet(Evenement.In(), referent, ContrainteTemporel.NCT()));
+				}
+			}
 
 			//
-			if(!whitheList.contains(contraint.toString())){
+			// if(!whitheList.contains(contraint.toString())){
 
-				for(Evenement referent: referents){
-					if(!referent.isIn()){
-						this.archive.get(this.current).add(new Triplet(Evenement.In(), referent, ContrainteTemporel.NCT()));
-					}
-				}
+			// 	for(Evenement referent: referents){
+			// 		if(!referent.isIn()){
+			// 			this.archive.get(this.current).add(new Triplet(Evenement.In(), referent, ContrainteTemporel.NCT()));
+			// 		}
+			// 	}
 				
-			}
+			// }
 
 
 		}
-		if(!whitheList.contains(contraint.toString())){
-			for(Evenement referent: referents){
-				this.archive.get(this.current).add(new Triplet(referent, contraint, ct));
-			}
-		}else{
-			this.archive.get(this.current).add(new Triplet(Evenement.In(), contraint, ContrainteTemporel.NCT()));
-		}
-		// for(Evenement referent: referents){
-		// 	this.archive.get(this.current).add(new Triplet(referent, contraint, ct));
+		// if(!whitheList.contains(contraint.toString())){
+		// 	for(Evenement referent: referents){
+		// 		this.archive.get(this.current).add(new Triplet(referent, contraint, ct));
+		// 	}
+		// }else{
+		// 	this.archive.get(this.current).add(new Triplet(Evenement.In(), contraint, ContrainteTemporel.NCT()));
 		// }
+		for(Evenement referent: referents){
+			this.archive.get(this.current).add(new Triplet(referent, contraint, ct));
+			graph.addEdge(contraint.toString() +"_"+ contraint.getId()+""+referent.toString() +"_"+ referent.getId(), contraint.toString() +"_"+ contraint.getId(), referent.toString() +"_"+ referent.getId());
+		}
 		
 		
 		return true;

@@ -1,8 +1,10 @@
 import java.util.*;
 import java.io.*;
 import java.sql.Timestamp;
+import org.graphstream.ui.*;
 // import java.time.format.*;
 // import java.time.*;
+import org.graphstream.graph.implementations.*;
 
 //FE_A1B2 RE_P1VP2 RE_P2E FE_P1S FE_A1B4
 
@@ -64,13 +66,18 @@ public class Main {
 	
 
     public static void main(String[] args) throws FileNotFoundException {
+
+
+		
+
+	
 		Condition c = new Condition();
 		String delimiter = ",";
-		String input = "nx";
+		String input = "test";
 
 		String output = "resultat_" + input; 
-		String pathInput= "C:\\Cours\\Semestre 8\\INFO0810\\data\\" + input + ".csv";
-		String pathOutput= "C:\\Cours\\Semestre 8\\INFO0810\\resultat\\" + output + ".txt";
+		String pathInput= System.getProperty("user.dir")+"\\data\\" + input + ".csv";
+		String pathOutput= System.getProperty("user.dir")+"\\resultat\\" + output + ".txt";
 		String[] headers;
 		String line;
 		BufferedReader reader;
@@ -140,9 +147,9 @@ public class Main {
 						//System.out.println(type +"_"+ headers[i] +"  \t"+ stringToTimestamp(readValues[timeColumnIndex]));
 						out.print(type +"_"+ headers[i] +"\t"+ stringToTimestamp(readValues[timeColumnIndex]));
 						
-						//List<String> blackList = new ArrayList<String>(Arrays.asList());
+						List<String> blackList = new ArrayList<String>(Arrays.asList());
 						//List<String> blackList = new ArrayList<String>(Arrays.asList("FE_A"));
-						List<String> blackList = new ArrayList<String>(Arrays.asList("FE_CPU_PROD_BOUCHON", "FE_EJ", "FE_VTAS", "FE_VRM", "FE_VRC", "FE_VBB", "FE_CONV", "FE_BMC", "FE_BME", "FE_DVL", "FE_PINCES", "FE_VTEX", "FE_VBR", "FE_VBN"));
+						//List<String> blackList = new ArrayList<String>(Arrays.asList("FE_CPU_PROD_BOUCHON", "FE_EJ", "FE_VTAS", "FE_VRM", "FE_VRC", "FE_VBB", "FE_CONV", "FE_BMC", "FE_BME", "FE_DVL", "FE_PINCES", "FE_VTEX", "FE_VBR", "FE_VBN"));
 
 
 						String s = type +"_"+ headers[i];
@@ -267,6 +274,12 @@ public class Main {
 			System.err.println(e.getMessage());
 			System.exit(0);
 		}
+
+		
+
+		System.setProperty("org.graphstream.ui", "swing"); 
+		System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+		c.graph.display();
 
 		// ContrainteTemporel ct1 = new ContrainteTemporel();
 		// ContrainteTemporel ct2 = new ContrainteTemporel();
