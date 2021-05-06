@@ -1,0 +1,3 @@
+https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications
+
+LSTM, RNN, GNN

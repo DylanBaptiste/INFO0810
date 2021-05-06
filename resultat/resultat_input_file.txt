@@ -1,0 +1,553 @@
+RE_Grab   	2020-08-24 12:59:39.149457
+RE_Detected   	2020-08-24 12:59:39.149457
+FE_Grab   	2020-08-24 12:59:40.650198
+FE_Detected   	2020-08-24 12:59:40.857609
+RE_Detected   	2020-08-24 12:59:43.131681
+RE_Grab   	2020-08-24 12:59:43.438002
+FE_Grab   	2020-08-24 12:59:46.239517
+FE_Detected   	2020-08-24 12:59:46.430636
+RE_Detected   	2020-08-24 12:59:48.669427
+RE_Grab   	2020-08-24 12:59:48.986083
+RE_C_plus   	2020-08-24 12:59:49.504766
+FE_C_limit   	2020-08-24 12:59:49.634684
+RE_C_limit   	2020-08-24 12:59:50.134375
+FE_Grab   	2020-08-24 12:59:51.441681
+FE_C_plus   	2020-08-24 12:59:51.441681
+FE_C_limit   	2020-08-24 12:59:51.571601
+FE_Detected   	2020-08-24 12:59:51.63656
+RE_C_limit   	2020-08-24 12:59:52.210468
+RE_Detected   	2020-08-24 12:59:56.21887
+RE_Grab   	2020-08-24 12:59:56.576248
+FE_Grab   	2020-08-24 12:59:59.329026
+FE_Detected   	2020-08-24 12:59:59.525906
+RE_Detected   	2020-08-24 13:00:01.728627
+RE_Grab   	2020-08-24 13:00:02.82408
+FE_Grab   	2020-08-24 13:00:04.864129
+FE_Detected   	2020-08-24 13:00:05.59021
+RE_Detected   	2020-08-24 13:00:07.304659
+RE_Grab   	2020-08-24 13:00:07.62646
+RE_C_plus   	2020-08-24 13:00:08.177018
+FE_C_limit   	2020-08-24 13:00:08.290948
+RE_C_limit   	2020-08-24 13:00:08.803954
+FE_Grab   	2020-08-24 13:00:10.10288
+FE_C_plus   	2020-08-24 13:00:10.10288
+FE_C_limit   	2020-08-24 13:00:10.226804
+FE_Detected   	2020-08-24 13:00:10.291763
+RE_C_limit   	2020-08-24 13:00:10.86941
+RE_Detected   	2020-08-24 13:00:14.862499
+RE_Grab   	2020-08-24 13:00:15.219833
+FE_Grab   	2020-08-24 13:00:18.26832
+FE_Detected   	2020-08-24 13:00:18.227708
+RE_Detected   	2020-08-24 13:00:20.462913
+RE_Grab   	2020-08-24 13:00:20.823522
+FE_Grab   	2020-08-24 13:00:23.568545
+FE_Detected   	2020-08-24 13:00:23.767585
+RE_Detected   	2020-08-24 13:00:26.40296
+RE_Grab   	2020-08-24 13:00:26.361146
+RE_C_plus   	2020-08-24 13:00:26.88782
+FE_C_limit   	2020-08-24 13:00:27.337
+RE_C_limit   	2020-08-24 13:00:27.50901
+FE_Grab   	2020-08-24 13:00:28.814019
+FE_C_plus   	2020-08-24 13:00:28.814019
+FE_C_limit   	2020-08-24 13:00:28.931948
+FE_Detected   	2020-08-24 13:00:29.12901
+RE_C_limit   	2020-08-24 13:00:29.58906
+RE_Detected   	2020-08-24 13:00:33.44858
+RE_Grab   	2020-08-24 13:00:33.769382
+FE_Grab   	2020-08-24 13:00:36.53027
+FE_Detected   	2020-08-24 13:00:36.724151
+RE_Detected   	2020-08-24 13:00:38.925913
+RE_Grab   	2020-08-24 13:00:39.262706
+FE_Grab   	2020-08-24 13:00:41.994817
+FE_Detected   	2020-08-24 13:00:42.191698
+RE_Detected   	2020-08-24 13:00:44.406543
+RE_Grab   	2020-08-24 13:00:44.745333
+RE_C_plus   	2020-08-24 13:00:45.276008
+FE_C_limit   	2020-08-24 13:00:45.383942
+RE_C_limit   	2020-08-24 13:00:45.893625
+FE_Grab   	2020-08-24 13:00:47.231804
+FE_C_plus   	2020-08-24 13:00:47.231804
+FE_C_limit   	2020-08-24 13:00:47.359233
+FE_Detected   	2020-08-24 13:00:47.435017
+RE_C_limit   	2020-08-24 13:00:48.1666
+RE_Detected   	2020-08-24 13:00:51.948285
+RE_Grab   	2020-08-24 13:00:52.300069
+FE_Grab   	2020-08-24 13:00:55.84706
+FE_Detected   	2020-08-24 13:00:55.277587
+RE_Detected   	2020-08-24 13:00:57.490753
+RE_Grab   	2020-08-24 13:00:57.847532
+FE_Grab   	2020-08-24 13:01:00.568099
+FE_Detected   	2020-08-24 13:01:00.753985
+RE_Detected   	2020-08-24 13:01:03.719
+RE_Grab   	2020-08-24 13:01:03.311088
+RE_C_plus   	2020-08-24 13:01:03.843225
+FE_C_limit   	2020-08-24 13:01:03.957155
+RE_C_limit   	2020-08-24 13:01:04.467038
+FE_Grab   	2020-08-24 13:01:05.794574
+FE_C_plus   	2020-08-24 13:01:05.794574
+FE_C_limit   	2020-08-24 13:01:05.922495
+FE_Detected   	2020-08-24 13:01:05.992453
+RE_C_limit   	2020-08-24 13:01:06.571051
+RE_Detected   	2020-08-24 13:01:10.546324
+RE_Grab   	2020-08-24 13:01:10.882117
+FE_Grab   	2020-08-24 13:01:13.658361
+FE_Detected   	2020-08-24 13:01:13.843191
+RE_Detected   	2020-08-24 13:01:16.47703
+RE_Grab   	2020-08-24 13:01:16.399484
+FE_Grab   	2020-08-24 13:01:19.165126
+FE_Detected   	2020-08-24 13:01:19.356602
+RE_Detected   	2020-08-24 13:01:21.587046
+RE_Grab   	2020-08-24 13:01:21.908849
+RE_C_plus   	2020-08-24 13:01:22.445021
+FE_C_limit   	2020-08-24 13:01:22.539963
+RE_C_limit   	2020-08-24 13:01:23.21665
+FE_Grab   	2020-08-24 13:01:24.360835
+FE_C_plus   	2020-08-24 13:01:24.360835
+FE_C_limit   	2020-08-24 13:01:24.487757
+FE_Detected   	2020-08-24 13:01:24.554716
+RE_C_limit   	2020-08-24 13:01:25.127361
+RE_Detected   	2020-08-24 13:01:29.65501
+RE_Grab   	2020-08-24 13:01:29.405971
+FE_Grab   	2020-08-24 13:01:32.173787
+FE_Detected   	2020-08-24 13:01:32.359672
+RE_Detected   	2020-08-24 13:01:34.604833
+RE_Grab   	2020-08-24 13:01:34.948955
+FE_Grab   	2020-08-24 13:01:37.715694
+FE_Detected   	2020-08-24 13:01:37.914572
+RE_Detected   	2020-08-24 13:01:40.142816
+RE_Grab   	2020-08-24 13:01:40.500595
+RE_C_plus   	2020-08-24 13:01:41.17785
+FE_C_limit   	2020-08-24 13:01:41.129716
+RE_C_limit   	2020-08-24 13:01:41.652393
+FE_Grab   	2020-08-24 13:01:43.73
+FE_C_plus   	2020-08-24 13:01:43.73
+FE_C_limit   	2020-08-24 13:01:43.110236
+FE_Detected   	2020-08-24 13:01:43.210174
+RE_C_limit   	2020-08-24 13:01:43.756835
+RE_Detected   	2020-08-24 13:01:47.740935
+RE_Grab   	2020-08-24 13:01:48.50742
+FE_Grab   	2020-08-24 13:01:50.814054
+FE_Detected   	2020-08-24 13:01:50.989943
+RE_Detected   	2020-08-24 13:01:53.241781
+RE_Grab   	2020-08-24 13:01:53.56458
+FE_Grab   	2020-08-24 13:01:56.318465
+FE_Detected   	2020-08-24 13:01:56.512344
+RE_Detected   	2020-08-24 13:01:58.758464
+RE_Grab   	2020-08-24 13:01:59.95256
+RE_C_plus   	2020-08-24 13:01:59.632134
+FE_C_limit   	2020-08-24 13:01:59.743715
+RE_C_limit   	2020-08-24 13:02:00.219174
+FE_Grab   	2020-08-24 13:02:01.548246
+FE_C_plus   	2020-08-24 13:02:01.548246
+FE_C_limit   	2020-08-24 13:02:01.678165
+FE_Detected   	2020-08-24 13:02:01.743126
+RE_C_limit   	2020-08-24 13:02:02.327763
+RE_Detected   	2020-08-24 13:02:06.305961
+RE_Grab   	2020-08-24 13:02:06.649748
+FE_Grab   	2020-08-24 13:02:09.36573
+FE_Detected   	2020-08-24 13:02:09.56061
+RE_Detected   	2020-08-24 13:02:11.806766
+RE_Grab   	2020-08-24 13:02:12.149553
+FE_Grab   	2020-08-24 13:02:14.907923
+FE_Detected   	2020-08-24 13:02:15.85812
+RE_Detected   	2020-08-24 13:02:17.336663
+RE_Grab   	2020-08-24 13:02:17.689013
+RE_C_plus   	2020-08-24 13:02:18.20769
+FE_C_limit   	2020-08-24 13:02:18.321624
+RE_C_limit   	2020-08-24 13:02:18.826312
+FE_Grab   	2020-08-24 13:02:20.183325
+FE_C_plus   	2020-08-24 13:02:20.183325
+FE_C_limit   	2020-08-24 13:02:20.297254
+FE_Detected   	2020-08-24 13:02:20.361214
+RE_C_limit   	2020-08-24 13:02:20.94985
+RE_Detected   	2020-08-24 13:02:24.848404
+RE_Grab   	2020-08-24 13:02:25.170714
+FE_Grab   	2020-08-24 13:02:27.91868
+FE_Detected   	2020-08-24 13:02:28.109563
+RE_Detected   	2020-08-24 13:02:30.347468
+RE_Grab   	2020-08-24 13:02:30.714183
+FE_Grab   	2020-08-24 13:02:33.458143
+FE_Detected   	2020-08-24 13:02:33.646032
+RE_Detected   	2020-08-24 13:02:35.89384
+RE_Grab   	2020-08-24 13:02:36.246621
+RE_C_plus   	2020-08-24 13:02:36.778803
+FE_C_limit   	2020-08-24 13:02:36.875742
+RE_C_limit   	2020-08-24 13:02:37.381107
+FE_Grab   	2020-08-24 13:02:38.686323
+FE_C_plus   	2020-08-24 13:02:38.686323
+FE_C_limit   	2020-08-24 13:02:38.815503
+FE_Detected   	2020-08-24 13:02:38.879464
+RE_C_limit   	2020-08-24 13:02:39.455616
+RE_Detected   	2020-08-24 13:02:43.371817
+RE_Grab   	2020-08-24 13:02:43.676626
+FE_Grab   	2020-08-24 13:02:46.439945
+FE_Detected   	2020-08-24 13:02:46.642818
+RE_Detected   	2020-08-24 13:02:48.817982
+RE_Grab   	2020-08-24 13:02:49.171651
+FE_Grab   	2020-08-24 13:02:51.915333
+FE_Detected   	2020-08-24 13:02:52.108745
+RE_Detected   	2020-08-24 13:02:54.356155
+RE_Grab   	2020-08-24 13:02:54.716931
+RE_C_plus   	2020-08-24 13:02:55.212085
+FE_C_limit   	2020-08-24 13:02:55.343003
+RE_C_limit   	2020-08-24 13:02:55.820977
+FE_Grab   	2020-08-24 13:02:57.140353
+FE_C_plus   	2020-08-24 13:02:57.140353
+FE_C_limit   	2020-08-24 13:02:57.272273
+FE_Detected   	2020-08-24 13:02:57.341237
+RE_C_limit   	2020-08-24 13:02:57.919384
+RE_Detected   	2020-08-24 13:03:01.859577
+RE_Grab   	2020-08-24 13:03:02.209361
+FE_Grab   	2020-08-24 13:03:04.965024
+FE_Detected   	2020-08-24 13:03:05.174894
+RE_Detected   	2020-08-24 13:03:07.421921
+RE_Grab   	2020-08-24 13:03:07.758714
+FE_Grab   	2020-08-24 13:03:10.547069
+FE_Detected   	2020-08-24 13:03:10.740947
+RE_Detected   	2020-08-24 13:03:12.978299
+RE_Grab   	2020-08-24 13:03:13.331551
+RE_C_plus   	2020-08-24 13:03:13.898961
+FE_C_limit   	2020-08-24 13:03:13.996669
+RE_C_limit   	2020-08-24 13:03:14.475102
+FE_Grab   	2020-08-24 13:03:15.844939
+FE_C_plus   	2020-08-24 13:03:15.844939
+FE_C_limit   	2020-08-24 13:03:16.384
+FE_Detected   	2020-08-24 13:03:16.74797
+RE_C_limit   	2020-08-24 13:03:16.571631
+RE_Detected   	2020-08-24 13:03:20.614701
+RE_Grab   	2020-08-24 13:03:20.931483
+FE_Grab   	2020-08-24 13:03:23.691332
+FE_Detected   	2020-08-24 13:03:23.888246
+RE_Detected   	2020-08-24 13:03:26.166392
+RE_Grab   	2020-08-24 13:03:26.523926
+FE_Grab   	2020-08-24 13:03:29.272538
+FE_Detected   	2020-08-24 13:03:29.457428
+RE_Detected   	2020-08-24 13:03:31.71546
+RE_Grab   	2020-08-24 13:03:32.20204
+RE_C_plus   	2020-08-24 13:03:32.549381
+FE_C_limit   	2020-08-24 13:03:32.662311
+RE_C_limit   	2020-08-24 13:03:33.134018
+FE_Grab   	2020-08-24 13:03:34.4602
+FE_C_plus   	2020-08-24 13:03:34.4602
+FE_C_limit   	2020-08-24 13:03:34.59012
+FE_Detected   	2020-08-24 13:03:34.670071
+RE_C_limit   	2020-08-24 13:03:35.237152
+RE_Detected   	2020-08-24 13:03:39.160894
+RE_Grab   	2020-08-24 13:03:39.483206
+FE_Grab   	2020-08-24 13:03:42.22844
+FE_Detected   	2020-08-24 13:03:42.424319
+RE_Detected   	2020-08-24 13:03:44.637703
+RE_Grab   	2020-08-24 13:03:44.942515
+FE_Grab   	2020-08-24 13:03:47.675514
+FE_Detected   	2020-08-24 13:03:47.873029
+RE_Detected   	2020-08-24 13:03:50.112683
+RE_Grab   	2020-08-24 13:03:50.449628
+RE_C_plus   	2020-08-24 13:03:50.97838
+FE_C_limit   	2020-08-24 13:03:51.90311
+RE_C_limit   	2020-08-24 13:03:51.594773
+FE_Grab   	2020-08-24 13:03:52.897039
+FE_C_plus   	2020-08-24 13:03:52.897039
+FE_C_limit   	2020-08-24 13:03:53.25959
+FE_Detected   	2020-08-24 13:03:53.90919
+RE_C_limit   	2020-08-24 13:03:53.678088
+RE_Detected   	2020-08-24 13:03:57.644693
+RE_Grab   	2020-08-24 13:03:57.964496
+FE_Grab   	2020-08-24 13:04:00.726586
+FE_Detected   	2020-08-24 13:04:00.919471
+RE_Detected   	2020-08-24 13:04:03.154638
+RE_Grab   	2020-08-24 13:04:03.515414
+FE_Grab   	2020-08-24 13:04:06.253923
+FE_Detected   	2020-08-24 13:04:06.451757
+RE_Detected   	2020-08-24 13:04:08.694719
+RE_Grab   	2020-08-24 13:04:09.56496
+RE_C_plus   	2020-08-24 13:04:09.610145
+FE_C_limit   	2020-08-24 13:04:09.724075
+RE_C_limit   	2020-08-24 13:04:10.188792
+FE_Grab   	2020-08-24 13:04:11.53348
+FE_C_plus   	2020-08-24 13:04:11.53348
+FE_C_limit   	2020-08-24 13:04:11.699378
+FE_Detected   	2020-08-24 13:04:11.722364
+RE_C_limit   	2020-08-24 13:04:12.304008
+RE_Detected   	2020-08-24 13:04:16.242068
+RE_Grab   	2020-08-24 13:04:16.552178
+FE_Grab   	2020-08-24 13:04:19.283535
+FE_Detected   	2020-08-24 13:04:19.478416
+RE_Detected   	2020-08-24 13:04:21.691236
+RE_Grab   	2020-08-24 13:04:22.23283
+FE_Grab   	2020-08-24 13:04:24.784679
+FE_Detected   	2020-08-24 13:04:24.976238
+RE_Detected   	2020-08-24 13:04:27.220722
+RE_Grab   	2020-08-24 13:04:27.571409
+RE_C_plus   	2020-08-24 13:04:28.93154
+FE_C_limit   	2020-08-24 13:04:28.208083
+RE_C_limit   	2020-08-24 13:04:28.691783
+FE_Grab   	2020-08-24 13:04:30.6613
+FE_C_plus   	2020-08-24 13:04:30.6613
+FE_C_limit   	2020-08-24 13:04:30.177564
+FE_Detected   	2020-08-24 13:04:30.258516
+RE_C_limit   	2020-08-24 13:04:30.829209
+RE_Detected   	2020-08-24 13:04:34.799621
+RE_Grab   	2020-08-24 13:04:35.152407
+FE_Grab   	2020-08-24 13:04:37.938258
+FE_Detected   	2020-08-24 13:04:38.101157
+RE_Detected   	2020-08-24 13:04:40.348725
+RE_Grab   	2020-08-24 13:04:40.683518
+FE_Grab   	2020-08-24 13:04:43.450193
+FE_Detected   	2020-08-24 13:04:43.631972
+RE_Detected   	2020-08-24 13:04:45.878497
+RE_Grab   	2020-08-24 13:04:46.232006
+RE_C_plus   	2020-08-24 13:04:46.765947
+FE_C_limit   	2020-08-24 13:04:46.863887
+RE_C_limit   	2020-08-24 13:04:47.346588
+FE_Grab   	2020-08-24 13:04:48.675859
+FE_C_plus   	2020-08-24 13:04:48.675859
+FE_C_limit   	2020-08-24 13:04:48.80378
+FE_Detected   	2020-08-24 13:04:48.871738
+RE_C_limit   	2020-08-24 13:04:49.44889
+RE_Detected   	2020-08-24 13:04:53.385186
+RE_Grab   	2020-08-24 13:04:53.692996
+FE_Grab   	2020-08-24 13:04:56.467437
+FE_Detected   	2020-08-24 13:04:56.659046
+RE_Detected   	2020-08-24 13:04:58.85871
+RE_Grab   	2020-08-24 13:04:59.185507
+FE_Grab   	2020-08-24 13:05:01.965244
+FE_Detected   	2020-08-24 13:05:02.131143
+RE_Detected   	2020-08-24 13:05:04.38675
+RE_Grab   	2020-08-24 13:05:04.692562
+RE_C_plus   	2020-08-24 13:05:05.225344
+FE_C_limit   	2020-08-24 13:05:05.336275
+RE_C_limit   	2020-08-24 13:05:05.836964
+FE_Grab   	2020-08-24 13:05:07.181759
+FE_C_plus   	2020-08-24 13:05:07.181759
+FE_C_limit   	2020-08-24 13:05:07.302948
+FE_Detected   	2020-08-24 13:05:07.368079
+RE_C_limit   	2020-08-24 13:05:07.941102
+RE_Detected   	2020-08-24 13:05:11.891635
+RE_Grab   	2020-08-24 13:05:12.216134
+FE_Grab   	2020-08-24 13:05:14.91893
+FE_Detected   	2020-08-24 13:05:15.123803
+RE_Detected   	2020-08-24 13:05:17.396649
+RE_Grab   	2020-08-24 13:05:17.70146
+FE_Grab   	2020-08-24 13:05:20.423043
+FE_Detected   	2020-08-24 13:05:20.615428
+RE_Detected   	2020-08-24 13:05:22.867107
+RE_Grab   	2020-08-24 13:05:23.176914
+RE_C_plus   	2020-08-24 13:05:23.73457
+FE_C_limit   	2020-08-24 13:05:23.86249
+RE_C_limit   	2020-08-24 13:05:24.362181
+FE_Grab   	2020-08-24 13:05:25.708872
+FE_C_plus   	2020-08-24 13:05:25.708872
+FE_C_limit   	2020-08-24 13:05:25.825802
+FE_Detected   	2020-08-24 13:05:25.892761
+RE_C_limit   	2020-08-24 13:05:26.48009
+RE_Detected   	2020-08-24 13:05:30.377255
+RE_Grab   	2020-08-24 13:05:30.731545
+FE_Grab   	2020-08-24 13:05:33.484759
+FE_Detected   	2020-08-24 13:05:33.686633
+RE_Detected   	2020-08-24 13:05:35.885674
+RE_Grab   	2020-08-24 13:05:36.190486
+FE_Grab   	2020-08-24 13:05:38.93219
+FE_Detected   	2020-08-24 13:05:39.111078
+RE_Detected   	2020-08-24 13:05:41.390749
+RE_Grab   	2020-08-24 13:05:41.714592
+RE_C_plus   	2020-08-24 13:05:42.262252
+FE_C_limit   	2020-08-24 13:05:42.376182
+RE_C_limit   	2020-08-24 13:05:42.880765
+FE_Grab   	2020-08-24 13:05:44.200765
+FE_C_plus   	2020-08-24 13:05:44.200765
+FE_C_limit   	2020-08-24 13:05:44.312695
+FE_Detected   	2020-08-24 13:05:44.376654
+RE_C_limit   	2020-08-24 13:05:44.963897
+RE_Detected   	2020-08-24 13:05:48.833511
+RE_Grab   	2020-08-24 13:05:49.141774
+FE_Grab   	2020-08-24 13:05:51.903811
+FE_Detected   	2020-08-24 13:05:52.101256
+RE_Detected   	2020-08-24 13:05:54.37919
+RE_Grab   	2020-08-24 13:05:54.685895
+FE_Grab   	2020-08-24 13:05:57.421395
+FE_Detected   	2020-08-24 13:05:57.616273
+RE_Detected   	2020-08-24 13:05:59.860665
+RE_Grab   	2020-08-24 13:06:00.164477
+RE_C_plus   	2020-08-24 13:06:00.712909
+FE_C_limit   	2020-08-24 13:06:00.806851
+RE_C_limit   	2020-08-24 13:06:01.322532
+FE_Grab   	2020-08-24 13:06:02.62377
+FE_C_plus   	2020-08-24 13:06:02.62377
+FE_C_limit   	2020-08-24 13:06:02.75269
+FE_Detected   	2020-08-24 13:06:02.832641
+RE_C_limit   	2020-08-24 13:06:03.398949
+RE_Detected   	2020-08-24 13:06:07.285748
+RE_Grab   	2020-08-24 13:06:07.636532
+FE_Grab   	2020-08-24 13:06:10.380429
+FE_Detected   	2020-08-24 13:06:10.54233
+RE_Detected   	2020-08-24 13:06:12.787343
+RE_Grab   	2020-08-24 13:06:13.105429
+FE_Grab   	2020-08-24 13:06:15.870583
+FE_Detected   	2020-08-24 13:06:16.6167
+RE_Detected   	2020-08-24 13:06:18.30381
+RE_Grab   	2020-08-24 13:06:18.655593
+RE_C_plus   	2020-08-24 13:06:19.185897
+FE_C_limit   	2020-08-24 13:06:19.297828
+RE_C_limit   	2020-08-24 13:06:19.767536
+FE_Grab   	2020-08-24 13:06:21.109706
+FE_C_plus   	2020-08-24 13:06:21.109706
+FE_C_limit   	2020-08-24 13:06:21.272604
+FE_Detected   	2020-08-24 13:06:21.306277
+RE_C_limit   	2020-08-24 13:06:21.844879
+RE_Detected   	2020-08-24 13:06:25.798261
+RE_Grab   	2020-08-24 13:06:26.152223
+FE_Grab   	2020-08-24 13:06:28.868409
+FE_Detected   	2020-08-24 13:06:29.71283
+RE_Detected   	2020-08-24 13:06:31.307705
+RE_Grab   	2020-08-24 13:06:31.614688
+FE_Grab   	2020-08-24 13:06:34.361586
+FE_Detected   	2020-08-24 13:06:34.556465
+RE_Detected   	2020-08-24 13:06:36.782365
+RE_Grab   	2020-08-24 13:06:37.133652
+RE_C_plus   	2020-08-24 13:06:37.649332
+FE_C_limit   	2020-08-24 13:06:37.759267
+RE_C_limit   	2020-08-24 13:06:38.28179
+FE_Grab   	2020-08-24 13:06:39.613549
+FE_C_plus   	2020-08-24 13:06:39.613549
+FE_C_limit   	2020-08-24 13:06:39.74247
+FE_Detected   	2020-08-24 13:06:39.80643
+RE_C_limit   	2020-08-24 13:06:40.38508
+
+
+
+=============================================================================================
+
+
+
+(In, RE_Grab, nct) * (In, RE_Detected, nct) * (RE_Grab, FE_Grab, 1500741) * (RE_Detected, FE_Grab, 1500741) * (FE_Grab, FE_Detected, 207411)
+(In, RE_Detected, nct)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2801515) * (FE_Grab, FE_Detected, 191119) * (FE_Detected, RE_Detected, 2238791)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 129918) * (FE_C_limit, RE_C_limit, 499691) * (RE_C_limit, FE_Grab, 1307306) * (RE_C_limit, FE_C_plus, 1307306)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 64959) * (FE_Detected, RE_C_limit, 573908) * (RE_C_limit, RE_Detected, 4008402)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2752778) * (FE_Grab, FE_Detected, 196880) * (FE_Detected, RE_Detected, 2202721)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2040049) * (FE_Grab, FE_Detected, 726081) * (FE_Detected, RE_Detected, 1714449)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 113930) * (FE_C_limit, RE_C_limit, 513006) * (RE_C_limit, FE_Grab, 1298926) * (RE_C_limit, FE_C_plus, 1298926)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 64959) * (FE_Detected, RE_C_limit, 577647) * (RE_C_limit, RE_Detected, 3993089)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 3048487) * (FE_Grab, FE_Detected, 40612) * (FE_Detected, RE_Detected, 2235205)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2745023) * (FE_Grab, FE_Detected, 199040) * (FE_Detected, RE_Detected, 2635375)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 449180) * (FE_C_limit, RE_C_limit, 172010) * (RE_C_limit, FE_Grab, 1305009) * (RE_C_limit, FE_C_plus, 1305009)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 197062) * (FE_Detected, RE_C_limit, 460050) * (RE_C_limit, RE_Detected, 3859520)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2760888) * (FE_Grab, FE_Detected, 193881) * (FE_Detected, RE_Detected, 2201762)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2732111) * (FE_Grab, FE_Detected, 196881) * (FE_Detected, RE_Detected, 2214845)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 107934) * (FE_C_limit, RE_C_limit, 509683) * (RE_C_limit, FE_Grab, 1338179) * (RE_C_limit, FE_C_plus, 1338179)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 75784) * (FE_Detected, RE_C_limit, 731583) * (RE_C_limit, RE_Detected, 3781685)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 3546991) * (FE_Grab, FE_Detected, 569473) * (FE_Detected, RE_Detected, 2213166)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2720567) * (FE_Grab, FE_Detected, 185886) * (FE_Detected, RE_Detected, 2965015)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 113930) * (FE_C_limit, RE_C_limit, 509883) * (RE_C_limit, FE_Grab, 1327536) * (RE_C_limit, FE_C_plus, 1327536)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 69958) * (FE_Detected, RE_C_limit, 578598) * (RE_C_limit, RE_Detected, 3975273)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2776244) * (FE_Grab, FE_Detected, 184830) * (FE_Detected, RE_Detected, 2633839)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2765642) * (FE_Grab, FE_Detected, 191476) * (FE_Detected, RE_Detected, 2230444)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 94942) * (FE_C_limit, RE_C_limit, 676687) * (RE_C_limit, FE_Grab, 1144185) * (RE_C_limit, FE_C_plus, 1144185)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 66959) * (FE_Detected, RE_C_limit, 572645) * (RE_C_limit, RE_Detected, 4527649)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2767816) * (FE_Grab, FE_Detected, 185885) * (FE_Detected, RE_Detected, 2245161)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2766739) * (FE_Grab, FE_Detected, 198878) * (FE_Detected, RE_Detected, 2228244)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 48134) * (FE_C_limit, RE_C_limit, 522677) * (RE_C_limit, FE_Grab, 2077607) * (RE_C_limit, FE_C_plus, 2077607)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 99938) * (FE_Detected, RE_C_limit, 546661) * (RE_C_limit, RE_Detected, 3984100)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2306634) * (FE_Grab, FE_Detected, 175889) * (FE_Detected, RE_Detected, 2251838)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2753885) * (FE_Grab, FE_Detected, 193879) * (FE_Detected, RE_Detected, 2246120)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 111581) * (FE_C_limit, RE_C_limit, 475459) * (RE_C_limit, FE_Grab, 1329072) * (RE_C_limit, FE_C_plus, 1329072)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 64961) * (FE_Detected, RE_C_limit, 584637) * (RE_C_limit, RE_Detected, 3978198)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2715982) * (FE_Grab, FE_Detected, 194880) * (FE_Detected, RE_Detected, 2246156)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2758370) * (FE_Grab, FE_Detected, 950197) * (FE_Detected, RE_Detected, 1478543)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 113934) * (FE_C_limit, RE_C_limit, 504688) * (RE_C_limit, FE_Grab, 1357013) * (RE_C_limit, FE_C_plus, 1357013)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 63960) * (FE_Detected, RE_C_limit, 588636) * (RE_C_limit, RE_Detected, 3898554)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2747966) * (FE_Grab, FE_Detected, 190883) * (FE_Detected, RE_Detected, 2237905)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2743960) * (FE_Grab, FE_Detected, 187889) * (FE_Detected, RE_Detected, 2247808)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 96939) * (FE_C_limit, RE_C_limit, 505365) * (RE_C_limit, FE_Grab, 1305216) * (RE_C_limit, FE_C_plus, 1305216)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 63961) * (FE_Detected, RE_C_limit, 576152) * (RE_C_limit, RE_Detected, 3916201)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2763319) * (FE_Grab, FE_Detected, 202873) * (FE_Detected, RE_Detected, 2175164)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2743682) * (FE_Grab, FE_Detected, 193412) * (FE_Detected, RE_Detected, 2247410)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 130918) * (FE_C_limit, RE_C_limit, 477974) * (RE_C_limit, FE_Grab, 1319376) * (RE_C_limit, FE_C_plus, 1319376)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 68964) * (FE_Detected, RE_C_limit, 578147) * (RE_C_limit, RE_Detected, 3940193)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2755663) * (FE_Grab, FE_Detected, 209870) * (FE_Detected, RE_Detected, 2247027)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2788355) * (FE_Grab, FE_Detected, 193878) * (FE_Detected, RE_Detected, 2237352)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 97708) * (FE_C_limit, RE_C_limit, 478433) * (RE_C_limit, FE_Grab, 1369837) * (RE_C_limit, FE_C_plus, 1369837)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 363970) * (FE_Detected, RE_C_limit, 176339) * (RE_C_limit, RE_Detected, 4043070)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2759849) * (FE_Grab, FE_Detected, 196914) * (FE_Detected, RE_Detected, 2278146)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2748612) * (FE_Grab, FE_Detected, 184890) * (FE_Detected, RE_Detected, 2258032)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 112930) * (FE_C_limit, RE_C_limit, 471707) * (RE_C_limit, FE_Grab, 1326182) * (RE_C_limit, FE_C_plus, 1326182)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 79951) * (FE_Detected, RE_C_limit, 567081) * (RE_C_limit, RE_Detected, 3923742)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2745234) * (FE_Grab, FE_Detected, 195879) * (FE_Detected, RE_Detected, 2213384)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2732999) * (FE_Grab, FE_Detected, 197515) * (FE_Detected, RE_Detected, 2239654)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 924730) * (FE_C_limit, RE_C_limit, 308337) * (RE_C_limit, FE_Grab, 1302266) * (RE_C_limit, FE_C_plus, 1302266)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 649600) * (FE_Detected, RE_C_limit, 231102) * (RE_C_limit, RE_Detected, 3966605)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2762090) * (FE_Grab, FE_Detected, 192885) * (FE_Detected, RE_Detected, 2235167)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2738509) * (FE_Grab, FE_Detected, 197834) * (FE_Detected, RE_Detected, 2242962)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 113930) * (FE_C_limit, RE_C_limit, 464717) * (RE_C_limit, FE_Grab, 1344688) * (RE_C_limit, FE_C_plus, 1344688)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 22986) * (FE_Detected, RE_C_limit, 581644) * (RE_C_limit, RE_Detected, 3938060)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2731357) * (FE_Grab, FE_Detected, 194881) * (FE_Detected, RE_Detected, 2212820)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2551849) * (FE_Grab, FE_Detected, 191559) * (FE_Detected, RE_Detected, 2244484)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 723457) * (FE_C_limit, RE_C_limit, 483700) * (RE_C_limit, FE_Grab, 1969517) * (RE_C_limit, FE_C_plus, 1969517)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 80952) * (FE_Detected, RE_C_limit, 570693) * (RE_C_limit, RE_Detected, 3970412)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2785851) * (FE_Grab, FE_Detected, 162899) * (FE_Detected, RE_Detected, 2247568)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2766675) * (FE_Grab, FE_Detected, 181779) * (FE_Detected, RE_Detected, 2246525)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 97940) * (FE_C_limit, RE_C_limit, 482701) * (RE_C_limit, FE_Grab, 1329271) * (RE_C_limit, FE_C_plus, 1329271)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 67958) * (FE_Detected, RE_C_limit, 577152) * (RE_C_limit, RE_Detected, 3936296)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2774441) * (FE_Grab, FE_Detected, 191609) * (FE_Detected, RE_Detected, 2199664)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2779737) * (FE_Grab, FE_Detected, 165899) * (FE_Detected, RE_Detected, 2255607)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 110931) * (FE_C_limit, RE_C_limit, 500689) * (RE_C_limit, FE_Grab, 1344795) * (RE_C_limit, FE_C_plus, 1344795)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 65131) * (FE_Detected, RE_C_limit, 573023) * (RE_C_limit, RE_Detected, 3950533)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2702796) * (FE_Grab, FE_Detected, 204873) * (FE_Detected, RE_Detected, 2272846)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2721583) * (FE_Grab, FE_Detected, 192385) * (FE_Detected, RE_Detected, 2251679)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 127920) * (FE_C_limit, RE_C_limit, 499691) * (RE_C_limit, FE_Grab, 1346691) * (RE_C_limit, FE_C_plus, 1346691)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 66959) * (FE_Detected, RE_C_limit, 587329) * (RE_C_limit, RE_Detected, 3897165)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2753214) * (FE_Grab, FE_Detected, 201874) * (FE_Detected, RE_Detected, 2199041)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2741704) * (FE_Grab, FE_Detected, 178888) * (FE_Detected, RE_Detected, 2279671)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 113930) * (FE_C_limit, RE_C_limit, 504583) * (RE_C_limit, FE_Grab, 1320000) * (RE_C_limit, FE_C_plus, 1320000)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 63959) * (FE_Detected, RE_C_limit, 587243) * (RE_C_limit, RE_Detected, 3869614)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2762037) * (FE_Grab, FE_Detected, 197445) * (FE_Detected, RE_Detected, 2277934)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2735500) * (FE_Grab, FE_Detected, 194878) * (FE_Detected, RE_Detected, 2244392)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 93942) * (FE_C_limit, RE_C_limit, 515681) * (RE_C_limit, FE_Grab, 1301238) * (RE_C_limit, FE_C_plus, 1301238)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 79951) * (FE_Detected, RE_C_limit, 566308) * (RE_C_limit, RE_Detected, 3886799)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2743897) * (FE_Grab, FE_Detected, 161901) * (FE_Detected, RE_Detected, 2245013)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2765154) * (FE_Grab, FE_Detected, 746117) * (FE_Detected, RE_Detected, 1687110)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 111931) * (FE_C_limit, RE_C_limit, 469708) * (RE_C_limit, FE_Grab, 1342170) * (RE_C_limit, FE_C_plus, 1342170)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 33673) * (FE_Detected, RE_C_limit, 538602) * (RE_C_limit, RE_Detected, 3953382)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2716186) * (FE_Grab, FE_Detected, 844421) * (FE_Detected, RE_Detected, 1594875)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, 2746898) * (FE_Grab, FE_Detected, 194879) * (FE_Detected, RE_Detected, 2225900)
+(In, RE_Grab, nct)
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, 109935) * (FE_C_limit, RE_C_limit, 522523) * (RE_C_limit, FE_Grab, 1331759) * (RE_C_limit, FE_C_plus, 1331759)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 63960) * (FE_Detected, RE_C_limit, 578650)
+
+
+
+
+=============================================================================================
+
+
+
+(In, RE_C_plus, nct) * (RE_C_plus, FE_C_limit, [48134, 924730]) * (FE_C_limit, RE_C_limit, [172010, 676687]) * (RE_C_limit, FE_Grab, [1144185, 2077607]) * (RE_C_limit, FE_C_plus, [1144185, 2077607])
+(In, RE_Grab, nct)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, [22986, 649600]) * (FE_Detected, RE_C_limit, [176339, 731583]) * (RE_C_limit, RE_Detected, [3781685, 4527649])
+(In, RE_Grab, nct) * (In, RE_Detected, nct) * (RE_Grab, FE_Grab, 1500741) * (RE_Detected, FE_Grab, 1500741) * (FE_Grab, FE_Detected, 207411)
+(In, FE_C_limit, nct) * (FE_C_limit, FE_Detected, 63960) * (FE_Detected, RE_C_limit, 578650)
+(In, RE_Grab, nct) * (RE_Grab, FE_Grab, [2040049, 3546991]) * (FE_Grab, FE_Detected, [40612, 950197]) * (FE_Detected, RE_Detected, [1478543, 2965015])
+(In, RE_Detected, nct)
+
