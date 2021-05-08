@@ -23,4 +23,9 @@ public class Triplet {
 		return "(" + this.referent.toString() + ", " + this.contraint.toString() + ", " + this.ct + ")"/* + '_' + this.id*/; 
 	}
 
+	@Override
+	public Triplet clone(){
+		return new Triplet(this.referent.clone(), this.contraint.clone(), this.ct.clone());
+	}
+
 }

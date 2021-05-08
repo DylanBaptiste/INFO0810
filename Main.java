@@ -1,4 +1,7 @@
 import java.util.*;
+
+import javax.swing.plaf.basic.BasicLookAndFeel;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,13 +17,13 @@ public class Main {
 		
 		/* fichier */
 		String delimiter = ",";
-		String input = "input_file";
+		String input = "convoyeur";
 		String timeColumnName = "Temps";
 		String TrueValue = "1";
 		String FalseValue = "0";
 		
 		/* graph */
-		boolean displayGraph = true;
+		boolean displayGraph = false;
 		int graphQuality = 0; /*0 -> 4*/
 		boolean graphAntialias = false;
 		
@@ -122,24 +125,49 @@ public class Main {
 				}
 
 			}
-
+			List<String> captors = new ArrayList<String>();
+			for(int columnIndex: captorIndexes){
+				captors.add(headers[columnIndex]);
+			}
 			out.println("\n\n\n=============================================================================================\n\n\n");
 			out.println(c);
+			Map<String, ArrayList<Triplet>> badrules0 = c.createBadRules(0);
+			for(Map.Entry<String, ArrayList<Triplet>> rule : badrules0.entrySet()){
+				out.println(String.format("%20s", rule.getKey()) + " ==> " + rule.getValue());
+			}
+			out.println();
+			for(Map.Entry<String, ArrayList<Triplet>> rule : badrules0.entrySet()){
+				out.print(String.format("%20s", rule.getKey()));
+				Condition.encode(rule.getValue(), captors).forEach(value -> out.print(", " + value));
+				out.println();
+			}
+			out.println();
+			for(ArrayList<Integer> codes: c.encodeAll(captors)){
+				out.print(String.format("%20s", "Normal"));
+				codes.forEach(value -> out.print(", " + value));
+				out.println();
+			}
 			out.println("\n\n\n=============================================================================================\n\n\n");
 			out.println(Condition.toString(c.computeSTC()));
+			//System.out.println(c.previous(0, 1));
+			
 			out.close();
 
-			System.setProperty("org.graphstream.ui", "swing"); 
-			System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
-			String styleSheet = "";
-			try { styleSheet = Files.readString(Paths.get(System.getProperty("user.dir") + "\\style.txt")); }
-			catch (Exception e) { e.printStackTrace(); }
-			c.graph.setAttribute("ui.stylesheet", styleSheet);
-			c.graph.setAttribute("ui.quality", graphQuality);
-			c.graph.setAttribute("ui.antialias", graphAntialias);
-			// c.graph.setAttribute("layout.stabilization-limit", 0);
-			// c.graph.setAttribute("layout.force", 1);
-			c.graph.display(displayGraph);
+			if(displayGraph){
+				System.setProperty("org.graphstream.ui", "swing"); 
+				System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+				String styleSheet = "";
+				try { styleSheet = Files.readString(Paths.get(System.getProperty("user.dir") + "\\style.txt")); }
+				catch (Exception e) { e.printStackTrace(); }
+				c.graph.setAttribute("ui.stylesheet", styleSheet);
+				c.graph.setAttribute("ui.quality", graphQuality);
+				c.graph.setAttribute("ui.antialias", graphAntialias);
+				// c.graph.setAttribute("layout.stabilization-limit", 0);
+				// c.graph.setAttribute("layout.force", 1);
+				c.graph.display();
+			}
+
+		
 			
 
 			reader.close();

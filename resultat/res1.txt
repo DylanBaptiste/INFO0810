@@ -1,1 +1,0 @@
-(In, RE_AAAAA, nct) * (RE_AAAAA, RE_BBBBB, 4) * (RE_BBBBB, FE_AAAAA, 5) * (FE_AAAAA, FE_BBBBB, 9)

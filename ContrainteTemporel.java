@@ -18,6 +18,8 @@ public class ContrainteTemporel {
 	
 	public int getMin(){ return this.range == null ? -1 : this.range[0]; }
 	public int getMax(){ return this.range == null ? -1 : this.range[1]; }
+	public void setMin(int value){ if(this.range != null){this.range[0] = value; } }
+	public void setMax(int value){ if(this.range != null){this.range[1] = value; } }
 	public int[] getRange(){
 		return this.range == null ? null : this.range.clone();
 	}
@@ -41,6 +43,28 @@ public class ContrainteTemporel {
 			return Integer.toString(this.range[0])/* + '_' + this.id*/;
 		}
 		return Arrays.toString(this.range)/* + '_' + this.id*/;
+	}
+
+	public boolean isNct(){
+		return this.range == null;
+	}
+
+	private void setId(int id){
+		this.id = id;
+	}
+
+	@Override
+	public ContrainteTemporel clone(){
+		if(this.isNct()){
+			ContrainteTemporel clone = ContrainteTemporel.NCT();
+			clone.setId(this.id);
+			ContrainteTemporel.ct_count--;
+			return clone;
+		}
+		ContrainteTemporel clone = new ContrainteTemporel(this.getMin(), this.getMax());
+		clone.setId(this.id);
+		ContrainteTemporel.ct_count--;
+		return clone;
 	}
 
 	/* * * * * * *
