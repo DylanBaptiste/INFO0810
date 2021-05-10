@@ -47,6 +47,15 @@ edge.NEW{
 	arrow-size: 2px, 2px;
 }
 
+edge.inter{
+	size: 0px;
+	text-color: #00000000;
+	fill-color: #00000000;
+	arrow-shape: arrow;
+	arrow-size: 0px, 0px;
+}
+
+
 node:clicked { fill-color: white; }
 node:selected{ fill-color: white; }
 

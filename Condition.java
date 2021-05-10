@@ -81,7 +81,13 @@ public class Condition {
 			}
 		}
 
-		if(first){ this.graph.addNode("start").setAttribute("ui.class", "start"); }
+		if(first){
+			Node node = this.graph.addNode("start");
+			node.setAttribute("ui.class", "start");
+			node.setAttribute("layout.frozen", true);
+			node.setAttribute("x", 0.0);
+			node.setAttribute("y", 0.0);
+		}
 
 		if(canAdd || first){
 			//On ajoute le(s) contraint(s) en les referents à leur(s) referent(s)
@@ -90,13 +96,14 @@ public class Condition {
 				Node node = this.graph.addNode(strC);
 				node.setAttribute("ui.class", whitheList.contains(contraint.toString()) ? "whiteList" : "");
 				node.setAttribute("ui.label", "("+this.current+")"+strC);
-
+				node.setAttribute("x", ct.getId() + 1 * 10);
 				for(Evenement referent: referents){
 					this.getCurrentRegle().add(new Triplet(referent, contraint, ct));
 					
 					String strR = first ? "start" : referent.toString() +"_"+ referent.getId();
 					Edge edge = this.graph.addEdge(strR + strC, strR, strC, true);
 					edge.setAttribute("layout.weight", 1);
+					edge.setAttribute("ui.label", ct.getMin());
 				}
 			}
 		}else{
@@ -109,6 +116,7 @@ public class Condition {
 				Node node = this.graph.addNode(strC);
 				node.setAttribute("ui.label", "("+this.current+")"+strC);
 				node.setAttribute("ui.class", whitheList.contains(contraint.toString()) ? "whiteList" : "");
+				node.setAttribute("x", ct.getId() + 1 * 10);
 
 				for(Evenement referent: referents){					
 					String strR = referent.toString() +"_"+ referent.getId();
@@ -120,16 +128,23 @@ public class Condition {
 			}
 		}
 
-		// for(Evenement r1: referents){
-		// 	for(Evenement r2: referents){
-		// 		if(r1 == r2){ continue;}
-		// 		String s1 = r1.toString() + "_" + r1.getId();
-		// 		String s2 = r2.toString() + "_" + r2.getId();
-		// 		Edge edge = this.graph.addEdge(s1 + "" + s2, s1, s2, false);
-		// 		edge.setAttribute("layout.weight", 1.42);
-		// 		edge.setAttribute("ui.class", "inter");
-		// 	}
-		// }
+
+		for(int i = 0; i < contraints.size() - 1; i++){
+			Evenement r1 = contraints.get(i);
+			Evenement r2 = contraints.get(i+1);
+			if(r1 == r2){ continue; }
+			String s1 = r1.toString() + "_" + r1.getId();
+			String s2 = r2.toString() + "_" + r2.getId();
+			Edge edge = this.graph.addEdge(s1 + "" + s2 , s1, s2, true);
+			Edge edge2 = this.graph.addEdge(s2 + "" + s1 , s2, s1, true);
+			float w = 0.5f;
+			edge.setAttribute("ui.class", "inter");
+			edge.setAttribute("ui.label", w);
+			edge.setAttribute("layout.weight", w);
+			edge2.setAttribute("ui.class", "inter");
+			edge2.setAttribute("ui.label", w);
+			edge2.setAttribute("layout.weight", w);
+		}
 
 		return true;
 	}
@@ -277,6 +292,7 @@ public class Condition {
 
 		while (last.ct == current.ct) {
 			tripletIndice++;
+			if(tripletIndice > this.archive.get(regleIndice).size() - 1){ return next; }
 			last = this.archive.get(regleIndice).get(tripletIndice);
 		}
 		ContrainteTemporel lastCT = this.archive.get(regleIndice).get(tripletIndice).ct;

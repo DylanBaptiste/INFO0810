@@ -23,7 +23,7 @@ public class Main {
 		String FalseValue = "0";
 		
 		/* graph */
-		boolean displayGraph = false;
+		boolean displayGraph = true;
 		int graphQuality = 0; /*0 -> 4*/
 		boolean graphAntialias = false;
 		
@@ -131,20 +131,24 @@ public class Main {
 			}
 			out.println("\n\n\n=============================================================================================\n\n\n");
 			out.println(c);
-			Map<String, ArrayList<Triplet>> badrules0 = c.createBadRules(0);
-			for(Map.Entry<String, ArrayList<Triplet>> rule : badrules0.entrySet()){
-				out.println(String.format("%20s", rule.getKey()) + " ==> " + rule.getValue());
+			
+			for(int i = 0; i < c.archive.size(); i++){
+				Map<String, ArrayList<Triplet>> badrules0 = c.createBadRules(i);
+				
+				// out.println();
+				// for(Map.Entry<String, ArrayList<Triplet>> rule : badrules0.entrySet()){
+				// 	out.println(rule.getKey() + " ==> " + rule.getValue());
+				// }
+				
+				for(Map.Entry<String, ArrayList<Triplet>> rule : badrules0.entrySet()){
+					out.print(rule.getKey());
+					Condition.encode(rule.getValue(), captors).forEach(value -> out.print("," + value));
+					out.println();
+				}
 			}
-			out.println();
-			for(Map.Entry<String, ArrayList<Triplet>> rule : badrules0.entrySet()){
-				out.print(String.format("%20s", rule.getKey()));
-				Condition.encode(rule.getValue(), captors).forEach(value -> out.print(", " + value));
-				out.println();
-			}
-			out.println();
 			for(ArrayList<Integer> codes: c.encodeAll(captors)){
-				out.print(String.format("%20s", "Normal"));
-				codes.forEach(value -> out.print(", " + value));
+				out.print("Normal");
+				codes.forEach(value -> out.print("," + value));
 				out.println();
 			}
 			out.println("\n\n\n=============================================================================================\n\n\n");
