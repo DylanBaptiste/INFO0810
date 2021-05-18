@@ -2,13 +2,13 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ContrainteTemporel {
+public class ContrainteTemporelle {
 
 	static int ct_count = 0;
 	private int id;
 	int range[];
 
-    public ContrainteTemporel(int min, int max){
+    public ContrainteTemporelle(int min, int max){
 		//assert min <= max && min >= 0 && max >= 0;
 		this.id = ++ct_count;
 		this.range = min == -1 || max == -1 ? null : new int[]{min, max};
@@ -24,11 +24,11 @@ public class ContrainteTemporel {
 		return this.range == null ? null : this.range.clone();
 	}
 
-	public static ContrainteTemporel NCT(){
-		return new ContrainteTemporel(-1, -1);
+	public static ContrainteTemporelle NCT(){
+		return new ContrainteTemporelle(-1, -1);
 	}
 
-	public boolean updateRange(ContrainteTemporel other){
+	public boolean updateRange(ContrainteTemporelle other){
 		if(other.getRange() == null || this.getRange() == null){ return false; }
 		this.range[0] = Math.min(this.range[0], other.getMin());
 		this.range[1] = Math.max(this.range[1], other.getMax());
@@ -54,16 +54,16 @@ public class ContrainteTemporel {
 	}
 
 	@Override
-	public ContrainteTemporel clone(){
+	public ContrainteTemporelle clone(){
 		if(this.isNct()){
-			ContrainteTemporel clone = ContrainteTemporel.NCT();
+			ContrainteTemporelle clone = ContrainteTemporelle.NCT();
 			clone.setId(this.id);
-			ContrainteTemporel.ct_count--;
+			ContrainteTemporelle.ct_count--;
 			return clone;
 		}
-		ContrainteTemporel clone = new ContrainteTemporel(this.getMin(), this.getMax());
+		ContrainteTemporelle clone = new ContrainteTemporelle(this.getMin(), this.getMax());
 		clone.setId(this.id);
-		ContrainteTemporel.ct_count--;
+		ContrainteTemporelle.ct_count--;
 		return clone;
 	}
 

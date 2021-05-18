@@ -1,0 +1,76 @@
+RE_B   	2020-08-24 12:30:40.000001
+RE_X   	2020-08-24 12:30:40.000001
+RE_Y   	2020-08-24 12:30:40.000001
+FE_Y   	2020-08-24 12:30:40.000001
+FE_B   	2020-08-24 12:30:40.000001
+FE_X   	2020-08-24 12:30:40.000001
+FE_A   	2020-08-24 12:30:40.000001
+RE_A   	2020-08-24 12:30:40.000001
+RE_X   	2020-08-24 12:30:40.000001
+FE_X   	2020-08-24 12:30:40.000001
+FE_A   	2020-08-24 12:30:40.000001
+RE_A   	2020-08-24 12:30:40.000001
+RE_Y   	2020-08-24 12:30:40.000001
+FE_Y   	2020-08-24 12:30:40.000001
+FE_A   	2020-08-24 12:30:40.000001
+RE_A   	2020-08-24 12:30:40.000001
+RE_Y   	2020-08-24 12:30:40.000001
+FE_Y   	2020-08-24 12:30:40.000001
+FE_A   	2020-08-24 12:30:40.000001
+RE_A   	2020-08-24 12:30:40.000001
+RE_X   	2020-08-24 12:30:40.000001
+FE_X   	2020-08-24 12:30:40.000001
+FE_A   	2020-08-24 12:30:40.000001
+RE_A   	2020-08-24 12:30:40.000001
+RE_Y   	2020-08-24 12:30:40.000001
+FE_Y   	2020-08-24 12:30:40.000001
+
+
+
+=============================================================================================
+
+
+
+(In, RE_B, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+(In, RE_X, nct) * (RE_X, FE_X, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+(In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+(In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_X, 0) * (RE_X, FE_X, 0)
+(In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+
+
+cas seul collage à 0 de Y ==>  * (In, RE_B, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, In, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+cas plusieurs et NCT collage à 0 de X ==>  * (In, RE_B, nct) * (In, In, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+cas plusieurs et NCT collage à 0 de Y ==>  * (In, RE_B, nct) * (In, RE_X, nct) * (In, In, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+cas plusieurs collage à 0 de B ==>  * (In, RE_B, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, In, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+cas seul collage à 0 de A ==>  * (In, RE_B, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, In, 0)
+cas plusieurs collage à 0 de X ==>  * (In, RE_B, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, In, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+cas plusieurs et NCT collage à 0 de B ==>  * (In, In, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+
+cas seul collage à 0 de Y ==>  * (In, RE_X, nct) * (RE_X, FE_X, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, In, 0)
+cas seul collage à 0 de X ==>  * (In, RE_X, nct) * (RE_X, In, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+cas seul collage à 0 de A ==>  * (In, RE_X, nct) * (RE_X, FE_X, 0) * (FE_X, FE_A, 0) * (FE_A, In, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+cas seul et NCT collage à 0 de X ==>  * (In, In, nct) * (RE_X, FE_X, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+
+cas seul collage à 0 de Y ==>  * (In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, In, 0)
+cas seul et NCT collage à 0 de A ==>  * (In, In, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+cas seul collage à 0 de A ==>  * (In, FE_A, nct) * (FE_A, In, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+
+cas seul collage à 0 de X ==>  * (In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_X, 0) * (RE_X, In, 0)
+cas seul et NCT collage à 0 de A ==>  * (In, In, nct) * (FE_A, RE_A, 0) * (RE_A, RE_X, 0) * (RE_X, FE_X, 0)
+cas seul collage à 0 de A ==>  * (In, FE_A, nct) * (FE_A, In, 0) * (RE_A, RE_X, 0) * (RE_X, FE_X, 0)
+
+cas seul collage à 0 de Y ==>  * (In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, In, 0)
+cas seul et NCT collage à 0 de A ==>  * (In, In, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+cas seul collage à 0 de A ==>  * (In, FE_A, nct) * (FE_A, In, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+
+
+
+=============================================================================================
+
+
+
+(In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_X, 0) * (RE_X, FE_X, 0)
+(In, FE_A, nct) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+(In, RE_X, nct) * (RE_X, FE_X, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0) * (RE_A, RE_Y, 0) * (RE_Y, FE_Y, 0)
+(In, RE_B, nct) * (In, RE_X, nct) * (In, RE_Y, nct) * (RE_B, FE_Y, 0) * (RE_X, FE_Y, 0) * (RE_Y, FE_Y, 0) * (FE_Y, FE_B, 0) * (FE_Y, FE_X, 0) * (FE_B, FE_A, 0) * (FE_X, FE_A, 0) * (FE_A, RE_A, 0)
+

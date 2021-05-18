@@ -4,9 +4,9 @@ public class Triplet {
 	private int id;
 	Evenement referent = null;
 	Evenement contraint = null;
-	ContrainteTemporel ct = null;
+	ContrainteTemporelle ct = null;
 
-    public Triplet(Evenement referent, Evenement contraint, ContrainteTemporel ct){
+    public Triplet(Evenement referent, Evenement contraint, ContrainteTemporelle ct){
 		this.id = ++tri_count;
 		this.referent = referent;
 		this.contraint = contraint;

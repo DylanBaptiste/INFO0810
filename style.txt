@@ -38,21 +38,27 @@ edge{
 	fill-color: #a9c2c2;
 	arrow-shape: arrow;
 	arrow-size: 8px, 8px;
+	text-style: bold;
+	text-background-mode: rounded-box;
+	text-background-color: #333C;
+	text-padding: 5px, 4px;
 }
 edge.NEW{
-	size: 2px;
-	text-color: white;
+	size: 5px;
+	text-color: red;
+	text-style: bold;
 	fill-color: #828282;
 	arrow-shape: arrow;
 	arrow-size: 2px, 2px;
 }
 
 edge.inter{
-	size: 0px;
-	text-color: #00000000;
-	fill-color: #00000000;
+	size: 1px;
+	text-color: #F0000000;
+	fill-color: #F0000000;
+	text-background-color: #00000000;
 	arrow-shape: arrow;
-	arrow-size: 0px, 0px;
+	arrow-size: 5px, 5px;
 }
 
 

@@ -114,3 +114,11 @@ Encodage V2 =>
 (In, RE_A1B2, nct) * (RE_A1B2, RE_P1S, 2) * (RE_P1S, FE_P1VP2, 9) * (FE_P1VP2, RE_P1VP2, 1) * (RE_P1VP2, FE_P2E, 4)
 => 
 (In, RE_A1B2, nct) * (RE_A1B2, RE_P1S, 2) * (RE_P1S, RE_P1VP2, 10) * (RE_P1VP2, FE_P2E, 4) => (RE_P1S, FE_P1VP2,  9) collage à 0 de P1VP2
+
+
+
+
+
+https://en.wikipedia.org/wiki/Dynamic_time_warping
+
+https://rss.onlinelibrary.wiley.com/doi/full/10.1111/rssa.12125

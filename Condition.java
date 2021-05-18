@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Map.Entry;
 
 import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.*;
@@ -15,7 +14,7 @@ public class Condition {
 
 	List<ArrayList<Triplet>> regles = new ArrayList<ArrayList<Triplet>>();
 
-	//List<String> whitheList = new ArrayList<String>(Arrays.asList());
+	// List<String> whitheList = new ArrayList<String>(Arrays.asList());
 	//List<String> blackList = new ArrayList<String>(Arrays.asList());
 
 	//List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES", "RE_VTEX", "RE_VBR", "RE_VBN"));	
@@ -24,12 +23,16 @@ public class Condition {
 	// List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_A"));
 	// List<String> blackList = new ArrayList<String>(Arrays.asList("FE_A"));
 
-	List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
-	List<String> blackList = new ArrayList<String>(Arrays.asList("FE_A1B2","FE_A1B4", "RE_P2E", "RE_P4E" ,"FE_P1S"));
+	// List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_A1B2", "RE_A1B4"));
+	// List<String> blackList = new ArrayList<String>(Arrays.asList("FE_A1B2","FE_A1B4", "RE_P2E", "RE_P4E" ,"FE_P1S"));
 	
 	// List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_Box_conveyor", "RE_Part_conveyor", "RE_Grab", "RE_C_plus"));
 	// List<String> blackList = new ArrayList<String>(Arrays.asList("FE_Auto", "RE_Auto", "RE_Manual", "FE_Manual", "RE_Start", "FE_Start", "RE_Stop", "FE_Stop","RE_Reset_button", "FE_Reset_button"));
 	
+	
+	List<String> whitheList = new ArrayList<String>(Arrays.asList());
+	List<String> blackList = new ArrayList<String>(Arrays.asList());
+
 	/*
 	0,0,0,0,0,1,1,0,0,1,1,1,0,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,[datetime.datetime(2020; 8; 24; 12; 58; 8; 943587)]
 	Box_conveyor, Box_at_place
@@ -68,7 +71,7 @@ public class Condition {
 		return this.archive.get(this.current);
 	}
 
-	public boolean add(List<Evenement> referents, List<Evenement> contraints, ContrainteTemporel ct){
+	public boolean add(List<Evenement> referents, List<Evenement> contraints, ContrainteTemporelle ct){
 
 		boolean canAdd = true;
 		boolean first = (this.getCurrentRegle().size() == 0 && this.current == 0);
@@ -110,7 +113,7 @@ public class Condition {
 			//Sinon On ajoute une nouvelle regles en mettant les contraints en NCT
 			this.creerNouvelleRegle();
 			for(Evenement contraint: contraints){
-				this.getCurrentRegle().add(new Triplet(Evenement.In(), contraint, ContrainteTemporel.NCT()));
+				this.getCurrentRegle().add(new Triplet(Evenement.In(), contraint, ContrainteTemporelle.NCT()));
 
 				String strC = contraint.toString() +"_"+ contraint.getId();
 				Node node = this.graph.addNode(strC);
@@ -183,7 +186,7 @@ public class Condition {
 
 			if(ligne.isEmpty()){
 				for(Triplet triplet: this.archive.get(i)){
-					ligne.add(new Triplet(triplet.referent, triplet.contraint, new ContrainteTemporel(triplet.ct.getMin(), triplet.ct.getMax())));
+					ligne.add(new Triplet(triplet.referent, triplet.contraint, new ContrainteTemporelle(triplet.ct.getMin(), triplet.ct.getMax())));
 				}
 			}else{
 				for(int j = 0; j < this.archive.get(i).size(); j++){
@@ -216,7 +219,7 @@ public class Condition {
 		List<Integer> codes = new ArrayList<Integer>();
 		
 		for(Triplet triplet: triplets){
-			codes.add(1);
+			//codes.add(1);
 			codes.add(triplet.referent.encodeT());
 			codes.add(triplet.referent.encodeC(captors));
 			codes.add(triplet.contraint.encodeT());
@@ -226,42 +229,298 @@ public class Condition {
 		return codes;
 	}
 
-	//(In, RE_A1B2, nct) * (RE_A1B2, RE_P1S, 2) * (RE_P1S, FE_P1VP2,  9) * (FE_P1VP2, RE_P1VP2, 1) * (RE_P1VP2, FE_P2E, 4)
+	/**
+	 * créé tout les symptome possible pour un indice de ligne donné
+	 * @param indice indice de la ligne dans this.archive
+	 * @return une hasmap { symptome => list triplet }
+	 * 
+	 * 
+		page 210
+		(In, RE_A1B4, nct) *                              (RE_A1B4, FE_P1VP4, 13) * (FE_P1VP4, RE_P1VP4, 1) * (RE_P1VP4, FE_P4E, 8)
 
-	public Map<String, ArrayList<Triplet>> createBadRules(int indice){
-		
+
+		(In, RE_A1B4, nct) * (RE_A1B4, S_P1S, 3])      * (RE_P1S, FE_P1VP4, 11) * (FE_P1VP4, RE_P1VP4, 1) * (RE_P1VP4, FE_P4E, [6, 8])
+		(In, RE_A1B4, nct) * (RE_A1B4, RE_P1S, [1, 3]) * (RE_P1S, FE_P1VP4, 11) * (FE_P1VP4, RE_P1VP4, 1) * (RE_P1VP4, FE_P4E, [6, 8])
+	 * 
+	 */
+	public Map<String, ArrayList<Triplet>> createBadRulesV2(int indice){
+
+		ArrayList<Triplet> currentListContraint = new ArrayList<Triplet>();
 		Map<String, ArrayList<Triplet>> badRules = new HashMap<String, ArrayList<Triplet>>();
 		ArrayList<Triplet> rule = new ArrayList<Triplet>();
 		ArrayList<Triplet> tmprule = new ArrayList<Triplet>();
 		Triplet deleted = null;
+
 		for(Triplet triplet: this.archive.get(indice)){
 			rule.add(triplet.clone());
 			tmprule.add(triplet.clone());
 		}
 
-		for(int i = 0; i < rule.size() - 1; i++){
-			if(!rule.get(i).isNct()){
-				deleted = tmprule.remove(i);
-				List<Triplet> prev = previous(indice, i);
-				List<Triplet> next = next(indice, i);
-				if(prev.size() == 1 && next.size() == 1){
-					tmprule.get(i).referent = prev.get(0).contraint.clone(); //i car le delete a reduit d'un cran tout
-					tmprule.get(i).ct.setMin(deleted.ct.getMin() + next.get(0).ct.getMin());
-					tmprule.get(i).ct.setMax(deleted.ct.getMax() + next.get(0).ct.getMax());
+		for(int i = 0; i < rule.size(); i++){
 
-					String cause = "collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+			//recuperer les triplets qui ont la meme contrainte que celui que je veux supprimer
+			for(Triplet triplet: this.archive.get(indice)){
+				if(triplet.ct == this.archive.get(indice).get(i).ct){
+					currentListContraint.add(triplet.clone());
+				}
+			}
+			//cas plusieurs noeuds freres si parmi ceux qui ont la meme contrainte on trouve differents contraint
+			Set<String> freres = new HashSet<String>();
+			for(Triplet t: currentListContraint){ freres.add(t.contraint.toString()); }
+
+			//deleted = tmprule.remove(i); //supprimer le triplet
+			deleted = tmprule.get(i);
+			Triplet replace = deleted.clone();
+			replace.contraint = Evenement.S(replace.contraint.contrainte);
+			tmprule.set(i, replace);
+
+			if(!rule.get(i).isNct()){
+
+				
+				List<Triplet> prev = previous(indice, i); //les triplets qui ont la contrainte precedente
+				//List<Triplet> next = next(indice, i); //pas utilisé
+				
+				//cas plusieurs noeuds freres
+				if(freres.size() > 1){
+					//ont supprime le triplet 
+					// et ont supprime dans les suivants les triplets ayant en referent le contraitn du triplet supprimé
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).referent.equals(deleted.contraint) || tmprule.get(j).contraint.equals(deleted.contraint)){
+							tmprule.remove(j);
+							j--;
+						}
+					}
+					String cause = "cas plusieurs collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					for(Triplet t: tmprule){
+						badRules.get(cause).add(t.clone());
+					}
+
+				}
+
+				//cas seul
+				if(freres.size() == 1){
+
+					String cause = "cas seul collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).contraint.equals(deleted.contraint)){
+							//on supprime les triplet dont le contraint est le meme celui du triplet supprimé
+							tmprule.remove(j);
+							j--;
+						}
+						else{
+							//sinon on ajoute
+							if(tmprule.get(j).referent.equals(deleted.contraint)){
+								//sauf si le triplet à en referent le contraint du triplet supprimé
+								for(Triplet t: prev){
+									//dans ce cas pour chaque contraint des triplets de la contrainte temporelle precedente on ajoute un nouveau triplet avec en referent ces contraints là
+									ContrainteTemporelle ct = tmprule.get(j).ct.clone();
+									ct.setMin(deleted.ct.getMin() + ct.getMin());
+									ct.setMax(deleted.ct.getMax() + ct.getMax());
+									badRules.get(cause).add(new Triplet(t.contraint.clone(), tmprule.get(j).contraint.clone(), ct));
+								}
+							}else{
+								badRules.get(cause).add(tmprule.get(j));
+							}
+						}
+					}
+				}
+			}else{
+				//cas plusieurs noeuds freres
+				if(freres.size() > 1){
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).referent.equals(deleted.contraint) || tmprule.get(j).contraint.equals(deleted.contraint)){
+							tmprule.remove(j);
+							j--;
+						}
+					}
+					String cause = "cas plusieurs et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(Triplet t: tmprule){
 						badRules.get(cause).add(t.clone());
 					}
 				}
+
+				//cas seul nct
+				if(freres.size() == 1){
+					String cause = "cas seul et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					ContrainteTemporelle nct = ContrainteTemporelle.NCT();
+					
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).contraint.equals(deleted.contraint)){
+							//on supprime les triplet dont le contraint est le meme celui du triplet supprimé
+							tmprule.remove(j);
+							j--;
+						}else{
+							if(tmprule.get(j).referent.equals(deleted.contraint)){
+								badRules.get(cause).add(new Triplet(Evenement.In(), tmprule.get(j).contraint.clone(), nct));
+							}else{
+								badRules.get(cause).add(tmprule.get(j));
+							}
+						}
+					}
+				}
 			}
+			//reinitialisation des variables temporaires
 			tmprule.clear();
-			for(Triplet triplet: this.archive.get(indice)){
-				tmprule.add(triplet.clone());
-			}
+			currentListContraint.clear();
+			for(Triplet triplet: this.archive.get(indice)){ tmprule.add(triplet.clone()); }
 		}
+
+		// remarque : les regles avec un symptome similaire
+		// (dans la meme ligne: i.e this.archive.get(indice) ce cas arrive pour les triplets qui ont le meme evenement contraint)
+		// génèrent la meme règle
+		// comme badRules est une hasmap les doublons sont calculé mais automatiquement ignoré (par ecrasement)
+
+		// remarque : becoup d'optimisation possible ici
+		// plus facile si on avait une structure de graphe où l'on suppimerait puis regenerait le resultat sous forme de liste de triplets
+		return badRules;
+	}
+
+	// /**
+	//  * créé tout les symptome possible pour un indice de ligne donné
+	//  * @param indice indice de la ligne dans this.archive
+	//  * @return une hasmap { symptome => list triplet }
+	//  */
+	public Map<String, ArrayList<Triplet>> createBadRulesV1(int indice){
+
+		ArrayList<Triplet> currentListContraint = new ArrayList<Triplet>();
+		Map<String, ArrayList<Triplet>> badRules = new HashMap<String, ArrayList<Triplet>>();
+		ArrayList<Triplet> rule = new ArrayList<Triplet>();
+		ArrayList<Triplet> tmprule = new ArrayList<Triplet>();
+		Triplet deleted = null;
+
+		for(Triplet triplet: this.archive.get(indice)){
+			rule.add(triplet.clone());
+			tmprule.add(triplet.clone());
+		}
+
+		for(int i = 0; i < rule.size(); i++){
+
+			//recuperer les triplets qui ont la meme contrainte que celui que je veux supprimer
+			for(Triplet triplet: this.archive.get(indice)){
+				if(triplet.ct == this.archive.get(indice).get(i).ct){
+					currentListContraint.add(triplet.clone());
+				}
+			}
+			//cas plusieurs noeuds freres si parmi ceux qui ont la meme contrainte on trouve differents contraint
+			Set<String> freres = new HashSet<String>();
+			for(Triplet t: currentListContraint){ freres.add(t.contraint.toString()); }
+
+			deleted = tmprule.remove(i); //supprimer le triplet
+
+			if(!rule.get(i).isNct()){
+
+				
+				List<Triplet> prev = previous(indice, i); //les triplets qui ont la contrainte precedente
+				//List<Triplet> next = next(indice, i); //pas utilisé
+				
+				//cas plusieurs noeuds freres
+				if(freres.size() > 1){
+					//ont supprime le triplet 
+					// et ont supprime dans les suivants les triplets ayant en referent le contraitn du triplet supprimé
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).referent.equals(deleted.contraint) || tmprule.get(j).contraint.equals(deleted.contraint)){
+							tmprule.remove(j);
+							j--;
+						}
+					}
+					String cause = "cas plusieurs collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					for(Triplet t: tmprule){
+						badRules.get(cause).add(t.clone());
+					}
+
+				}
+
+				//cas seul
+				if(freres.size() == 1){
+
+					String cause = "cas seul collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).contraint.equals(deleted.contraint)){
+							//on supprime les triplet dont le contraint est le meme celui du triplet supprimé
+							tmprule.remove(j);
+							j--;
+						}
+						else{
+							//sinon on ajoute
+							if(tmprule.get(j).referent.equals(deleted.contraint)){
+								//sauf si le triplet à en referent le contraint du triplet supprimé
+								for(Triplet t: prev){
+									//dans ce cas pour chaque contraint des triplets de la contrainte temporelle precedente on ajoute un nouveau triplet avec en referent ces contraints là
+									ContrainteTemporelle ct = tmprule.get(j).ct.clone();
+									ct.setMin(deleted.ct.getMin() + ct.getMin());
+									ct.setMax(deleted.ct.getMax() + ct.getMax());
+									badRules.get(cause).add(new Triplet(t.contraint.clone(), tmprule.get(j).contraint.clone(), ct));
+								}
+							}else{
+								badRules.get(cause).add(tmprule.get(j));
+							}
+						}
+					}
+				}
+			}else{
+				//cas plusieurs noeuds freres
+				if(freres.size() > 1){
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).referent.equals(deleted.contraint) || tmprule.get(j).contraint.equals(deleted.contraint)){
+							tmprule.remove(j);
+							j--;
+						}
+					}
+					String cause = "cas plusieurs et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					for(Triplet t: tmprule){
+						badRules.get(cause).add(t.clone());
+					}
+				}
+
+				//cas seul nct
+				if(freres.size() == 1){
+					String cause = "cas seul et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					badRules.put(cause, new ArrayList<Triplet>());
+
+					ContrainteTemporelle nct = ContrainteTemporelle.NCT();
+					
+					for(int j = 0; j < tmprule.size(); j++){
+						if(tmprule.get(j).contraint.equals(deleted.contraint)){
+							//on supprime les triplet dont le contraint est le meme celui du triplet supprimé
+							tmprule.remove(j);
+							j--;
+						}else{
+							if(tmprule.get(j).referent.equals(deleted.contraint)){
+								badRules.get(cause).add(new Triplet(Evenement.In(), tmprule.get(j).contraint.clone(), nct));
+							}else{
+								badRules.get(cause).add(tmprule.get(j));
+							}
+						}
+					}
+				}
+			}
+			//reinitialisation des variables temporaires
+			tmprule.clear();
+			currentListContraint.clear();
+			for(Triplet triplet: this.archive.get(indice)){ tmprule.add(triplet.clone()); }
+		}
+
+		// remarque : les regles avec un symptome similaire
+		// (dans la meme ligne: i.e this.archive.get(indice) ce cas arrive pour les triplets qui ont le meme evenement contraint)
+		// génèrent la meme règle
+		// comme badRules est une hasmap les doublons sont calculé mais automatiquement ignoré (par ecrasement)
+
+		// remarque : becoup d'optimisation possible ici
+		// plus facile si on avait une structure de graphe où l'on suppimerait puis regenerait le resultat sous forme de liste de triplets
 		return badRules;
 	}
 
@@ -274,7 +533,7 @@ public class Condition {
 			tripletIndice--;
 			last = this.archive.get(regleIndice).get(tripletIndice);
 		}
-		ContrainteTemporel lastCT = this.archive.get(regleIndice).get(tripletIndice).ct;
+		ContrainteTemporelle lastCT = this.archive.get(regleIndice).get(tripletIndice).ct;
 		while (last.ct == lastCT) {
 			previous.add(last.clone());
 			tripletIndice--;
@@ -295,7 +554,7 @@ public class Condition {
 			if(tripletIndice > this.archive.get(regleIndice).size() - 1){ return next; }
 			last = this.archive.get(regleIndice).get(tripletIndice);
 		}
-		ContrainteTemporel lastCT = this.archive.get(regleIndice).get(tripletIndice).ct;
+		ContrainteTemporelle lastCT = this.archive.get(regleIndice).get(tripletIndice).ct;
 		while (last.ct == lastCT) {
 			next.add(last.clone());
 			tripletIndice++;

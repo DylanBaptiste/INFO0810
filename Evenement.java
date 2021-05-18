@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 
 public class Evenement {
@@ -14,18 +13,26 @@ public class Evenement {
 		this.contrainte = contrainte;
 	}
 
-	public int getId(){ return this.id; }
-
 	public static Evenement In(){
 		return new Evenement(null, null);
 	}
 
+	public static Evenement S(String composant){
+		return new Evenement(null, composant);
+	}
+
+	public int getId(){ return this.id; }
+
+	public boolean isS(){
+		return this.type == null && this.contrainte != null;
+	}
+
 	public boolean isIn(){
-		return this.type == null || this.contrainte == null;
+		return this.type == null && this.contrainte == null;
 	}
 
 	public boolean equals(Evenement other){
-		return !this.isIn() && !other.isIn() && type.equals(other.type) && this.contrainte.equals(other.contrainte);
+		return !this.isIn() && !other.isIn() && !this.isS() && !other.isS() && type.equals(other.type) && this.contrainte.equals(other.contrainte);
 	}
 	public boolean equalsId(Evenement other){
 		return this.id == other.id;
@@ -36,6 +43,9 @@ public class Evenement {
 
 	public int encodeT(){
 		if(this.isIn()){
+			return -1;
+		}
+		if(this.isS()){
 			return -1;
 		}
 		return this.type.equals("FE") ? 0 : 1;
@@ -62,8 +72,11 @@ public class Evenement {
 	}
 
 	public String toString(){
-		if(this.type == null){
+		if(this.isIn()){
 			return "In"/* + '_' + this.id*/;
+		}
+		if(this.isS()){
+			return "S_" + this.contrainte/* + '_' + this.id*/;
 		}
 		return this.type + "_" + this.contrainte/* + '_' + this.id*/;
 	}
