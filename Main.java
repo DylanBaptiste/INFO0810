@@ -35,10 +35,10 @@ public class Main {
 
 		Condition c = new Condition();
 
-		String output = "resultat_" + input; 
-		String pathInput = System.getProperty("user.dir")+"\\data\\" + input + ".csv";
-		String pathOutput = System.getProperty("user.dir")+"\\resultat\\" +input+"\\" + output + ".txt";
-		String pathOutputCSV = System.getProperty("user.dir")+"\\resultat\\" +input+"\\"+ output + ".csv";
+		// String output = input; 
+		String pathInput = System.getProperty("user.dir")+"\\data\\"+ input+"\\" + input + ".csv";
+		String pathOutput = System.getProperty("user.dir")+"\\resultat\\" +input+"\\" + input + ".txt";
+		String pathOutputCSV = System.getProperty("user.dir")+"\\resultat\\" +input+"\\"+ input + ".csv";
 		String[] headers, readValues, previousReadValues;
 		int timeColumnIndex = -1;
 		String line;
@@ -62,9 +62,9 @@ public class Main {
 			Files.createFile(Paths.get(pathOutputCSV));
 			System.out.println("Creation des fichiers");
 		}catch(FileAlreadyExistsException e){
-			System.out.println("Ecrasement");
+			System.out.println("Ecrasement des fichiers");
 		}
-		
+
 		PrintWriter out = new PrintWriter(pathOutput);
 		PrintWriter outCSV = new PrintWriter(pathOutputCSV);
 

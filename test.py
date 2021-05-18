@@ -1,5 +1,4 @@
 import numpy as np
-
 import pandas as pd
 import os
 import csv
@@ -61,7 +60,7 @@ def timeConverter(time):
 def valueConverter(value):
 	return 0 if value == "FAUX" else 1
 
-data = pd.read_csv('./data/map_import_export.csv', sep='\t')
+data = pd.read_csv('./data/import_export/map_import_export.csv', sep='\t')
 
 lastTime = ""
 init = True
@@ -69,9 +68,6 @@ initTime = data.iloc[0]["Date de départ"] + " " + data.iloc[0]["Heure de dépar
 
 output = pd.DataFrame({"Temps": [timeConverter(initTime)]})
 i = 0
-
-
-
 
 for index, row in data.iterrows():
 	currentTime = row["Date de départ"] + " " + row["Heure de départ"]
@@ -91,4 +87,4 @@ for index, row in data.iterrows():
 
 output.loc[:,output.columns != 'Temps'] = output.loc[:,output.columns != 'Temps'].applymap(valueConverter)
 
-output.to_csv("./data/import_export.csv", sep=",", encoding="utf-8", quoting=csv.QUOTE_NONE, index=False)
+output.to_csv("./data/import_export/import_export.csv", sep=",", encoding="utf-8", quoting=csv.QUOTE_NONE, index=False)
