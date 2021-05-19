@@ -5,7 +5,6 @@ import javax.imageio.ImageIO;
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 
@@ -27,7 +26,7 @@ public class Main {
 		String FalseValue = "0";
 		
 		/* graph */
-		boolean displayGraph = true;
+		boolean displayGraph = false;
 		int graphQuality = 0; /*0 -> 4*/
 		boolean graphAntialias = false;
 		
@@ -203,10 +202,17 @@ public class Main {
 			for(int columnIndex: captorIndexes){
 				captors.add(headers[columnIndex]);
 			}
-			out.println("\n\n\n=============================================================================================\n\n\n");
+			out.println("\n\n\n===========================================================================================");
+			out.println("==================================== Règles ===============================================");
+			out.println("===========================================================================================\n\n\n");
 			out.println(c);
+			out.println("\n\n\n============================================================================================");
+			out.println("================================= Factorisation ============================================");
+			out.println("============================================================================================\n\n\n");
 			out.println(Condition.toString(c.computeSTC()));
-			out.println("\n\n\n=============================================================================================\n\n\n");
+			out.println("\n\n\n============================================================================================");
+			out.println("=================================== Symptomes ==============================================");
+			out.println("============================================================================================\n\n\n");
 
 			for(ArrayList<Integer> codes: c.encodeAll(captors)){
 				outCSV.print("Normal");

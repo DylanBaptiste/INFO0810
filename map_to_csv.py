@@ -11,25 +11,28 @@ correspondance = pd.DataFrame({
 	"Monter la pince (axe Z)" : "ZMONT",
 	"Déverrouiller le frein vertical (axe Z)" : "ZFREIN",
 	"Mvt vers la station d'import/export (axe Y)" : "YSTA",
+	# Mvt vers la station d'import/export (axe Y)
 	"Mvt vers le convoyeur central (axe Y)" : "YCONV",
 	"Mvt vers les glissières  (axe X)" : "XGLISS",
 	"Mvt vers le convoyeur d'approvisionnement (axe X)" : "XCONV",
-	"Sortir le stoppeur intermédiaire (axe X)" : "XSTOPINT",
+	# Mvt vers le convoyeur d'approvisionnement (axe X) 
+	"Sortir le stoppeur intermédiaire (axe X )" : "XSTOPINT",
 	"Sortir la butée de la glissière intermédiaire" : "BLOQINT",
 	"Sortir la butée de la glissière externe" : "BLOQEXT",
-	"Mise en rotation du convoyeur d'approvisionnement." : "CONV",
-	"Pince en position station import/export sur l’axe Y." : "y_sta",
-	"Pince en position convoyeur central sur l’axe Y." : "y_conv",
+	"Rotation du convoyeur d'approvisionnement" : "CONV",
+	"Pince en position station import/export sur l'axe Y." : "y_sta",
+	"Pince en position convoyeur central sur l'axe Y." : "y_conv",
 	"Pince en position basse sur l'axe Z" : "z_bas",
 	"Pince en position haute sur l'axe Z" : "z_haut",
 	"Pince fermée." : "fermee",
 	"Pince ouverte." : "ouvert",
-	"Présence d’un 6packs sur la butée de la glissière externe." : "gliss_ext",
+	"Présence d'un 6packs sur la butée de la glissière externe." : "gliss_ext",
 	"butée de la glisssière externe sortie" : "but_ext",
 	# Butée de la glissière externe sortie.
-	"Pince en position glissière externe sur l’axe X." : "x_ext",
-	"Pince en position convoyeur d’approvisionnement sur l’axe X." : "x_conv",
-	"Pince en position glissière intermédiaire sur l’axe X." : "x_inter",
+	"Pince en position glissière externe sur l'axe X." : "x_ext",
+	"Pince en position convoyeur d'approvisionnement sur l'axe X." : "x_conv",
+	# Pince en position convoyeur d'approvisionnement sur l'axe X. 
+	"Pince en position glissière intermédiaire sur l'axe X." : "x_inter",
 	"Stoppeur intermédiaire rentrée" : "stop_in",
 	# Stoppeur intermédiaire rentrée.
 	"Stoppeur intermédiaire sortie" : "stop_out",
@@ -39,11 +42,11 @@ correspondance = pd.DataFrame({
 	"Glissière externe pleine" : "gliss2",
 	# # Glissière externe pleine
 	"présence d'un 6packs à la fin du convyeur d'approvisionnement" : "conv_fin",
-	# Présence d’un 6packs au début du convoyeur d’approvisionnement.
+	# Présence d'un 6packs au début du convoyeur d'approvisionnement.
 	"présence d'un 6packs au début du convoyeur d'approvisionnement" : "conv_debut",
-	# Présence d’un 6packs au début du convoyeur d’approvisionnement.
-	"Présence d’un 6packs sur la butée de la glissière intermédiaire" : "gliss_int",
-	# Présence d’un 6packs sur la butée de la glissière intermédiaire 
+	# Présence d'un 6packs au début du convoyeur d'approvisionnement.
+	"Présence d'un 6packs sur la butée de la glissière intermédiaire" : "gliss_int",
+	# Présence d'un 6packs sur la butée de la glissière intermédiaire 
 	"butée de la glissière intermédiaire sortie" : "but_int",
 	# Butée de la glissière intermédiaire sortie.
 
@@ -71,7 +74,6 @@ i = 0
 
 for index, row in data.iterrows():
 	currentTime = row["Date de départ"] + " " + row["Heure de départ"]
-	
 	if(initTime == currentTime):
 		output[correspondance[row["Commentaire"]]] = row["Valeur"]
 	else:
