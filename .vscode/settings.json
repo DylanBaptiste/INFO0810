@@ -13,5 +13,5 @@
 		"**/.DS_Store": true,
 		"**/.settings": true,
 	},
-	"python.pythonPath": "c:\\Users\\Chef\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
+	"python.pythonPath": "C:\\Users\\Chef\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
 }

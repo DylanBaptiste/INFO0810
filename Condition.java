@@ -15,7 +15,7 @@ public class Condition {
 	List<ArrayList<Triplet>> regles = new ArrayList<ArrayList<Triplet>>();
 
 	// List<String> whitheList = new ArrayList<String>(Arrays.asList());
-	//List<String> blackList = new ArrayList<String>(Arrays.asList());
+	// List<String> blackList = new ArrayList<String>(Arrays.asList());
 
 	//List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_CPU_PROD_BOUCHON", "RE_EJ", "RE_VTAS", "RE_VRM", "RE_VRC", "RE_VBB", "RE_CONV", "RE_BMC", "RE_BME", "RE_DVL", "RE_PINCES", "RE_VTEX", "RE_VBR", "RE_VBN"));	
 	//List<String> blackList = new ArrayList<String>(Arrays.asList("FE_CPU_PROD_BOUCHON", "FE_EJ", "FE_VTAS", "FE_VRM", "FE_VRC", "FE_VBB", "FE_CONV", "FE_BMC", "FE_BME", "FE_DVL", "FE_PINCES", "FE_VTEX", "FE_VBR", "FE_VBN"));
@@ -29,9 +29,10 @@ public class Condition {
 	// List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_Box_conveyor", "RE_Part_conveyor", "RE_Grab", "RE_C_plus"));
 	// List<String> blackList = new ArrayList<String>(Arrays.asList("FE_Auto", "RE_Auto", "RE_Manual", "FE_Manual", "RE_Start", "FE_Start", "RE_Stop", "FE_Stop","RE_Reset_button", "FE_Reset_button"));
 	
-	
-	List<String> whitheList = new ArrayList<String>(Arrays.asList());
-	List<String> blackList = new ArrayList<String>(Arrays.asList());
+	//lancer le programe avec a chaque fois 1 seul emelement dans la white list
+	// List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_ZDESC"));
+	List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_YCONV", "RE_ZDESC", "RE_ZMONT", "RE_FERMER", "RE_OUVRIR", "RE_XGLISS", "XCONV"));
+	List<String> blackList = new ArrayList<String>(Arrays.asList("RE_conv_debut"));
 
 	/*
 	0,0,0,0,0,1,1,0,0,1,1,1,0,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,[datetime.datetime(2020; 8; 24; 12; 58; 8; 943587)]

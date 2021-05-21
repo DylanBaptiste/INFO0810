@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import csv
 import re
+from numpy.lib import math
 
 correspondance = pd.DataFrame({
 	"Fermer la pince" : "FERMER",
@@ -58,12 +59,13 @@ def timeConverter(time):
 	# pas l'heure ???
 	# print(v[0]+"-"+v[1]+"-"+v[2]+" "+"0"+":"+v[3]+":"+v[4]+"."+v[5])
 	# yyyy-mm-dd hh:mm:ss[.fffffffff]
-	return v[2]+"-"+v[1]+"-"+v[0]+" "+"00"+":"+v[3]+":"+v[4]+"."+v[5]
+	# return v[2]+"-"+v[1]+"-"+v[0]+" "+"00"+":"+v[3]+":"+v[4]+"."+v[5]
+	return v[2]+"-"+v[1]+"-"+v[0]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]
 
 def valueConverter(value):
 	return 0 if value == "FAUX" else 1
 
-data = pd.read_csv('./data/import_export/map_import_export.csv', sep='\t')
+data = pd.read_csv('./data/import_export/map_import_export_2.txt', sep='\t')
 
 lastTime = ""
 init = True
@@ -72,21 +74,24 @@ initTime = data.iloc[0]["Date de départ"] + " " + data.iloc[0]["Heure de dépar
 output = pd.DataFrame({"Temps": [timeConverter(initTime)]})
 i = 0
 
+data['Commentaire'].replace(np.nan, "", inplace=True)
+
 for index, row in data.iterrows():
-	currentTime = row["Date de départ"] + " " + row["Heure de départ"]
-	if(initTime == currentTime):
-		output[correspondance[row["Commentaire"]]] = row["Valeur"]
-	else:
-		if(lastTime != currentTime):
-			lastTime = currentTime
-			output = output.append(output.tail(1), ignore_index=True)
-			i = i + 1
-			output.iloc[i][correspondance[row["Commentaire"]]] = row["Valeur"]
-			output.iloc[i]["Temps"] = timeConverter(currentTime)
+	if(row["Commentaire"] != ""):
+		currentTime = row["Date de départ"] + " " + row["Heure de départ"]
+		if(initTime == currentTime):
+			output[correspondance[row["Commentaire"]]] = row["Valeur"]
 		else:
-			output.iloc[i][correspondance[row["Commentaire"]]] = row["Valeur"]
+			if(lastTime != currentTime):
+				lastTime = currentTime
+				output = output.append(output.tail(1), ignore_index=True)
+				i = i + 1
+				output.iloc[i][correspondance[row["Commentaire"]]] = row["Valeur"]
+				output.iloc[i]["Temps"] = timeConverter(currentTime)
+			else:
+				output.iloc[i][correspondance[row["Commentaire"]]] = row["Valeur"]
 
 
 output.loc[:,output.columns != 'Temps'] = output.loc[:,output.columns != 'Temps'].applymap(valueConverter)
 
-output.to_csv("./data/import_export/import_export.csv", sep=",", encoding="utf-8", quoting=csv.QUOTE_NONE, index=False)
+output.to_csv("./data/import_export/import_export_2.csv", sep=",", encoding="utf-8", quoting=csv.QUOTE_NONE, index=False)

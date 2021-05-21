@@ -124,7 +124,7 @@ public class Main {
 				if(!Arrays.equals(getSubArray(readValues, captorIndexes), getSubArray(previousReadValues, captorIndexes))){
 					//Si de nouveau evenements arrivent
 					currentTime = stringToTimestamp(readValues[timeColumnIndex]);
-					int t = (int)diffInCenti(lastTime, currentTime);
+					int t = (int)diffInMilli(lastTime, currentTime);
 					CT = first ? ContrainteTemporelle.NCT() : new ContrainteTemporelle(t, t);
 					updateReferents = true;
 					first = false;
