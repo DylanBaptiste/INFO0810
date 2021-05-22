@@ -85,7 +85,7 @@ def split_series(series, n_past, n_future):
 		y.append(future)
 	return np.array(X), np.array(y)
 
-n_past = 10
+n_past = 50
 n_future = 1 
 n_features = reframed.shape[1]
 
@@ -164,59 +164,54 @@ def learning_rate_scheduler(epoch, lr):
 # 	e = K.square(y_pred[1:] - y_true[1:])
 # 	return time_error + composant_error
 
-def custom_acc(y_true, y_pred):
+def custom_loss(y_true, y_pred):
 	# K.square(y_pred[1:] - y_true[1:]) +
-	return K.square(y_pred[1:] - y_true[1:]) + K.mean(K.square(y_pred[:1] - y_true[:1]))
+	return K.square(y_pred[1:] - y_true[1:]) * 2 + K.mean(K.square(y_pred[:1] - y_true[:1]))
+
+def pairwise(iterable):
+	a = iter(iterable)
+	return zip(a, a)
 
 def fit(model, epochs, batch_size, callbacks=None):
 
 	history = model.fit(X_train, y_train, epochs=epochs, validation_data=(X_test, y_test), batch_size=batch_size, verbose=1, callbacks=callbacks)
-
-	fig, axs = pyplot.subplots(2)
+	
+	fig, axs = pyplot.subplots(int(len([m.name for m in model.metrics])), sharex=True, sharey=False)
 	fig.suptitle('Résultats')
-	print(history.history)
-	axs[0].set_title("loss")
-	axs[0].plot(history.history['loss'], label='train')
-	axs[0].plot(history.history['val_loss'], label='test')
-	axs[0].legend()
-
-	# axs[1].set_title("mse")
-	# axs[1].plot(history.history['mse'], label='train')
-	# axs[1].plot(history.history['val_mse'], label='test')
-	# axs[1].legend()
+	i = 0
+	for x in [m.name for m in model.metrics]:
+		axs[i].set_title(x)
+		axs[i].plot(history.history[x], label='train')
+		axs[i].plot(history.history[f"val_{x}"], label='test')
+		axs[i].legend()
+		i = i + 1
 
 	pyplot.show()
-
 	return history
 
 
 model = Sequential()
-model.add(LSTM(100, return_sequences=True, input_shape=(n_past, n_features)))
+model.add(LSTM(50, return_sequences=True, input_shape=(n_past, n_features)))
 # model.add(Dropout(0.2))
-model.add(LSTM(100, return_sequences=False))
-model.add(Dense(100))
-model.add(Dense(n_features, activation="sigmoid"))
+model.add(LSTM(50, return_sequences=True))
+model.add(LSTM(50, return_sequences=True))
+model.add(LSTM(50, return_sequences=True))
+model.add(LSTM(50, return_sequences=True))
+model.add(LSTM(50, return_sequences=True))
+model.add(LSTM(n_features, activation="sigmoid", return_sequences=False))
+#model.add(Dense(100))
+#model.add(Dense(n_features, activation="sigmoid"))
 
 # model.compile(loss=custom_acc, metrics = ["mse"], optimizer=Adam(lr=1e-3, decay=1e-6)) # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01)
-model.compile(loss="mse", optimizer=Adam(lr=1e-3, decay=1e-6))
+model.compile(loss=custom_loss, metrics=['mse', 'mae'], optimizer=Adam(lr=1e-4, decay=1e-6))
 
 model.summary()
 plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=False, expand_nested=True, dpi=96*2)
 
-history = fit(model, 20, 50)
+history = fit(model, 100, 100)
 
-fig, axs = pyplot.subplots(2)
-fig.suptitle('Résultats')
-print(history.history)
-axs[0].set_title("loss")
-axs[0].plot(history.history['loss'], label='train')
-axs[0].plot(history.history['val_loss'], label='test')
-axs[0].legend()
 
-axs[1].set_title("mse")
-axs[1].plot(history.history['mse'], label='train')
-axs[1].plot(history.history['val_mse'], label='test')
-axs[1].legend()
+
 
 def make_prediction(X):
 	return model.predict(np.array( [X,]))[0]
