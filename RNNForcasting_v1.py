@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.core.shape_base import block
 import pandas as pd
 from pandas import read_csv, DataFrame, concat
 from matplotlib import pyplot
@@ -27,6 +28,7 @@ import random
 import os
 
 import tensorflow as tf
+from tensorflow.python.keras.backend import reshape, epsilon, _to_tensor
 tf.config.run_functions_eagerly(False)
 
 import numpy as np
@@ -39,8 +41,25 @@ def timeConverter(time):
 	v = re.findall(r'\d+', time)
 	# return v[0]+"-"+v[1]+"-"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]
 	return int(datetime.strptime(v[0]+"/"+v[1]+"/"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6], "%Y/%m/%d %H:%M:%S.%f").timestamp() * 1e7)
- 
-make_reframed = True
+
+def split_series(series, n_past, n_future):
+	X, y = list(), list()
+	for window_start in range(len(series)):
+		past_end = window_start + n_past
+		future_end = past_end + n_future
+		if future_end > len(series): break
+		# slicing the past and future parts of the window
+		past, future = series[window_start:past_end, :], series[past_end:future_end, :]
+		X.append(past)
+		y.append(future)
+	return np.array(X), np.array(y)
+
+
+make_reframed = False
+
+n_past = 50
+n_future = 1 
+n_features = 34
 
 if(make_reframed):
 	reframed = read_csv('./data/import_export/import_export_2.csv', header=0, index_col=None)
@@ -67,36 +86,30 @@ if(make_reframed):
 		else:
 			lastrow =  row[testColumn].values
 
-	
-	reframed.to_csv("./data/import_export/reframed_2.csv", sep=",", encoding="utf-8", quoting=csv.QUOTE_NONE, index=False)
+	max_temps = max(reframed['Temps'])
+	reframed[["Temps"]] = reframed[["Temps"]]  / max_temps
+
+
+	x, y = split_series(reframed.values, n_past, n_future)
+
+	save = np.concatenate((x, y), axis=1).reshape(len(x), (n_past + n_future) * n_features)
+	np.savetxt("./data/import_export/reframed_3.csv", save, delimiter=",", fmt='%f')
+	# reframed.to_csv("./data/import_export/reframed_2.csv", sep=",", encoding="utf-8", quoting=csv.QUOTE_NONE, index=False)
 else:
-	reframed = read_csv("./data/import_export/reframed_2.csv", header=0, index_col=None)
+	reframed = read_csv("./data/import_export/reframed_3.csv", header=None, index_col=None)
 
 
-def split_series(series, n_past, n_future):
-	X, y = list(), list()
-	for window_start in range(len(series)):
-		past_end = window_start + n_past
-		future_end = past_end + n_future
-		if future_end > len(series): break
-		# slicing the past and future parts of the window
-		past, future = series[window_start:past_end, :], series[past_end:future_end, :]
-		X.append(past)
-		y.append(future)
-	return np.array(X), np.array(y)
 
-n_past = 50
-n_future = 1 
-n_features = reframed.shape[1]
+
 
 
 # 75% train 25% test
 # train_df, test_df = reframed[1:int(reframed.shape[0] * 0.75)], reframed[int(reframed.shape[0] * 0.75):] 
-split = 10
+split = 4
 print(f"split in {len(reframed)} sample to {100 - (100/split)}% train {(100/split)}% test")
-# reframed = reframed.sample(frac=1).reset_index(drop=True)
 
-reframed[["Temps"]] = reframed[["Temps"]]  / max(reframed["Temps"])
+random.seed(10)
+reframed = reframed.sample(frac=1).reset_index(drop=True)
 train_df, test_df = reframed.iloc[[i for i in range(len(reframed)) if i % split != 0]], reframed.iloc[[i for i in range(len(reframed)) if i % split == 0]]
 
 print(train_df.shape, test_df.shape)
@@ -105,39 +118,41 @@ test = test_df
 train = train_df
 
 
-# scale
-# scalers = {}
+# X_train, y_train = split_series(train.values, n_past, n_future)
+X_train, y_train = np.hsplit(train, [n_features * n_past])
+X_train = np.asarray(X_train).reshape(X_train.shape[0], n_past, n_features)
+y_train = np.asarray(y_train).reshape(y_train.shape[0], 1, n_features)
+X_train.shape
+y_train.shape
 
-# train = train_df
-# for i in train_df.columns:
-#     scaler = MinMaxScaler(feature_range=(-1,1))
-#     s_s = scaler.fit_transform(train[i].values.reshape(-1,1))
-#     s_s=np.reshape(s_s,len(s_s))
-#     scalers['scaler_'+ i] = scaler
-#     train[i]=s_s
-
-# test = test_df
-# for i in train_df.columns:
-#     scaler = scalers['scaler_'+i]
-#     s_s = scaler.transform(test[i].values.reshape(-1,1))
-#     s_s=np.reshape(s_s,len(s_s))
-#     scalers['scaler_'+i] = scaler
-#     test[i]=s_s
-
-X_train, y_train = split_series(train.values, n_past, n_future)
-X_train = X_train.reshape((X_train.shape[0], X_train.shape[1], n_features))
-
-y_train = y_train.reshape((y_train.shape[0], y_train.shape[1], n_features))
+# X_test, y_test = split_series(test.values, n_past, n_future)
+X_test, y_test = np.hsplit(test, [n_features * n_past])
+X_test = np.asarray(X_test).reshape(X_test.shape[0], n_past, n_features)
+y_test = np.asarray(y_test).reshape(y_test.shape[0], 1, n_features)
+X_test.shape
+y_test.shape
 
 
-X_test, y_test = split_series(test.values, n_past, n_future)
-X_test = X_test.reshape((X_test.shape[0], X_test.shape[1], n_features))
+def plot_history(history):
+	fig, axs = pyplot.subplots(int(len([m.name for m in model.metrics])), sharex=True, sharey=False)
+	fig.suptitle('Résultats')
+	
+	if int(len([m.name for m in model.metrics])) == 1 :
+		for x in [m.name for m in model.metrics]:
+			axs.set_title(x)
+			axs.plot(history.history[x], label='train')
+			axs.plot(history.history[f"val_{x}"], label='test')
+			axs.legend()
+	else:
+		i = 0
+		for x in [m.name for m in model.metrics]:
+			axs[i].set_title(x)
+			axs[i].plot(history.history[x], label='train')
+			axs[i].plot(history.history[f"val_{x}"], label='test')
+			axs[i].legend()
+			i = i + 1
 
-y_test = y_test.reshape((y_test.shape[0], y_test.shape[1], n_features))
-
-
-
-
+	pyplot.show()
 
 # print(customLossFunc(K.constant([0.8, 1,1,1,1]), K.constant([0.8, 1,.6,-.2,-.4])))
 # a = K.constant([0.7, 1,1,1,1])
@@ -164,9 +179,71 @@ def learning_rate_scheduler(epoch, lr):
 # 	e = K.square(y_pred[1:] - y_true[1:])
 # 	return time_error + composant_error
 
-def custom_loss(y_true, y_pred):
+class PlotLosses(tf.keras.callbacks.Callback):
+	def on_train_begin(self, logs={}):
+		self.i = 0
+		self.x = []
+		self.losses = []
+		self.val_losses = []
+
+		self.fig = pyplot.figure()
+		# pyplot.show(block=False)
+		pyplot.ion()
+		
+
+		self.logs = []
+
+	def on_epoch_end(self, epoch, logs={}):
+		
+
+		self.logs.append(logs)
+		self.x.append(self.i)
+		self.losses.append(logs.get('loss'))
+		self.val_losses.append(logs.get('val_loss'))
+		self.i += 1
+		pyplot.cla()
+		pyplot.plot(self.x, self.losses, label="loss")
+		pyplot.plot(self.x, self.val_losses, label="val_loss")
+
+		if(epoch == 1):
+			pyplot.show()
+			pyplot.legend()
+
+		pyplot.draw()
+		pyplot.pause(0.001)
+
+		
+
+
+plot_losses = PlotLosses()
+
+bce = tf.keras.losses.BinaryCrossentropy(from_logits=False)
+POS_WEIGHT = 25
+
+def weighted_binary_crossentropy(target, output):
+	target = tf.reshape(target, [-1,1])
+	output = tf.reshape(output, [-1,1])
+	# transform back to logits
+	_epsilon = _to_tensor(epsilon(), output.dtype.base_dtype)
+	output = tf.clip_by_value(output, _epsilon, 1 - _epsilon)
+	output = tf.math.log(output / (1 - output))
+	# compute weighted loss
+	loss = tf.nn.weighted_cross_entropy_with_logits(labels=target, logits=output, pos_weight=POS_WEIGHT)
+	return tf.reduce_mean(loss, axis=-1)
+
+def composant_loss(y_true, y_pred):
 	# K.square(y_pred[1:] - y_true[1:]) +
-	return K.square(y_pred[1:] - y_true[1:]) * 2 + K.mean(K.square(y_pred[:1] - y_true[:1]))
+	# return K.mean(K.square(y_pred[1:] - y_true[1:]))
+	return K.mean(K.abs(y_pred[1:] - y_true[1:]))
+
+def composant_acc(y_true, y_pred):
+	return K.mean(K.equal(y_true[1:], K.round(y_pred[1:])), axis=-1)
+
+def time_loss(y_true, y_pred):
+	# K.square(y_pred[1:] - y_true[1:]) +
+	return K.square(y_pred[:1] - y_true[:1])
+
+
 
 def pairwise(iterable):
 	a = iter(iterable)
@@ -174,41 +251,25 @@ def pairwise(iterable):
 
 def fit(model, epochs, batch_size, callbacks=None):
 
-	history = model.fit(X_train, y_train, epochs=epochs, validation_data=(X_test, y_test), batch_size=batch_size, verbose=1, callbacks=callbacks)
+	history = model.fit(X_train, y_train, epochs=epochs, validation_data=(X_test, y_test), batch_size=batch_size, verbose=1, callbacks=[plot_losses])
+	plot_history(history)
 	
-	fig, axs = pyplot.subplots(int(len([m.name for m in model.metrics])), sharex=True, sharey=False)
-	fig.suptitle('Résultats')
-	i = 0
-	for x in [m.name for m in model.metrics]:
-		axs[i].set_title(x)
-		axs[i].plot(history.history[x], label='train')
-		axs[i].plot(history.history[f"val_{x}"], label='test')
-		axs[i].legend()
-		i = i + 1
-
-	pyplot.show()
 	return history
 
 
 model = Sequential()
-model.add(LSTM(50, return_sequences=True, input_shape=(n_past, n_features)))
-# model.add(Dropout(0.2))
-model.add(LSTM(50, return_sequences=True))
-model.add(LSTM(50, return_sequences=True))
-model.add(LSTM(50, return_sequences=True))
-model.add(LSTM(50, return_sequences=True))
-model.add(LSTM(50, return_sequences=True))
-model.add(LSTM(n_features, activation="sigmoid", return_sequences=False))
-#model.add(Dense(100))
-#model.add(Dense(n_features, activation="sigmoid"))
+model.add(LSTM(100, return_sequences=True, input_shape=(n_past, n_features)))
+model.add(LSTM(100, return_sequences=True))
+model.add(LSTM(100, return_sequences=False))
+model.add(Dense(n_features, activation="sigmoid"))
 
-# model.compile(loss=custom_acc, metrics = ["mse"], optimizer=Adam(lr=1e-3, decay=1e-6)) # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01)
-model.compile(loss=custom_loss, metrics=['mse', 'mae'], optimizer=Adam(lr=1e-4, decay=1e-6))
+# model.compile(loss=custom_acc, metrics = ["mse"],  # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01)
+model.compile(loss=weighted_binary_crossentropy, metrics=[composant_acc], optimizer=SGD(lr=0.01))
 
 model.summary()
-plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=False, expand_nested=True, dpi=96*2)
+# plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=False, expand_nested=True, dpi=96*2)
 
-history = fit(model, 100, 100)
+history = fit(model, 8000, 80)
 
 
 
@@ -217,14 +278,28 @@ def make_prediction(X):
 	return model.predict(np.array( [X,]))[0]
 
 
-model.evaluate(X_test, y_test)
+# model.evaluate(X_test, y_test)
+max_temps = 4240000
+def predict_time(choix):
+	expected = y_test[choix]
+	pred = make_prediction(X_test[choix])
+	return expected.reshape(34,)[:1][0] * max_temps, np.round(pred[:1][0] * max_temps)
+
+def predict_composant(choix):
+	expected = y_test[choix]
+	pred = make_prediction(X_test[choix])
+	return expected.reshape(34,)[1:], np.round(pred[1:])
 
 
-choix = 1
-expected = y_test[choix]
-pred = make_prediction(X_test[choix])
 
-expected
-pred
 
+
+print(predict_time(93))
+print(predict_composant(93))
+
+expect, pred = predict_composant(93)
+
+composant_acc(expect, pred)
+
+K.mean(K.equal(expect, K.round(pred[1:])))
 
