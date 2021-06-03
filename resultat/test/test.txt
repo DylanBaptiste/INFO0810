@@ -1,0 +1,90 @@
+RE_A   	2020-08-24 12:30:40.000102
+RE_X   	2020-08-24 12:30:40.000103
+FE_X   	2020-08-24 12:30:40.000104
+FE_A   	2020-08-24 12:30:40.000105
+RE_A   	2020-08-24 12:30:40.000106
+RE_X   	2020-08-24 12:30:40.000107
+FE_X   	2020-08-24 12:30:40.000108
+FE_A   	2020-08-24 12:30:40.000109
+RE_A   	2020-08-24 12:30:40.000113
+RE_Y   	2020-08-24 12:30:40.000114
+FE_Y   	2020-08-24 12:30:40.000115
+FE_A   	2020-08-24 12:30:40.000116
+RE_A   	2020-08-24 12:30:40.000118
+RE_Y   	2020-08-24 12:30:40.000119
+FE_Y   	2020-08-24 12:30:40.000123
+FE_A   	2020-08-24 12:30:40.000124
+RE_A   	2020-08-24 12:30:40.000126
+RE_X   	2020-08-24 12:30:40.000127
+FE_X   	2020-08-24 12:30:40.000128
+FE_A   	2020-08-24 12:30:40.000129
+RE_A   	2020-08-24 12:30:40.000534
+RE_Y   	2020-08-24 12:30:40.000535
+FE_Y   	2020-08-24 12:30:40.000537
+
+
+
+===========================================================================================
+==================================== Règles ===============================================
+===========================================================================================
+
+
+
+(In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, 1000) * (FE_Y, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, 4000) * (FE_Y, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, 2000)
+
+
+
+
+============================================================================================
+================================= Factorisation ============================================
+============================================================================================
+
+
+
+(In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, [1000, 4000]) * (FE_Y, FE_A, 1000)
+(In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, 2000)
+
+
+
+
+============================================================================================
+=================================== Symptomes ==============================================
+============================================================================================
+
+
+
+
+cas seul collage à 0 de X ==>  * (In, RE_A, nct) * (RE_A, FE_X, 2000) * (FE_X, FE_A, 1000)
+cas seul et NCT collage à 0 de A ==>  * (In, RE_X, nct) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+cas seul collage à 1 de X ==>  * (In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_A, 2000)
+cas seul collage à 1 de A ==>  * (In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000)
+
+cas seul collage à 0 de X ==>  * (In, RE_A, nct) * (RE_A, FE_X, 2000) * (FE_X, FE_A, 1000)
+cas seul et NCT collage à 0 de A ==>  * (In, RE_X, nct) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+cas seul collage à 1 de X ==>  * (In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_A, 2000)
+cas seul collage à 1 de A ==>  * (In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000)
+
+cas seul collage à 0 de Y ==>  * (In, RE_A, nct) * (RE_A, FE_Y, 2000) * (FE_Y, FE_A, 1000)
+cas seul collage à 1 de Y ==>  * (In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_A, 2000)
+cas seul et NCT collage à 0 de A ==>  * (In, RE_Y, nct) * (RE_Y, FE_Y, 1000) * (FE_Y, FE_A, 1000)
+cas seul collage à 1 de A ==>  * (In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, 1000)
+
+cas seul collage à 0 de Y ==>  * (In, RE_A, nct) * (RE_A, FE_Y, 5000) * (FE_Y, FE_A, 1000)
+cas seul collage à 1 de Y ==>  * (In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_A, 5000)
+cas seul et NCT collage à 0 de A ==>  * (In, RE_Y, nct) * (RE_Y, FE_Y, 4000) * (FE_Y, FE_A, 1000)
+cas seul collage à 1 de A ==>  * (In, RE_A, nct) * (RE_A, RE_Y, 1000) * (RE_Y, FE_Y, 4000)
+
+cas seul collage à 0 de X ==>  * (In, RE_A, nct) * (RE_A, FE_X, 2000) * (FE_X, FE_A, 1000)
+cas seul et NCT collage à 0 de A ==>  * (In, RE_X, nct) * (RE_X, FE_X, 1000) * (FE_X, FE_A, 1000)
+cas seul collage à 1 de X ==>  * (In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_A, 2000)
+cas seul collage à 1 de A ==>  * (In, RE_A, nct) * (RE_A, RE_X, 1000) * (RE_X, FE_X, 1000)
+
+cas seul collage à 0 de Y ==>  * (In, RE_A, nct) * (RE_A, FE_Y, 3000)
+cas seul collage à 1 de Y ==>  * (In, RE_A, nct) * (RE_A, RE_Y, 1000)
+cas seul et NCT collage à 0 de A ==>  * (In, RE_Y, nct) * (RE_Y, FE_Y, 2000)

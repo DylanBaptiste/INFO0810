@@ -1,0 +1,253 @@
+Variable	Commentaire	Date de départ	Heure de départ	Valeur
+S7:[CPU_IMPORT_EXPORT]IB0:0	Pince fermée.	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:1	Pince ouverte.	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:2	Pince en position convoyeur d’approvisionnement sur l’axe X.	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:3	Pince en position glissière externe sur l’axe X.	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:4	Pince en position glissière intermédiaire sur l’axe X.	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:5	Pince en position convoyeur central sur l’axe Y.	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:6	Pince en position station import/export sur l’axe Y.	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:2	présence d'un 6packs à la fin du convyeur d'approvisionnement	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:5	Glissière intermédiaire pleine	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:6	Glissière externe pleine	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:7	butée de la glissière intermédiaire sortie	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:0	butée de la glisssière externe sortie	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:1	Stoppeur intermédiaire sortie	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:2	Stoppeur intermédiaire rentrée	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]IB2:4	Arret d'urgence	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:6	Présence d’un 6packs sur la butée de la glissière intermédiaire	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]IB2:7	Présence d’un 6packs sur la butée de la glissière externe.	21/05/2021	14:39:33,207	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:0	Ouvrir la pince	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:2	Mvt vers le convoyeur d’approvisionnement (axe X)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:3	Mvt vers les glissières  (axe X)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:4	Mvt vers le convoyeur central (axe Y)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:5	Mvt vers la station d’import/export (axe Y)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:2	Sortir la butée de la glissière intermédiaire	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:3	Sortir la butée de la glissière externe	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:4	Sortir le stoppeur intermédiaire (axe X )	21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:6		21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:7		21/05/2021	14:39:33,207	VRAI
+FERMER_fermée		21/05/2021	14:39:33,207	FAUX
+OUVRIR_ouvert		21/05/2021	14:39:33,207	FAUX
+YCONV_y_conv		21/05/2021	14:39:33,207	FAUX
+YSTA_y_sta		21/05/2021	14:39:33,207	FAUX
+z_haut_z_bas		21/05/2021	14:39:33,207	FAUX
+z_bas_z_haut		21/05/2021	14:39:33,207	FAUX
+CONVIE_conv_fin		21/05/2021	14:39:33,207	FAUX
+S_FERMER_fermée		21/05/2021	14:39:33,207	FAUX
+S_OUVRIR_ouvert		21/05/2021	14:39:33,207	FAUX
+S_YCONV_y_conv		21/05/2021	14:39:33,207	FAUX
+S_YSTA_y_sta		21/05/2021	14:39:33,207	FAUX
+S_z_haut_z_bas		21/05/2021	14:39:33,207	FAUX
+S_z_bas_z_haut		21/05/2021	14:39:33,207	FAUX
+S_CONVIE_conv_fin		21/05/2021	14:39:33,207	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:6	Présence d’un 6packs sur la butée de la glissière intermédiaire	21/05/2021	14:39:44,433	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:7	Présence d’un 6packs sur la butée de la glissière externe.	21/05/2021	14:39:48,737	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:40:17,324	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:40:17,324	VRAI
+CONVIE_conv_fin		21/05/2021	14:40:17,324	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:40:17,941	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:2	présence d'un 6packs à la fin du convyeur d'approvisionnement	21/05/2021	14:40:20,244	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:20,244	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:40:20,244	FAUX
+CONVIE_conv_fin		21/05/2021	14:40:20,244	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:20,366	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:20,489	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:20,613	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:20,705	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:20,705	FAUX
+z_haut_z_bas		21/05/2021	14:40:20,705	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:22,030	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:40:22,030	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:22,030	FAUX
+z_haut_z_bas		21/05/2021	14:40:22,030	FAUX
+FERMER_fermée		21/05/2021	14:40:22,030	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:0	Pince fermée.	21/05/2021	14:40:22,221	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:1	Pince ouverte.	21/05/2021	14:40:22,221	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:40:22,221	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:22,221	VRAI
+FERMER_fermée		21/05/2021	14:40:22,221	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:22,343	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:22,465	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:22,592	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:22,716	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:22,838	FAUX
+z_bas_z_haut		21/05/2021	14:40:22,838	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:2	présence d'un 6packs à la fin du convyeur d'approvisionnement	21/05/2021	14:40:23,022	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:24,107	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:4	Mvt vers le convoyeur central (axe Y)	21/05/2021	14:40:24,107	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:24,107	FAUX
+z_bas_z_haut		21/05/2021	14:40:24,107	FAUX
+YCONV_y_conv		21/05/2021	14:40:24,107	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:6	Pince en position station import/export sur l’axe Y.	21/05/2021	14:40:24,228	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:5	Pince en position convoyeur central sur l’axe Y.	21/05/2021	14:40:25,407	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:4	Mvt vers le convoyeur central (axe Y)	21/05/2021	14:40:25,407	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:25,407	VRAI
+YCONV_y_conv		21/05/2021	14:40:25,407	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:25,529	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:25,651	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:25,772	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:25,908	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:26,026	FAUX
+z_haut_z_bas		21/05/2021	14:40:26,026	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:27,326	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:0	Ouvrir la pince	21/05/2021	14:40:27,326	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:27,326	FAUX
+z_haut_z_bas		21/05/2021	14:40:27,326	FAUX
+OUVRIR_ouvert		21/05/2021	14:40:27,326	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:0	Pince fermée.	21/05/2021	14:40:27,544	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:1	Pince ouverte.	21/05/2021	14:40:27,667	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:0	Ouvrir la pince	21/05/2021	14:40:27,667	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:27,667	VRAI
+OUVRIR_ouvert		21/05/2021	14:40:27,667	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:27,791	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:27,917	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:28,036	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:28,156	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:28,249	FAUX
+z_bas_z_haut		21/05/2021	14:40:28,249	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:29,521	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:5	Mvt vers la station d’import/export (axe Y)	21/05/2021	14:40:29,521	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:29,521	FAUX
+z_bas_z_haut		21/05/2021	14:40:29,521	FAUX
+YSTA_y_sta		21/05/2021	14:40:29,521	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:5	Pince en position convoyeur central sur l’axe Y.	21/05/2021	14:40:29,645	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:6	Pince en position station import/export sur l’axe Y.	21/05/2021	14:40:30,849	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:4	Mvt vers le convoyeur central (axe Y)	21/05/2021	14:40:30,849	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:5	Mvt vers la station d’import/export (axe Y)	21/05/2021	14:40:30,849	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:6		21/05/2021	14:40:30,849	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:7		21/05/2021	14:40:30,849	FAUX
+YSTA_y_sta		21/05/2021	14:40:30,849	FAUX
+YCONV_y_conv		21/05/2021	14:40:30,849	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:6	Pince en position station import/export sur l’axe Y.	21/05/2021	14:40:30,971	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:5	Pince en position convoyeur central sur l’axe Y.	21/05/2021	14:40:32,141	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:4	Mvt vers le convoyeur central (axe Y)	21/05/2021	14:40:32,141	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:32,141	VRAI
+YCONV_y_conv		21/05/2021	14:40:32,141	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:32,265	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:32,388	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:32,510	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:32,633	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:32,759	FAUX
+z_haut_z_bas		21/05/2021	14:40:32,759	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:34,031	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:40:34,031	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:34,031	FAUX
+z_haut_z_bas		21/05/2021	14:40:34,031	FAUX
+FERMER_fermée		21/05/2021	14:40:34,031	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:1	Pince ouverte.	21/05/2021	14:40:34,157	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:0	Pince fermée.	21/05/2021	14:40:34,281	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:40:34,281	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:34,281	VRAI
+FERMER_fermée		21/05/2021	14:40:34,281	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:34,404	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:34,527	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:34,654	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:34,781	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:34,902	FAUX
+z_bas_z_haut		21/05/2021	14:40:34,902	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:36,129	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:5	Mvt vers la station d’import/export (axe Y)	21/05/2021	14:40:36,129	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:36,129	FAUX
+z_bas_z_haut		21/05/2021	14:40:36,129	FAUX
+YSTA_y_sta		21/05/2021	14:40:36,129	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:5	Pince en position convoyeur central sur l’axe Y.	21/05/2021	14:40:36,250	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:6	Pince en position station import/export sur l’axe Y.	21/05/2021	14:40:37,421	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:5	Mvt vers la station d’import/export (axe Y)	21/05/2021	14:40:37,421	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:2	Sortir la butée de la glissière intermédiaire	21/05/2021	14:40:37,421	VRAI
+YSTA_y_sta		21/05/2021	14:40:37,421	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:7	butée de la glissière intermédiaire sortie	21/05/2021	14:40:37,636	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:4	Sortir le stoppeur intermédiaire (axe X )	21/05/2021	14:40:37,636	VRAI
+S7:[CPU_IMPORT_EXPORT]IB2:1	Stoppeur intermédiaire sortie	21/05/2021	14:40:37,758	VRAI
+S7:[CPU_IMPORT_EXPORT]IB2:2	Stoppeur intermédiaire rentrée	21/05/2021	14:40:37,758	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:3	Mvt vers les glissières  (axe X)	21/05/2021	14:40:37,758	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:2	Pince en position convoyeur d’approvisionnement sur l’axe X.	21/05/2021	14:40:37,883	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:4	Pince en position glissière intermédiaire sur l’axe X.	21/05/2021	14:40:38,832	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:3	Mvt vers les glissières  (axe X)	21/05/2021	14:40:38,832	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:38,832	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:38,832	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:39,046	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:39,169	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:39,292	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:39,292	FAUX
+z_haut_z_bas		21/05/2021	14:40:39,292	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:5	Glissière intermédiaire pleine	21/05/2021	14:40:40,215	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:40,612	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:0	Ouvrir la pince	21/05/2021	14:40:40,612	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:40,612	FAUX
+z_haut_z_bas		21/05/2021	14:40:40,612	FAUX
+OUVRIR_ouvert		21/05/2021	14:40:40,612	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:0	Pince fermée.	21/05/2021	14:40:40,826	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:1	Pince ouverte.	21/05/2021	14:40:40,826	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:0	Ouvrir la pince	21/05/2021	14:40:40,826	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:40,826	VRAI
+OUVRIR_ouvert		21/05/2021	14:40:40,826	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:40,948	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:41,072	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:40:41,196	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:40:41,322	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:40:41,446	FAUX
+z_bas_z_haut		21/05/2021	14:40:41,446	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:40:42,747	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:40:42,747	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:2	Sortir la butée de la glissière intermédiaire	21/05/2021	14:40:42,747	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:4	Sortir le stoppeur intermédiaire (axe X )	21/05/2021	14:40:42,747	FAUX
+z_bas_z_haut		21/05/2021	14:40:42,747	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:4	Pince en position glissière intermédiaire sur l’axe X.	21/05/2021	14:40:42,872	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:7	butée de la glissière intermédiaire sortie	21/05/2021	14:40:42,872	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:1	Stoppeur intermédiaire sortie	21/05/2021	14:40:42,872	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:2	Stoppeur intermédiaire rentrée	21/05/2021	14:40:42,991	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:2	Mvt vers le convoyeur d’approvisionnement (axe X)	21/05/2021	14:40:42,991	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:5	Glissière intermédiaire pleine	21/05/2021	14:40:43,428	FAUX
+S7:[CPU_IMPORT_EXPORT]IB2:6	Présence d’un 6packs sur la butée de la glissière intermédiaire	21/05/2021	14:40:43,549	VRAI
+S7:[CPU_IMPORT_EXPORT]IB2:6	Présence d’un 6packs sur la butée de la glissière intermédiaire	21/05/2021	14:40:43,736	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:2	Pince en position convoyeur d’approvisionnement sur l’axe X.	21/05/2021	14:40:44,045	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:2	Mvt vers le convoyeur d’approvisionnement (axe X)	21/05/2021	14:40:44,045	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:6		21/05/2021	14:40:44,045	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:7		21/05/2021	14:40:44,045	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:40:47,847	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:40:47,847	VRAI
+CONVIE_conv_fin		21/05/2021	14:40:47,847	VRAI
+S_CONVIE_conv_fin		21/05/2021	14:40:50,947	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:41:41,229	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:41:54,116	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:7		21/05/2021	14:41:54,116	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:7		21/05/2021	14:41:56,625	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:42:02,424	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:42:02,424	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:1	présence d'un 6packs au début du convoyeur d'approvisionnement	21/05/2021	14:43:38,138	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:2	présence d'un 6packs à la fin du convyeur d'approvisionnement	21/05/2021	14:43:40,647	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:43:40,647	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:1	Rotation du convoyeur d'approvisionnement	21/05/2021	14:43:40,647	FAUX
+CONVIE_conv_fin		21/05/2021	14:43:40,647	FAUX
+S_CONVIE_conv_fin		21/05/2021	14:43:40,647	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:43:40,770	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:43:40,892	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:43:41,015	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:43:41,138	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:7	Pince en position haute sur l'axe Z	21/05/2021	14:43:41,264	FAUX
+z_haut_z_bas		21/05/2021	14:43:41,264	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:43:42,545	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:43:42,545	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:43:42,545	FAUX
+z_haut_z_bas		21/05/2021	14:43:42,545	FAUX
+FERMER_fermée		21/05/2021	14:43:42,545	VRAI
+S7:[CPU_IMPORT_EXPORT]IB0:1	Pince ouverte.	21/05/2021	14:43:42,669	FAUX
+S7:[CPU_IMPORT_EXPORT]IB0:0	Pince fermée.	21/05/2021	14:43:42,795	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:1	Fermer la pince	21/05/2021	14:43:42,795	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:43:42,795	VRAI
+FERMER_fermée		21/05/2021	14:43:42,795	FAUX
+S7:[CPU_IMPORT_EXPORT]QB0:7	Monter la pince (axe Z)	21/05/2021	14:43:42,918	VRAI
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:43:43,042	VRAI
+S7:[CPU_IMPORT_EXPORT]QB0:6	Descendre la pince (axe Z)	21/05/2021	14:43:43,166	FAUX
+S7:[CPU_IMPORT_EXPORT]QB1:0	Déverrouiller le frein vertical (axe Z)	21/05/2021	14:43:43,166	FAUX
+S7:[CPU_IMPORT_EXPORT]IB1:0	Pince en position basse sur l'axe Z	21/05/2021	14:43:43,289	FAUX
+z_bas_z_haut		21/05/2021	14:43:43,289	VRAI
+S7:[CPU_IMPORT_EXPORT]IB1:2	présence d'un 6packs à la fin du convyeur d'approvisionnement	21/05/2021	14:43:43,414	FAUX

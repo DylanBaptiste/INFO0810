@@ -20,13 +20,13 @@ public class Main {
 		
 		/* fichier */
 		String delimiter = ",";
-		String input = "import_export"; //test //convoyeur //input_file //
+		String input = "convoyeur"; //test //convoyeur //input_file //
 		String timeColumnName = "Temps";
 		String TrueValue = "1";
 		String FalseValue = "0";
 		
 		/* graph */
-		boolean displayGraph = false;
+		boolean displayGraph = true;
 		int graphQuality = 0; /*0 -> 4*/
 		boolean graphAntialias = false;
 		
@@ -124,7 +124,8 @@ public class Main {
 				if(!Arrays.equals(getSubArray(readValues, captorIndexes), getSubArray(previousReadValues, captorIndexes))){
 					//Si de nouveau evenements arrivent
 					currentTime = stringToTimestamp(readValues[timeColumnIndex]);
-					int t = (int)diffInMilli(lastTime, currentTime);
+					int t = (int)diffInNano(lastTime, currentTime);
+					
 					CT = first ? ContrainteTemporelle.NCT() : new ContrainteTemporelle(t, t);
 					updateReferents = true;
 					first = false;
@@ -295,17 +296,17 @@ public class Main {
 		return diffInNano(t1, t2) / 1000000;
 	}
 
-	public static Timestamp stringToTimestamp(String d){
-		return Timestamp.valueOf(d);
-	}
-
 	// public static Timestamp stringToTimestamp(String d){
-	// 	String[] v;
-	// 	String date_time = d.substring(19);
-	// 	date_time = date_time.substring(0, date_time.length() - 2);
-	// 	v = date_time.split("; ");
-	// 	return Timestamp.valueOf(v[0]+"-"+v[1]+"-"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]);
+	// 	return Timestamp.valueOf(d);
 	// }
+
+	public static Timestamp stringToTimestamp(String d){
+		String[] v;
+		String date_time = d.substring(19);
+		date_time = date_time.substring(0, date_time.length() - 2);
+		v = date_time.split("; ");
+		return Timestamp.valueOf(v[0]+"-"+v[1]+"-"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]);
+	}
 
 	public static String[] getSubArray(String[] a, List<Integer> indexes){
 		List<String> ret = new ArrayList<String>();
