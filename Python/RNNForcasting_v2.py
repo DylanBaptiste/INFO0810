@@ -194,10 +194,10 @@ class CustomModel(Model):
 
 
 # Variables
-n_past = 50 # nombre d'etat passé que le Model doit connaitre
-n_future = 2 # nombre d'etats futur qu'il doit d'eterminer
+n_past = 20 # nombre d'etat passé que le Model doit connaitre
+n_future = 1 # nombre d'etats futur qu'il doit d'eterminer
 n_features = 34
-dataset = "Normal"
+dataset = "normal_reel" #"Normal"
 
 # variable globale pour la loss
 k1=0
@@ -282,18 +282,22 @@ print("")
 # Architecture du Model
 print("Creation du Model...")
 inputs = Input(shape=(n_past, n_features))
-layer1 = LSTM(50, return_sequences=True)(inputs)
-layer2 = LSTM(50, return_sequences=True)(layer1)
-layer3 = LSTM(50, return_sequences=True)(layer2)
-layer4 = LSTM(50, return_sequences=True)(layer3)
-layer5 = LSTM(50, return_sequences=False)(layer4)
-layer6 = Dense(n_features * n_future, activation="sigmoid")(layer5)
-output = Reshape((n_future, n_features))(layer6)
+layer = LSTM(50, return_sequences=True)(inputs)
+layer = Dropout(0.2)(layer)
+layer = LSTM(50, return_sequences=True)(layer)
+layer = Dropout(0.2)(layer)
+layer = LSTM(50, return_sequences=True)(layer)
+layer = Dropout(0.2)(layer)
+layer = LSTM(50, return_sequences=True)(layer)
+layer = Dropout(0.2)(layer)
+layer = LSTM(50, return_sequences=False)(layer)
+layer = Dense(n_features * n_future, activation="sigmoid")(layer)
+output = Reshape((n_future, n_features))(layer)
 model = CustomModel(inputs, output)
 
 
 # Compilation du Model
-model.compile(run_eagerly=True, optimizer=SGD(lr=0.01)) # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
+model.compile(run_eagerly=False, optimizer="RMSprop") # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
 print("")
 
 # Plot du Model
@@ -302,7 +306,7 @@ plot_model(model, to_file='./model.png', show_shapes=True, show_layer_names=Fals
 
 # Entrainement
 batch_size = int(X_train.shape[0]/50) 	# Nombre de batch à donner à chaaque epoque
-epochs = 200						# Nombre d'epoques
+epochs = 300							# Nombre d'epoques
 callbacks=[PlotLosses()]				# Plot en live pendant l'entrainement 
 
 history = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=1, callbacks=callbacks)
