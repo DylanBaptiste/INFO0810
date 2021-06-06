@@ -79,7 +79,6 @@ class PlotLosses(tf.keras.callbacks.Callback):
 		self.logs = []
 
 	def on_epoch_end(self, epoch, logs={}):
-		
 
 		self.logs.append(logs)
 		self.x.append(self.i)
@@ -90,24 +89,23 @@ class PlotLosses(tf.keras.callbacks.Callback):
 		self.acc2.append(logs.get('composant_acc2'))
 		self.val_acc2.append(logs.get('val_composant_acc2'))
 		self.i += 1
-		pyplot.cla()
-		# pyplot.plot(self.x, self.losses, label="loss")
-		# pyplot.plot(self.x, self.val_losses, label="val_loss")
-		self.axs[0].plot(self.losses,  label="loss")
-		self.axs[0].plot(self.val_losses, label="val_loss")
-		self.axs[1].plot(self.acc1,  label="acc1")
-		self.axs[1].plot(self.val_acc1, label="val_acc1")
-		self.axs[2].plot(self.acc2,  label="acc2")
-		self.axs[2].plot(self.val_acc2, label="val_acc2")
 		
-		if(epoch == 2):
+		if(epoch >= 1):
+			pyplot.cla()
+			self.axs[0].plot(self.losses,  label="loss")
+			self.axs[0].plot(self.val_losses, label="val_loss")
+			self.axs[1].plot(self.acc1,  label="acc1")
+			self.axs[1].plot(self.val_acc1, label="val_acc1")
+			self.axs[2].plot(self.acc2,  label="acc2")
+			self.axs[2].plot(self.val_acc2, label="val_acc2")
+			pyplot.draw()
+			pyplot.pause(0.001)
+		
+		if(epoch == 1):
 			pyplot.ion()
 			pyplot.show()
 			pyplot.legend()
 
-		
-		pyplot.draw()
-		pyplot.pause(0.001)
 
 def composant_acc1(y_true, y_pred):
 	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
@@ -194,13 +192,13 @@ class CustomModel(Model):
 
 
 # Variables
-n_past = 20 # nombre d'etat passé que le Model doit connaitre
+n_past = 100 # nombre d'etat passé que le Model doit connaitre
 n_future = 1 # nombre d'etats futur qu'il doit d'eterminer
 n_features = 34
 dataset = "normal_reel" #"Normal"
 
 # variable globale pour la loss
-k1=0
+k1=0.1
 k2=1
 
 # On peut pas utiliser directement les fichier csv, il faut transformer les données en un dataset de la forme:
@@ -278,26 +276,47 @@ print(f"X_test\t: {X_test.shape}")
 print(f"y_test\t: {y_test.shape}")
 print("")
 
-
+n_neurone_cache = 70
 # Architecture du Model
 print("Creation du Model...")
 inputs = Input(shape=(n_past, n_features))
-layer = LSTM(50, return_sequences=True)(inputs)
-layer = Dropout(0.2)(layer)
-layer = LSTM(50, return_sequences=True)(layer)
-layer = Dropout(0.2)(layer)
-layer = LSTM(50, return_sequences=True)(layer)
-layer = Dropout(0.2)(layer)
-layer = LSTM(50, return_sequences=True)(layer)
-layer = Dropout(0.2)(layer)
-layer = LSTM(50, return_sequences=False)(layer)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+layer = Dropout(0.2)(inputs)
+layer = LSTM(n_neurone_cache, return_sequences=False)(layer)
 layer = Dense(n_features * n_future, activation="sigmoid")(layer)
 output = Reshape((n_future, n_features))(layer)
 model = CustomModel(inputs, output)
 
 
 # Compilation du Model
-model.compile(run_eagerly=False, optimizer="RMSprop") # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
+model.compile(run_eagerly=False, optimizer="Adam") # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
 print("")
 
 # Plot du Model
@@ -305,8 +324,8 @@ model.summary()
 plot_model(model, to_file='./model.png', show_shapes=True, show_layer_names=False, expand_nested=True, dpi=96*2)
 
 # Entrainement
-batch_size = int(X_train.shape[0]/50) 	# Nombre de batch à donner à chaaque epoque
-epochs = 300							# Nombre d'epoques
+batch_size = 2119 	# Nombre de batch à donner à chaaque epoque X_train.shape
+epochs = 1200							# Nombre d'epoques
 callbacks=[PlotLosses()]				# Plot en live pendant l'entrainement 
 
 history = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=1, callbacks=callbacks)
