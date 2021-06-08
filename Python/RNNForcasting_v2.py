@@ -106,28 +106,6 @@ class PlotLosses(tf.keras.callbacks.Callback):
 			pyplot.show()
 			pyplot.legend()
 
-
-def composant_acc1(y_true, y_pred):
-	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
-	return tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-
-def composant_acc2(y_true, y_pred):
-	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
-	all_labels_true = tf.reduce_min(tf.cast(correct_prediction, tf.float32), 2)
-	return tf.reduce_mean(all_labels_true)
-
-# https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a
-def composant_loss(y_true, y_pred):
-	return tf.keras.losses.binary_crossentropy(y_true[:, :, 1:], y_pred[:, :, 1:])
-
-def time_loss(y_true, y_pred):
-	return tf.reduce_mean(K.square(y_pred[:, :, :1] - y_true[:, :, :1]))
-
-
-
-def custom_loss(y_true, y_pred, k1=1, k2=1):
-	return time_loss(y_true, y_pred) * k1 + composant_loss(y_true, y_pred) * k2
-
 class CustomModel(Model):
 	def train_step(self, data):
 		x, y = data
@@ -135,7 +113,7 @@ class CustomModel(Model):
 		with tf.GradientTape() as tape:
 			y_pred = self(x, training=True)  # Forward pass
 			# Compute our own loss
-			loss = custom_loss(y, y_pred, k1, k2)
+			loss = custom_loss(y, y_pred)
 
 		# Compute gradients
 		trainable_vars = self.trainable_variables
@@ -179,7 +157,7 @@ class CustomModel(Model):
 		
 		# Compute our own metrics
 		# idem à train_step
-		loss = custom_loss(y, y_pred, k1, k2)
+		loss = custom_loss(y, y_pred)
 		t = tf.reduce_mean(tf.reduce_mean(tf.cast(tf.round(y_pred[:, :, 1:]) == y[:, :, 1:], dtype=tf.float16), axis=0), axis=0)
 		metrics = {n:v for (n, v) in zip(columnsNames[1:], tf.unstack(t)) }
 		metrics["loss"] = tf.reduce_mean(loss)
@@ -190,16 +168,36 @@ class CustomModel(Model):
 		return metrics
 
 
+def composant_acc1(y_true, y_pred):
+	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
+	return tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+def composant_acc2(y_true, y_pred):
+	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
+	all_labels_true = tf.reduce_min(tf.cast(correct_prediction, tf.float32), 2)
+	return tf.reduce_mean(all_labels_true)
+
+# https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a
+def composant_loss(y_true, y_pred):
+	return tf.keras.losses.binary_crossentropy(y_true[:, :, 1:], y_pred[:, :, 1:])
+
+def time_loss(y_true, y_pred):
+	return tf.reduce_mean(K.square(y_pred[:, :, :1] - y_true[:, :, :1]))
+
+
+
+def custom_loss(y_true, y_pred, k1=1, k2=1):
+	k1=0.1
+	k2=1
+	return time_loss(y_true, y_pred) * k1 + composant_loss(y_true, y_pred) * k2
 
 # Variables
-n_past = 100 # nombre d'etat passé que le Model doit connaitre
+n_past = 50 # nombre d'etat passé que le Model doit connaitre
 n_future = 1 # nombre d'etats futur qu'il doit d'eterminer
 n_features = 34
 dataset = "normal_reel" #"Normal"
 
-# variable globale pour la loss
-k1=0.1
-k2=1
+
 
 # On peut pas utiliser directement les fichier csv, il faut transformer les données en un dataset de la forme:
 # X1, Y1
@@ -276,47 +274,27 @@ print(f"X_test\t: {X_test.shape}")
 print(f"y_test\t: {y_test.shape}")
 print("")
 
-n_neurone_cache = 70
+n_neurone_cache = 100
 # Architecture du Model
 print("Creation du Model...")
 inputs = Input(shape=(n_past, n_features))
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = Dropout(0.2)(inputs)
 layer = LSTM(n_neurone_cache, return_sequences=False)(layer)
 layer = Dense(n_features * n_future, activation="sigmoid")(layer)
 output = Reshape((n_future, n_features))(layer)
 model = CustomModel(inputs, output)
-
-
-# Compilation du Model
 model.compile(run_eagerly=False, optimizer="Adam") # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
+
 print("")
 
 # Plot du Model
@@ -331,24 +309,14 @@ callbacks=[PlotLosses()]				# Plot en live pendant l'entrainement
 history = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=1, callbacks=callbacks)
 
 # Sauvegarde des reslutats durant l'entrainements (accuracy de chaque composants, acc1, acc2, losses)
-pd.DataFrame.from_dict(history.history).to_csv("../resultat/import_export/history.csv", index=False)
+pd.DataFrame.from_dict(history.history).to_csv("../resultat/import_export/history3.csv", index=False)
 
 
 model.evaluate(X_test, y_test)
 
 #######################################################################################################
 #######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
-#######################################################################################################
+
 
 
 
