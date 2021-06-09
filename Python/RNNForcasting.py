@@ -1,5 +1,5 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' # log que les erreurs de tensorflow
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' # Pour ne log que les erreurs de tensorflow
 
 # Nummpy
 import numpy as np
@@ -11,29 +11,20 @@ np.set_printoptions(suppress=True)
 import pandas as pd
 from pandas import read_csv, DataFrame, concat
 
-# sklearn
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import LabelEncoder, MinMaxScaler
-
+# Tensorflow
 print("Chargement de Tensorflow...")
 import tensorflow as tf
-from tensorflow.keras.models import Sequential 
 from tensorflow.keras import Model
-from tensorflow.keras.layers import Concatenate, Reshape, Dense, LSTM, Dropout, RepeatVector, TimeDistributed, Flatten, Input, GRU
+from tensorflow.keras.layers import Reshape, Dense, LSTM, Input
 from tensorflow.keras.optimizers import Adam, SGD
 from tensorflow.keras.activations import elu
-from tensorflow.keras.callbacks import LearningRateScheduler
 import tensorflow.keras.backend as K
 from tensorflow.keras.utils import plot_model
-from tensorflow.python.keras.backend import reshape, epsilon, _to_tensor
 tf.config.run_functions_eagerly(False)
 print("")
 
 # Utils
 import random
-import csv
 import re
 from datetime import datetime
 from matplotlib import pyplot
@@ -41,11 +32,26 @@ from matplotlib import pyplot
 
 
 def timeConverter(time):
+	"""
+	Le temps (string) est transormé en timestamp (nombre de microseconde depuis le 1er janvier 1970) 
+	"""
 	v = re.findall(r'\d+', time)
-	# return v[0]+"-"+v[1]+"-"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6]
 	return int(datetime.strptime(v[0]+"/"+v[1]+"/"+v[2]+" "+v[3]+":"+v[4]+":"+v[5]+"."+v[6], "%Y/%m/%d %H:%M:%S.%f").timestamp() * 1e7)
 
 def split_series(series, n_past, n_future):
+	"""
+	Transforme les données de fichier csv au format data, label (x, y)
+	
+	Exemple :
+	n_past = 3
+	n_future = 1
+	
+	  X      Y
+	1 2 3 => 4  
+	2 3 4 => 5  
+	3 4 5 => 6  
+	...
+	"""
 	X, y = list(), list()
 	for window_start in range(len(series)):
 		past_end = window_start + n_past
@@ -58,6 +64,9 @@ def split_series(series, n_past, n_future):
 	return np.array(X), np.array(y)
 
 class PlotLosses(tf.keras.callbacks.Callback):
+	"""
+	Callback à donner pendant l'entrainement pour plot en direct les courbes (pas optimisé, il doit exister des maniere plus elegante de faire ca)
+	"""
 	def on_train_begin(self, logs={}):
 		self.i = 0
 		self.x = []
@@ -107,6 +116,9 @@ class PlotLosses(tf.keras.callbacks.Callback):
 			pyplot.legend()
 
 class CustomModel(Model):
+	"""
+	Class de model keras custom pour observer les accuracy de chaque composant
+	"""
 	def train_step(self, data):
 		x, y = data
 
@@ -169,25 +181,48 @@ class CustomModel(Model):
 
 
 def composant_acc1(y_true, y_pred):
+	"""
+	Calcule la moyenne de l'accuracy des composants independament des uns des autres 
+	"""
 	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
 	return tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 def composant_acc2(y_true, y_pred):
+	"""
+	calcule le taux d'accuracy des predictions correctement faites (i.e. les 33 composants)
+	la moyenne est faites sur la dimention du batch_size
+	donc pendant l'entrainement il faut garder un batch_size assez grand pour voir l'evolution
+	Exemples : 
+	si batch_size = 1 la moyenne de cette accuracy = 1 ou 0
+	si batch_size = 10 l'accuracy vaut un multiple de 10
+	"""
 	correct_prediction = tf.equal(tf.round(y_pred[:, :, 1:]), y_true[:, :, 1:])
 	all_labels_true = tf.reduce_min(tf.cast(correct_prediction, tf.float32), 2)
 	return tf.reduce_mean(all_labels_true)
 
-# https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a
 def composant_loss(y_true, y_pred):
+	"""
+	Calcule l'erreur des composant via binary_crossentropy
+	pour separer le temps des composants on utilise le slincing 
+	y_true et y_pred sont des tableau 3D : (batch_size, n_future, longeur du vetceur cad 34 pour import_export)
+	comme le Temps est à la premiere position de la 3eme dimention on fait [:, :, 1:]
+	Afin de selectionner tout sur les dimention 1 et 2 et on ignore sur la dimention 3 la premiere case (le temps)
+	"""
 	return tf.keras.losses.binary_crossentropy(y_true[:, :, 1:], y_pred[:, :, 1:])
 
 def time_loss(y_true, y_pred):
+	"""
+	Calcule l'erreur de la prediction du temps (mean square error)
+	meme principe que pour composant_loss pour la selection mais cette foix ci on ignore tout quf la premiere case de la dimention 3 : [:, :, :1]
+	"""
 	return tf.reduce_mean(K.square(y_pred[:, :, :1] - y_true[:, :, :1]))
 
-
-
 def custom_loss(y_true, y_pred, k1=1, k2=1):
-	k1=0.1
+	"""
+	calcul la loss de la predicetion qui est une combinaison de time_loss et composant_loss
+	coéficienté pour ajouster l'importance de time_loss par rapport à composant_loss
+	"""
+	k1=0.1 # ici l'erreur du temps sera 10 fois moins importante que l'erreur sur les l'ensemble des composants
 	k2=1
 	return time_loss(y_true, y_pred) * k1 + composant_loss(y_true, y_pred) * k2
 
@@ -245,6 +280,7 @@ print("")
 
 # Separation en TRAIN/TEST
 # D'autre technique existent notament la "validaion croisé" (k-fold cross validation) qui pourait etre interessant de tester dans notre cas
+# https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a
 # pour l'instant je serpare juste en selectionant 1 ligne sur 4 donc :
 # 75% train 25% test
 # train_df, test_df = reframed[1:int(reframed.shape[0] * 0.75)], reframed[int(reframed.shape[0] * 0.75):] # mauvaise maniere de faire !
@@ -274,10 +310,23 @@ print(f"X_test\t: {X_test.shape}")
 print(f"y_test\t: {y_test.shape}")
 print("")
 
-def train_model(model, epochs=10, batch_size=1, callbacks=None, verbose=1):
-	return model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=verbose, callbacks=callbacks)
 
 def build_model(n_neurone_cache=1, n_layer=1, optimizer="Adam"):
+	"""
+	construction du model
+	n_neurone_cache correspond au nombre de neurone sur les couche LSTM
+	n_layer au nombre de layer caché
+
+	Les meta-parametres en plus sont :
+	- les fonction d'activation des couche caché (la couche de sortie doit toujours etre activé par sigmoid)
+	- l'initialisation des poids
+	- l'optimzer : Adam, SGD, RMSprop...
+	- l'ajout de Dropout et leur % (utilisés pour reduire l'overfiting)
+
+	la forme de l'input sera toujours  : (batch_size qui est variable, n_past, n_features)
+	le forme de l'output sera toujours : (batch_size qui est variable, n_futur, n_features)
+	"""
+
 	# Architecture du Model
 	print("Creation du Model...")
 	inputs = Input(shape=(n_past, n_features))
@@ -301,11 +350,18 @@ def build_model(n_neurone_cache=1, n_layer=1, optimizer="Adam"):
 
 	return model
 
-# Creation
-model = build_model(n_neurone_cache=100, n_layer=5, optimizer="SGD")
+
+def train_model(model, epochs=10, batch_size=1, callbacks=None, verbose=1):
+	"""
+	Entrainement du model sur les données de train
+	"""
+	return model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=verbose, callbacks=callbacks)
+
+# Creation du model
+model = build_model(n_neurone_cache=100, n_layer=5, optimizer="RMSprop")
+
 # Entrainement
 history = train_model(model, epochs=100, batch_size=500, callbacks=[PlotLosses()])
-
 
 # Sauvegarde des reslutats durant l'entrainements (accuracy de chaque composants, acc1, acc2, losses)
 pd.DataFrame.from_dict(history.history).to_csv("../resultat/import_export/history3.csv", index=False)
@@ -318,29 +374,7 @@ pd.DataFrame.from_dict(history.history).to_csv("../resultat/import_export/histor
 
 #######################################################################################################
 
-# plot l'historique
-def plot_history(history):
-	fig, axs = pyplot.subplots(int(len([m.name for m in model.metrics])), sharex=True, sharey=False)
-	fig.suptitle('Résultats')
-	
-	if int(len([m.name for m in model.metrics])) == 1 :
-		for x in [m.name for m in model.metrics]:
-			axs.set_title(x)
-			axs.plot(history.history[x], label='train')
-			axs.plot(history.history[f"val_{x}"], label='test')
-			axs.legend()
-	else:
-		i = 0
-		for x in [m.name for m in model.metrics]:
-			axs[i].set_title(x)
-			axs[i].plot(history.history[x], label='train')
-			axs[i].plot(history.history[f"val_{x}"], label='test')
-			axs[i].legend()
-			i = i + 1
-
-	pyplot.show()
-
-plot_history(history.history)
+# Pour plot directement des element de l'historiques
 pyplot.ioff()
 def simplePlot(name):
 	pyplot.plot(history.history[name], label = "train "+name)
@@ -351,10 +385,9 @@ simplePlot("composant_acc2")
 
 simplePlot("composant_acc1")
 
-
-
 ##############################################################################
-# Ebauche pour le diagnistique
+
+# Ebauche pour le diagnoistique
 # Ne fonctionne que si n_future = 1
 
 def reverseTime(value):
@@ -425,10 +458,10 @@ diagostic()
 # - un RE de fermee qui n'a pas eu lieu => collage => Symptome de type S1
 # - ouvert aurait du rester à 1 mais est passé à 0 => evenement impromptu => Symptome de type S2
 
-# Le temps de precedent est la date d'apparition de l'etat, su terrain et prediction il est exprimé en secondes relatives à precedent
+# Le temps de precedent est la date d'apparition de l'etat, pour terrain et prediction il est exprimé en secondes relatives à precedent
 # Donc terrain est survenu 0.119s apres 2021-06-04 17:04:55.486 alors que prediction azvait predit le changement au bout de 3.409s apres la date de precedent
 # Il est donc possible de utiliser le temps predit si il y a une trop grande difference par exemple (les changements sont bien predit mais sont survenus trop tot) 
 
 # Meme avec un model tres bien entrainé l'accuracy ne peut etre de 100%, il est donc possible d'utiliser l'indice de confiance pour ignoerer des predictions divergentes
 # de l'etat reel grace à un seuil de confiance que l'on peut decider
-# Exemple si on fixe le seuil à 90% on ignore les prediction divergente qui on un indice de confiance < à 90%
+# Exemple si on fixe le seuil à 90% on ignore les predictions divergentes qui on un indice de confiance < à 90%
