@@ -274,85 +274,51 @@ print(f"X_test\t: {X_test.shape}")
 print(f"y_test\t: {y_test.shape}")
 print("")
 
-n_neurone_cache = 100
-# Architecture du Model
-print("Creation du Model...")
-inputs = Input(shape=(n_past, n_features))
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
-layer = LSTM(n_neurone_cache, return_sequences=False)(layer)
-layer = Dense(n_features * n_future, activation="sigmoid")(layer)
-output = Reshape((n_future, n_features))(layer)
-model = CustomModel(inputs, output)
-model.compile(run_eagerly=False, optimizer="Adam") # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
+def train_model(model, epochs=10, batch_size=1, callbacks=None, verbose=1):
+	return model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=verbose, callbacks=callbacks)
 
-print("")
+def build_model(n_neurone_cache=1, n_layer=1, optimizer="Adam"):
+	# Architecture du Model
+	print("Creation du Model...")
+	inputs = Input(shape=(n_past, n_features))
+	
+	layer = LSTM(n_neurone_cache, return_sequences=True)(inputs)
+	for i in range(n_layer-1):
+		layer = LSTM(n_neurone_cache, return_sequences=True)(layer)
+	layer = LSTM(n_neurone_cache, return_sequences=False)(layer)
 
-# Plot du Model
-model.summary()
-plot_model(model, to_file='./model.png', show_shapes=True, show_layer_names=False, expand_nested=True, dpi=96*2)
+	layer = Dense(n_features * n_future, activation="sigmoid")(layer)
+	output = Reshape((n_future, n_features))(layer)
+	
+	model = CustomModel(inputs, output)
 
+	# Compilation
+	model.compile(run_eagerly=False, optimizer=optimizer) # Adam(lr=1e-3, decay=1e-6) SGD(lr=0.01) optimizer="RMSprop"
+	
+	#Plot model
+	model.summary()
+	plot_model(model, to_file='./model.png', show_shapes=True, show_layer_names=False, expand_nested=True, dpi=96*2)
+
+	return model
+
+# Creation
+model = build_model(n_neurone_cache=100, n_layer=5, optimizer="SGD")
 # Entrainement
-batch_size = 2119 	# Nombre de batch à donner à chaaque epoque X_train.shape
-epochs = 1200							# Nombre d'epoques
-callbacks=[PlotLosses()]				# Plot en live pendant l'entrainement 
+history = train_model(model, epochs=100, batch_size=500, callbacks=[PlotLosses()])
 
-history = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, validation_data=(X_test, y_test), verbose=1, callbacks=callbacks)
 
 # Sauvegarde des reslutats durant l'entrainements (accuracy de chaque composants, acc1, acc2, losses)
 pd.DataFrame.from_dict(history.history).to_csv("../resultat/import_export/history3.csv", index=False)
 
+# Sauvegarder le model # ne pas oublié de save max_temps
+# model.save('nom_du_model')
 
-model.evaluate(X_test, y_test)
+# Chargé le model model sauvegardé
+# model = tf.keras.models.load_model('nom_du_model', custom_objects={"custom_loss":custom_loss, "time_loss":time_loss, 'composant_loss': composant_loss, "composant_acc1":composant_acc1, "composant_acc2":composant_acc2})
 
 #######################################################################################################
-#######################################################################################################
 
-
-
-
-plot_history(history.history)
-pyplot.ion()
-pyplot.ioff()
-def simplePlot(name):
-	pyplot.plot(history.history[name], label = "train "+name)
-	pyplot.plot(history.history["val_"+name], label = "test "+name)
-	pyplot.show()
-simplePlot("composant_acc2")
-simplePlot("composant_acc1")
-
-
-
-# model.save('model_3nextstep')
-# model = tf.keras.models.load_model('model_3laysertanhLSTM100n_RMSprop_1000it_100btch', custom_objects={ 'composant_loss': composant_loss, "composant_acc1":composant_acc1, "composant_acc2":composant_acc2})
-
-# def make_prediction(X):
-# 	return model.predict(np.array( [X,]))[0]
-
-model.predict(np.array(X_test))
-
-y_pred = model.predict(X_test[0].reshape(1, 50, 34))
-a = y_test[0].reshape(1, 1, 34)
-b = y_pred
-
-np.round(a[:,0, 1:])
-np.round(b[:,0, 1:])
-
-
-composant_acc2(a, b)
-composant_acc1(a, b)
-composant_loss(a, b)
-
-
+# plot l'historique
 def plot_history(history):
 	fig, axs = pyplot.subplots(int(len([m.name for m in model.metrics])), sharex=True, sharey=False)
 	fig.suptitle('Résultats')
@@ -374,86 +340,34 @@ def plot_history(history):
 
 	pyplot.show()
 
+plot_history(history.history)
+pyplot.ioff()
+def simplePlot(name):
+	pyplot.plot(history.history[name], label = "train "+name)
+	pyplot.plot(history.history["val_"+name], label = "test "+name)
+	pyplot.show()
+
+simplePlot("composant_acc2")
+
+simplePlot("composant_acc1")
 
 
 
-# max_temps = 4240000
-# def predict_time(choix):
-# 	expected = y_test[choix]
-# 	pred = make_prediction(X_test[choix])
-# 	return expected.reshape(34,)[:1][0] * max_temps, np.round(pred[:1][0] * max_temps)
-
-# def predict_composant(choix):
-# 	expected = y_test[choix]
-# 	pred = make_prediction(X_test[choix])
-# 	return expected.reshape(34,)[1:], np.round(pred[1:])
-
-
-
-
-
-# print(predict_time(93))
-# print(predict_composant(93))
-
-# expect, pred = predict_composant(93)
-
-# composant_acc1(expect, pred)
-
-# K.mean(K.equal(expect, K.round(pred)),  axis=-1)
-
-# y_pred = model.predict(np.array(X_test))
-# y_pred.shape
-# y_test.shape
-
-
-
-# def live_diagnostic_prediction(choix):
-# 	pred, expect = model.predict(np.array(X_test))[choix, 1:],  y_test[choix, 1:]
-# 	print(f"match\tpred\tterrain\tconfiance\tvaleur")
-# 	for i in range(expect.shape[0]):
-# 		print(f"{int(np.round(pred[i], 0)) == int(expect[i])}\t{int(np.round(pred[i], 0))}\t{int(expect[i])}\t{np.round((1 - np.abs((pred[i] - np.round(pred[i]))))*100, 2) }%\t{pred[i]}")
-
-# live_diagnostic_prediction(0)
-# live_diagnostic_prediction(16)
-
-# x = X_test[0].reshape(1, n_past, n_features)
-# x.shape
-# y = model.predict(x)
-# x.reshape(50, 34)
-# y.shape
-
-# correct_prediction = tf.equal(tf.round(y_pred[:, 1:]), y_test[:, 1:])
-# all_labels_true = tf.reduce_min(tf.cast(correct_prediction, tf.float32), 1)
-# accuracy = tf.reduce_mean(all_labels_true)
-# y_pred[:, 1:].shape
-# y_test[:, 1:].shape
-# #composant_acc2(y_test, y_pred).numpy()
-
-
-# y_pred = model.predict(np.array(X_train))
-# composant_acc2(y_train, y_pred).numpy()
-# composant_acc1(y_train, y_pred).numpy()
-
-# y_pred = model.predict(np.array(X_test))
-# composant_acc2(y_test, y_pred).numpy()
-# composant_acc1(y_test, y_pred).numpy()
-
+##############################################################################
+# Ebauche pour le diagnistique
+# Ne fonctionne que si n_future = 1
 
 def reverseTime(value):
-	# dt = datetime.fromtimestamp( (value * max_temps) // 1000000000)
-	# s = dt.strftime('%Y-%m-%d %H:%M:%S')
-	# s += '.' + str(int((value * max_temps) % 1000000000)).zfill(9)
 	return np.round( ((value * max_temps) / 10e6), 3) # response en secondes
 
 def get_confiance(value):
 	predicetion = np.round(value)
 	indice = 1 - np.abs(value - predicetion)
-	rescale = (indice / 0.5) - 1 # 0.5 => 0; 0.75 => 0.5; 1 => 1
+	rescale = (indice / 0.5) - 1 # 0.5 => 0; 0.75 => 0.5; 1 => 1; 0.25 => 0.5; 0 => 1
 	return np.round(rescale * 100, 2) # %
 
 
 def diagostic():
-	# live = read_csv("./data/import_export/import_export.csv", header=0, index_col=None)
 	diag = pd.DataFrame(np.zeros((5, n_features), float), index=["match", "precedent", "terrain", "prediction", "confiance"], columns=columnsNames)
 
 	lastTemps = timeConverter(read_csv(f"../data/import_export/{dataset}.csv", header=0, index_col=None)["Temps"][0])
@@ -492,3 +406,29 @@ def diagostic():
 
 diagostic()
 
+# n'affiche que les composant predit differements
+# Avec precedent on connait l'etat precedent la prediction
+# Prediction et terrain doivent etre les memes
+# Si difference alors avec le precedent on peut savoir si le model à predit un Front montant/Front desendant qui n'a pas eu lieu ou si un evenement est survenu alors que le model ne l'a pas predit
+# On peut ecrire une fonction qui genere les symptomes que le model predit
+
+# Exemple :
+
+#                               Temps fermee ouvert
+# precedent   2021-06-04 17:04:55.486      0      1
+# terrain                       0.119      0      0
+# prediction                    3.409      1      1
+# confiance                       NaN    90%    60%
+
+# precedent correspond à l'etat T-1 reel, terrain à l'etat T reel et prediction à l'etat T predit
+# ici le model à predit : 
+# - un RE de fermee qui n'a pas eu lieu => collage => Symptome de type S1
+# - ouvert aurait du rester à 1 mais est passé à 0 => evenement impromptu => Symptome de type S2
+
+# Le temps de precedent est la date d'apparition de l'etat, su terrain et prediction il est exprimé en secondes relatives à precedent
+# Donc terrain est survenu 0.119s apres 2021-06-04 17:04:55.486 alors que prediction azvait predit le changement au bout de 3.409s apres la date de precedent
+# Il est donc possible de utiliser le temps predit si il y a une trop grande difference par exemple (les changements sont bien predit mais sont survenus trop tot) 
+
+# Meme avec un model tres bien entrainé l'accuracy ne peut etre de 100%, il est donc possible d'utiliser l'indice de confiance pour ignoerer des predictions divergentes
+# de l'etat reel grace à un seuil de confiance que l'on peut decider
+# Exemple si on fixe le seuil à 90% on ignore les prediction divergente qui on un indice de confiance < à 90%
