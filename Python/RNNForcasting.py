@@ -448,9 +448,9 @@ diagostic()
 # Exemple :
 
 #                               Temps fermee ouvert
-# precedent   2021-06-04 17:04:55.486      0      1
-# terrain                       0.119      0      0
-# prediction                    3.409      1      1
+# precedent   2021-06-04 17:04:55.486      0      1		T-1 reel
+# terrain                       0.119      0      0		T-reel
+# prediction                    3.409      1      1		T-pred
 # confiance                       NaN    90%    60%
 
 # precedent correspond à l'etat T-1 reel, terrain à l'etat T reel et prediction à l'etat T predit

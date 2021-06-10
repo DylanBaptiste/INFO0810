@@ -6,6 +6,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "Launch Main_STC",
+			"request": "launch",
+			"mainClass": "Main_STC",
+			"projectName": "INFO0810_3d908a71"
+		},
+		{
+			"type": "java",
 			"name": "Launch Main2",
 			"request": "launch",
 			"mainClass": "Main2",

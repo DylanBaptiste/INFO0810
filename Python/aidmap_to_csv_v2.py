@@ -39,7 +39,7 @@ def valueConverter(value):
 
 
 # chargement du fichier aimap
-data = pd.read_csv(f"../data/import_export/aidmap/{inputFile}.txt", sep='\t')
+data = pd.read_csv(f"../data/import_export/aidmap/{inputFile}.txt", sep='\t', dtype=str)
 
 lastTime = ""
 init = True
