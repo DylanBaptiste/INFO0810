@@ -130,7 +130,7 @@ public class Main_STC {
 				if(!Arrays.equals(getSubArray(readValues, composantsIndexes), getSubArray(previousReadValues, composantsIndexes))){
 					//Si de nouveau evenements arrivent
 					currentTime = stringToTimestamp(readValues[timeColumnIndex]); // on recupere le temps T
-					int t = (int)diffInNano(lastTime, currentTime); // on regarde la difference avec la precision souhaité
+					int t = (int)diffInMicro(lastTime, currentTime); // on regarde la difference avec la precision souhaité
 					
 					CT = first ? ContrainteTemporelle.NCT() : new ContrainteTemporelle(t, t); // si c'est l'etat initale on est en NCT sinon on creer le Contrainte temporel
 					updateReferents = true; // à la fin de la boucle les referents actuel seront ecrasé par les evenement contraints actuellement
@@ -229,7 +229,7 @@ public class Main_STC {
 			out.println("\n\n\n============================================================================================");
 			out.println("================================= Factorisation ============================================");
 			out.println("============================================================================================\n\n\n");
-			out.println(Generator.toString(generator.computeSTC()));
+			out.println(Generator.toString(generator.computeFactorized()));
 			
 			
 			// on genere les symptomes et on les affiches classiquement dans le fichier avec les STC en les labélisants 
@@ -240,7 +240,7 @@ public class Main_STC {
 
 
 			// Les cas normaux sont encodé par encodeAll
-			for(ArrayList<Integer> codes: generator.encodeAll(composantsNames)){
+			for(ArrayList<Integer> codes: generator.encodeNormalSTC(composantsNames)){
 				outCSV.print("Normal"); // le label
 				codes.forEach(value -> outCSV.print("," + value)); // la relge encodé
 				outCSV.println();
@@ -265,7 +265,7 @@ public class Main_STC {
 				// et dans le csv en encodant les list de triplet avec les symptomes				
 				for(Map.Entry<String, ArrayList<Triplet>> rule : badrules.entrySet()){
 					outCSV.print(rule.getKey());
-					Generator.encode(rule.getValue(), composantsNames).forEach(value -> outCSV.print("," + value));
+					Generator.encodeTriplet(rule.getValue(), composantsNames).forEach(value -> outCSV.print("," + value));
 					outCSV.println();
 				}
 			}

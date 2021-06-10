@@ -6,12 +6,12 @@ public class Evenement {
 	static int ev_count = 0;
 	private int id;
 	String type;
-	String contrainte;
+	String composant;
 
     public Evenement(String type, String contrainte){
 		this.id = ++ev_count;
 		this.type = type;
-		this.contrainte = contrainte;
+		this.composant = contrainte;
 	}
 
 	public static Evenement In(){
@@ -25,15 +25,15 @@ public class Evenement {
 	public int getId(){ return this.id; }
 
 	public boolean isS(){
-		return this.type == null && this.contrainte != null;
+		return this.type == null && this.composant != null;
 	}
 
 	public boolean isIn(){
-		return this.type == null && this.contrainte == null;
+		return this.type == null && this.composant == null;
 	}
 
 	public boolean equals(Evenement other){
-		return !this.isIn() && !other.isIn() && !this.isS() && !other.isS() && type.equals(other.type) && this.contrainte.equals(other.contrainte);
+		return !this.isIn() && !other.isIn() && !this.isS() && !other.isS() && type.equals(other.type) && this.composant.equals(other.composant);
 	}
 	public boolean equalsId(Evenement other){
 		return this.id == other.id;
@@ -55,7 +55,7 @@ public class Evenement {
 		if(this.isIn()){
 			return -1;
 		}
-		return captors.indexOf(this.contrainte);
+		return captors.indexOf(this.composant);
 	}
 
 	public Evenement clone(){
@@ -66,7 +66,7 @@ public class Evenement {
 			Evenement.ev_count--;
 			return clone;
 		}
-		Evenement clone = new Evenement(this.type, this.contrainte);
+		Evenement clone = new Evenement(this.type, this.composant);
 		clone.setId(this.id);
 		Evenement.ev_count--;
 		return clone;
@@ -77,8 +77,8 @@ public class Evenement {
 			return "In"/* + '_' + this.id*/;
 		}
 		if(this.isS()){
-			return "S_" + this.contrainte/* + '_' + this.id*/;
+			return "S_" + this.composant/* + '_' + this.id*/;
 		}
-		return this.type + "_" + this.contrainte/* + '_' + this.id*/;
+		return this.type + "_" + this.composant/* + '_' + this.id*/;
 	}
 }

@@ -21,7 +21,7 @@ public class Generator {
 	public List<String> whitheList = new ArrayList<String>(Arrays.asList("RE_YCONV", "RE_ZDESC", "RE_ZMONT", "RE_FERMER", "RE_OUVRIR", "RE_XGLISS", "XCONV"));
 	public List<String> blackList = new ArrayList<String>(Arrays.asList("RE_conv_debut"));
 
-	public Graph graph = new SingleGraph("graph");
+	public Graph graph = new SingleGraph("graph"); // graph d'graphstream, utiliser que pour un affichage graphique de this.archive
 
 	// Constructor
 	public Generator(){
@@ -30,9 +30,6 @@ public class Generator {
 	}
 
 	public int getId(){ return this.id; }
-
-	// donne
-	public ArrayList<Triplet> get(){ return this.archive.get(this.current); }
 
 	public List<ArrayList<Triplet>> getAll(){ return this.archive; }
 	
@@ -78,18 +75,24 @@ public class Generator {
 		if(canAdd || first){
 			//On ajoute le(s) contraint(s) en les referents à leur(s) referent(s)
 			for(Evenement contraint: contraints){
+				
+				// pour le graph on ajouyte un noeud pour cet evenemlent contrazint
 				String strC = contraint.toString() +"_"+ contraint.getId();
 				Node node = this.graph.addNode(strC);
 				node.setAttribute("ui.class", whitheList.contains(contraint.toString()) ? "whiteList" : "");
 				node.setAttribute("ui.label", "("+this.current+")"+strC);
 				node.setAttribute("x", ct.getId() + 1 * 10);
+				
+				// pour chaqsue referents
 				for(Evenement referent: referents){
+					//on ajoute un nouveau triplet  
 					this.getCurrentRegle().add(new Triplet(referent, contraint, ct));
 					
+					// pour le graph
 					String strR = first ? "start" : referent.toString() +"_"+ referent.getId();
 					Edge edge = this.graph.addEdge(strR + strC, strR, strC, true);
-					edge.setAttribute("layout.weight", 1);
-					edge.setAttribute("ui.label", ct.getMin());
+					edge.setAttribute("layout.weight", 1); /* weight peut ectre egale à la valeur de CT et du coup la longueur sur le graph retranscrira la durer de la CT */
+					edge.setAttribute("ui.label", ct.getMin()); // on labelise la liaison juste pour l'affichage
 				}
 			}
 		}else{
@@ -114,7 +117,8 @@ public class Generator {
 			}
 		}
 
-
+		// uniquement pour le graph
+		// on lie les evement contraints à leur referents
 		for(int i = 0; i < contraints.size() - 1; i++){
 			Evenement r1 = contraints.get(i);
 			Evenement r2 = contraints.get(i+1);
@@ -135,6 +139,13 @@ public class Generator {
 		return true;
 	}
 
+	/**
+	 * Calcule la signature d'une STC
+	 * c'est a dire si deux STC ont le meme ordre d'evenement alors ils auront la meme signature
+	 * cette fonction est utilisé pour savoir si deux STC peuvent se factoriser
+	 * @param i l'id dand this.archive
+	 * @return la signature de this.archive.get(i)
+	 */
 	private String getSignature(int i){
 		String s = "";
 		for(Triplet triplet: this.archive.get(i)){
@@ -143,7 +154,11 @@ public class Generator {
 		return s;
 	}
 	
-	public List<ArrayList<Triplet>> computeSTC(){
+	/**
+	 * Creer un list de list de triplet qui represente la factorisation des STC dans this.archive
+	 * @return
+	 */
+	public List<ArrayList<Triplet>> computeFactorized(){
 		List<String> signatures = new ArrayList<String>(this.archive.size());
 		for(int i = 0; i < this.archive.size(); i++){
 			signatures.add("");
@@ -181,16 +196,21 @@ public class Generator {
 		return this.regles;
 	}
 
-	public List<ArrayList<Integer>> encodeAll(List<String> captors){
+	/**
+	 * Encode les stc presentes dans this.archive
+	 * @param composantsNames  la liste des nom des composants (utilise leur id dans le tableau pour l'encodage)
+	 * @return une liste de liste (comme this.archive) d'entier qui representes les STC de this.archive encodé
+	 */
+	public List<ArrayList<Integer>> encodeNormalSTC(List<String> composantsNames){
 		List<ArrayList<Integer>> codes = new ArrayList<ArrayList<Integer>>();
 		int c = 0;
 		for(List<Triplet> triplets: this.archive){
 			codes.add(new ArrayList<Integer>());
 			for(Triplet triplet: triplets){
 				codes.get(c).add(triplet.referent.encodeT());
-				codes.get(c).add(triplet.referent.encodeC(captors));
+				codes.get(c).add(triplet.referent.encodeC(composantsNames));
 				codes.get(c).add(triplet.contraint.encodeT());
-				codes.get(c).add(triplet.contraint.encodeC(captors));
+				codes.get(c).add(triplet.contraint.encodeC(composantsNames));
 				codes.get(c).add(triplet.ct.getMin());
 			}
 			c++;
@@ -198,22 +218,28 @@ public class Generator {
 		return codes;
 	}
 
-	public static List<Integer> encode(List<Triplet> triplets, List<String> captors){
+	/**
+	 * Encode une list de triplets
+	 * @param triplets la list à encoder
+	 * @param composantsNames la liste des nom des composants (utilise leur id dans le tableau pour l'encodage)
+	 * @return une list d'entier qui reresentes la liste de triplets encodé 
+	 */
+	public static List<Integer> encodeTriplet(List<Triplet> triplets, List<String> composantsNames){
 		List<Integer> codes = new ArrayList<Integer>();
 		
 		for(Triplet triplet: triplets){
 			//codes.add(1);
 			codes.add(triplet.referent.encodeT());
-			codes.add(triplet.referent.encodeC(captors));
+			codes.add(triplet.referent.encodeC(composantsNames));
 			codes.add(triplet.contraint.encodeT());
-			codes.add(triplet.contraint.encodeC(captors));
+			codes.add(triplet.contraint.encodeC(composantsNames));
 			codes.add(triplet.ct.getMin());
 		}
 		return codes;
 	}
 
 	/**
-	 * créé tout les symptome possible pour un indice de ligne donné
+	 * créé tout les symptomes possible pour un indice de stc dans this.archive donné
 	 * @param indice indice de la ligne dans this.archive
 	 * @return une hasmap { symptome => list triplet }
 	 * 
@@ -254,7 +280,7 @@ public class Generator {
 			//deleted = tmprule.remove(i); //supprimer le triplet
 			deleted = tmprule.get(i);
 			Triplet replace = deleted.clone();
-			replace.contraint = Evenement.S(replace.contraint.contrainte);
+			replace.contraint = Evenement.S(replace.contraint.composant);
 			tmprule.set(i, replace);
 
 			if(!rule.get(i).isNct()){
@@ -273,7 +299,7 @@ public class Generator {
 							j--;
 						}
 					}
-					String cause = "cas plusieurs collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(Triplet t: tmprule){
@@ -285,7 +311,7 @@ public class Generator {
 				//cas seul
 				if(freres.size() == 1){
 
-					String cause = "cas seul collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(int j = 0; j < tmprule.size(); j++){
@@ -320,7 +346,7 @@ public class Generator {
 							j--;
 						}
 					}
-					String cause = "cas plusieurs et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "cas collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(Triplet t: tmprule){
@@ -330,7 +356,7 @@ public class Generator {
 
 				//cas seul nct
 				if(freres.size() == 1){
-					String cause = "cas seul et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "cas collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					ContrainteTemporelle nct = ContrainteTemporelle.NCT();
@@ -366,11 +392,11 @@ public class Generator {
 		return badRules;
 	}
 
-	// /**
-	//  * créé tout les symptome possible pour un indice de ligne donné
-	//  * @param indice indice de la ligne dans this.archive
-	//  * @return une hasmap { symptome => list triplet }
-	//  */
+	/**
+	 * créé tout les symptome possible pour un indice de ligne donné
+	 * @param indice indice de la ligne dans this.archive
+	 * @return une hasmap { symptome => list triplet }
+	 */
 	public Map<String, ArrayList<Triplet>> createBadRulesV1(int indice){
 
 		ArrayList<Triplet> currentListContraint = new ArrayList<Triplet>();
@@ -414,7 +440,7 @@ public class Generator {
 							j--;
 						}
 					}
-					String cause = "cas plusieurs collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "cas plusieurs collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(Triplet t: tmprule){
@@ -426,7 +452,7 @@ public class Generator {
 				//cas seul
 				if(freres.size() == 1){
 
-					String cause = "cas seul collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "cas seul collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(int j = 0; j < tmprule.size(); j++){
@@ -461,7 +487,7 @@ public class Generator {
 							j--;
 						}
 					}
-					String cause = "cas plusieurs et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "cas plusieurs et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					for(Triplet t: tmprule){
@@ -471,7 +497,7 @@ public class Generator {
 
 				//cas seul nct
 				if(freres.size() == 1){
-					String cause = "cas seul et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.contrainte;
+					String cause = "cas seul et NCT collage à " + (deleted.contraint.type=="FE" ? "1" : "0") + " de " + deleted.contraint.composant;
 					badRules.put(cause, new ArrayList<Triplet>());
 
 					ContrainteTemporelle nct = ContrainteTemporelle.NCT();

@@ -17,7 +17,7 @@ public class Triplet {
 	public int getId(){ return this.id; }
 
 	public Boolean isNct(){
-		return this.referent.contrainte == null;
+		return this.referent.composant == null;
 	}
 
 	public String toString(){
