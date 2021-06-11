@@ -6,14 +6,10 @@ import org.graphstream.graph.*;
 
 public class Generator {
 
-	
-	static int cond_count = 0;
-	private int id;
+	public List<ArrayList<Triplet>> archive = new ArrayList<ArrayList<Triplet>>(); // contient les STC non factorisé
+	private int current = 0; // entier pour savoir quelle STC de this.archive est en cours de contruction
 
-	public List<ArrayList<Triplet>> archive = new ArrayList<ArrayList<Triplet>>();
-	private int current = 0;
-
-	List<ArrayList<Triplet>> regles = new ArrayList<ArrayList<Triplet>>();
+	List<ArrayList<Triplet>> regles = new ArrayList<ArrayList<Triplet>>(); // contient les STC factorisée
 
 	// List<String> whitheList = new ArrayList<String>(Arrays.asList());
 	// List<String> blackList = new ArrayList<String>(Arrays.asList());
@@ -25,37 +21,48 @@ public class Generator {
 
 	// Constructor
 	public Generator(){
-		this.id = ++cond_count;
 		this.archive.add(new ArrayList<Triplet>());
 	}
-
-	public int getId(){ return this.id; }
 
 	public List<ArrayList<Triplet>> getAll(){ return this.archive; }
 	
 	private List<String> getCurrentContraints() {
         List<String> l = new ArrayList<String>();
 
-		for(Triplet triplet: this.getCurrentRegle()){
+		for(Triplet triplet: this.getCurrentSTC()){
 			l.add(triplet.contraint.toString());
 		}
 		return l;
     }
 
-	private void creerNouvelleRegle(){
+	/**
+	 * Creer une nouvelle entré dans this.archive et met à jour this.current
+	 */
+	private void creerNouvelleSTC(){
 		this.current++;
 		this.archive.add(new ArrayList<Triplet>());
 	}
 
-	private List<Triplet> getCurrentRegle(){
+	/**
+	 * @return la liste de triplet qui correspond à la STC en cours de contruction
+	 */
+	private List<Triplet> getCurrentSTC(){
 		return this.archive.get(this.current);
 	}
 
-	public boolean add(List<Evenement> referents, List<Evenement> contraints, ContrainteTemporelle ct){
+	/**
+	 * Ajoute à la liste des STC dans this.archive les triplets
+	 * Elle fait le calcul pour savoir si les evenement contraint peuvent etre mis dans la STC en cours de contruction ou s'il faut en creer une nouvelle
+	 * @param referents une liste d'evenement referents
+	 * @param contraints un liste d'evenement contraint par les evenement present dans contraints
+	 * @param ct la ContrainteTemporel qui serapre referents de contraints
+	 */
+	public void add(List<Evenement> referents, List<Evenement> contraints, ContrainteTemporelle ct){
 
 		boolean canAdd = true;
-		boolean first = (this.getCurrentRegle().size() == 0 && this.current == 0);
-		//on parcours la regle current pour verifier si les evenments contraints que l'on veux ajouté existe deja
+		boolean first = (this.getCurrentSTC().size() == 0 && this.current == 0); // le cas first arrive quand this.archive est vide
+		
+		//on parcours la STC current pour verifier si les evenments contraints que l'on veux ajouté existe deja
 		List<String> listeCurrentContraints = this.getCurrentContraints();
 		for(Evenement contraint: contraints){
 			if(listeCurrentContraints.contains(contraint.toString()) || whitheList.contains(contraint.toString())){
@@ -86,7 +93,7 @@ public class Generator {
 				// pour chaqsue referents
 				for(Evenement referent: referents){
 					//on ajoute un nouveau triplet  
-					this.getCurrentRegle().add(new Triplet(referent, contraint, ct));
+					this.getCurrentSTC().add(new Triplet(referent, contraint, ct));
 					
 					// pour le graph
 					String strR = first ? "start" : referent.toString() +"_"+ referent.getId();
@@ -96,10 +103,11 @@ public class Generator {
 				}
 			}
 		}else{
-			//Sinon On ajoute une nouvelle regles en mettant les contraints en NCT
-			this.creerNouvelleRegle();
+			// Sinon on termine la STC courante
+			// On ajoute une nouvelle STC en mettant les contraints en NCT
+			this.creerNouvelleSTC();
 			for(Evenement contraint: contraints){
-				this.getCurrentRegle().add(new Triplet(Evenement.In(), contraint, ContrainteTemporelle.NCT()));
+				this.getCurrentSTC().add(new Triplet(Evenement.In(), contraint, ContrainteTemporelle.NCT()));
 
 				String strC = contraint.toString() +"_"+ contraint.getId();
 				Node node = this.graph.addNode(strC);
@@ -136,7 +144,6 @@ public class Generator {
 			edge2.setAttribute("layout.weight", w);
 		}
 
-		return true;
 	}
 
 	/**
