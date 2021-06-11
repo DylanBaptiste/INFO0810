@@ -1,15 +1,23 @@
-import STC.*;
-
-import java.util.*;
-import javax.imageio.ImageIO;
-import java.io.*;
+import java.awt.image.BufferedImage;
+// F1-score recall
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-import java.awt.image.BufferedImage;
-// F1-score recall
+import javax.imageio.ImageIO;
+
+import STC.*;
 
 public class Main_STC {
 
